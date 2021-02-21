@@ -40,11 +40,11 @@ app.register_blueprint(main_blueprint)
 ###  ADMIN 
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-from .admin import AdminView
+#from .admin import AdminView
 
-app.config['FLASK_ADMIN_SWATCH'] = 'cosmo'
+#app.config['FLASK_ADMIN_SWATCH'] = 'cosmo'
 
-admin = Admin(app, name='Admin', index_view=AdminView(User, db.session, url='/admin', endpoint='admin'))
+#admin = Admin(app, name='Admin', index_view=AdminView(User, db.session, url='/admin', endpoint='admin'))
 #admin.add_view(AdminView(Message, db.session))
 
 
