@@ -36,6 +36,14 @@ app.register_blueprint(main_blueprint)
 from .auth import auth as auth_blueprint
 app.register_blueprint(auth_blueprint)
 
+from .flight_manager import flight_manager as flight_manager_blueprint
+app.register_blueprint(flight_manager_blueprint)
+
+from .api_airport_lookup import api_airport_lookup as api_airport_lookup_blueprint
+app.register_blueprint(api_airport_lookup_blueprint)
+
+from .equipment import equipment as equipment_blueprint
+app.register_blueprint(equipment_blueprint)
 
 
 ###  ADMIN 

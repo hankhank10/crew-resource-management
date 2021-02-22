@@ -10,6 +10,10 @@
 	<link rel="stylesheet" type="text/css" href="/static/login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/static/login/css/main.css">
 <!--===============================================================================================-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+<!--===============================================================================================-->
+
+
 </head>
 <body style="background-color: #666666;">
 
@@ -25,11 +29,16 @@
 						Login to continue
 					</span>
 
-					{% if error_message is defined %}
-					<div class="alert alert-danger" role="alert">
-						{{ error_message }}
-					</div>
-					{% endif %}
+
+					{% with messages = get_flashed_messages(with_categories=true) %}
+					  	{% if messages %}
+    						{% for category, message in messages %}
+								<div class="alert alert-{{category}}" role="alert">
+									{{ message }}
+								</div>
+							{% endfor %}
+					  	{% endif %}
+					{% endwith %}
 
 					{% if success_message is defined %}
 					<div class="alert alert-success" role="alert">
@@ -45,18 +54,20 @@
 					
 					
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="pass">
+						<input class="input100" type="password" name="password">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Password</span>
 					</div>
 
 					<div class="flex-sb-m w-full p-t-3 p-b-32">
+						<!---
 						<div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
 							<label class="label-checkbox100" for="ckb1">
 								Remember me
 							</label>
 						</div>
+						--->
 
 						<div>
 							<a href="{{ url_for('auth.forgot') }}" class="txt1">

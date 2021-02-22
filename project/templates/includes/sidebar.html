@@ -7,8 +7,8 @@
                 <img src="/static/assets/img/team/profile-picture-3.jpg" class="card-img-top rounded-circle border-white" alt="Bonnie Green">
                 </div>
                 <div class="d-block">
-                <h2 class="h6">Hi, Jane</h2>
-                <a href="/sign-in.html" class="btn btn-secondary text-dark btn-xs"><span class="mr-2"><span class="fas fa-sign-out-alt"></span></span>Sign Out</a>
+                <h2 class="h6">Hi, {{current_user.name}}</h2>
+                <a href="{{ url_for('auth.logout')}}" class="btn btn-secondary text-dark btn-xs"><span class="mr-2"><span class="fas fa-sign-out-alt"></span></span>Sign Out</a>
                 </div>
             </div>
             <div class="collapse-close d-md-none">

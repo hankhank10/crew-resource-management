@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SimBase.Document Type="AceXML" version="1,0">
+    <Descr>AceXML Document</Descr>
+    <FlightPlan.FlightPlan>
+        <Title>Seattle to Victoria - Olympic Peninsula</Title>
+        <FPType>IFR</FPType>
+        <RouteType>HighAlt</RouteType>
+        <CruisingAlt>11000</CruisingAlt>
+        <DepartureID>KSEA</DepartureID>
+        <DepartureLLA>N47° 26' 59.60",W122° 18' 42.40",+000432.00</DepartureLLA>
+        <DestinationID>CYYJ</DestinationID>
+        <DestinationLLA>N48° 38' 49.79",W123° 25' 32.67",+000064.00</DestinationLLA>
+        <Descr>Seattle to Victoria - Olympic Peninsula  created by Navigraph</Descr>
+        <DepartureName>SEATTLE-TACOMA INTL</DepartureName>
+        <DestinationName>VICTORIA INTL</DestinationName>
+        <AppVersion>
+            <AppVersionMajor>11</AppVersionMajor>
+            <AppVersionBuild>282174</AppVersionBuild>
+        </AppVersion>
+        <ATCWaypoint id="KSEA">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N47° 26' 59.60",W122° 18' 42.40",+000432.00</WorldPosition>
+            <RunwayNumberFP>16</RunwayNumberFP>
+            <RunwayDesignatorFP>LEFT</RunwayDesignatorFP>
+            <ICAO>
+                <ICAOIdent>KSEA</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="VC842">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N47° 9' 38.85",W122° 42' 28.83",+000000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>VC842</ICAOIdent>
+                <ICAORegion>K1</ICAORegion>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="HQM">
+            <ATCWaypointType>VOR</ATCWaypointType>
+            <WorldPosition>N46° 56' 49.35",W124° 8' 57.37",+000000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>HQM</ICAOIdent>
+                <ICAORegion>K1</ICAORegion>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="WAPTO">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N47° 28' 19.54",W124° 13' 50.38",+000000.00</WorldPosition>
+            <ATCAirway>J501</ATCAirway>
+            <ICAO>
+                <ICAOIdent>WAPTO</ICAOIdent>
+                <ICAORegion>K1</ICAORegion>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="WATTR">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N48° 8' 21.35",W122° 56' 27.97",+000000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>WATTR</ICAOIdent>
+                <ICAORegion>K1</ICAORegion>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="CYYJ">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N48° 38' 49.79",W123° 25' 32.67",+000064.00</WorldPosition>
+            <ApproachTypeFP>ILS</ApproachTypeFP>
+            <RunwayNumberFP>27</RunwayNumberFP>
+            <ICAO>
+                <ICAOIdent>CYYJ</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+    </FlightPlan.FlightPlan>
+</SimBase.Document>

@@ -10,6 +10,9 @@
 	<link rel="stylesheet" type="text/css" href="/static/login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/static/login/css/main.css">
 <!--===============================================================================================-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+<!--===============================================================================================-->
+
 </head>
 <body style="background-color: #666666;">
 
@@ -26,11 +29,15 @@
 						Sign up
 					</span>
 
-					{% if error_message is defined %}
-					<div class="alert alert-danger" role="alert">
-						{{ error_message }}
-					</div>
-					{% endif %}
+					{% with messages = get_flashed_messages(with_categories=true) %}
+					  	{% if messages %}
+    						{% for category, message in messages %}
+								<div class="alert alert-{{category}}" role="alert">
+									{{ message }}
+								</div>
+							{% endfor %}
+					  	{% endif %}
+					{% endwith %}
 					
 					<div class="wrap-input100 validate-input" data-validate = "Name is required">
 						<input class="input100" type="text" name="name" required>

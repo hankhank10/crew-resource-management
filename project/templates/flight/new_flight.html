@@ -1,0 +1,154 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Settings {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<style>
+    .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+    .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+    .autocomplete-selected { background: #F0F0F0; }
+    .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+    .autocomplete-group { padding: 2px 5px; }
+    .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+                
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+
+
+        <div class="row">
+            <div class="col-12 col-xl-8">
+                <div class="card card-body bg-white border-light shadow-sm mb-4">
+                    <h2 class="h5 mb-4">Flight plan details</h2>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label for="departure_airport_name">Departure airport name</label>
+                                    <input class="form-control" name="departure_airport_name" id="departure_airport_name" type="text" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label for="departure_airport_code">Departure airport code</label>
+                                    <input class="form-control" name="departure_airport_code" id="departure_airport_code" type="text" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label for="destination_airport_name">Destination airport name</label>
+                                    <input class="form-control" name="destination_airport_name" id="destination_airport_name" type="text" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label for="destination_airport_code">Destination airport code</label>
+                                    <input class="form-control" name="destination_airport_code" id="destination_airport_code" type="text" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label for="expected_duration_hours">Expected duration (hours)</label>
+                                    <input class="form-control" name="expected_duration_hours" id="expected_duration_hours" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label for="expected_duration_minutes">Expected duration (minutes)</label>
+                                    <input class="form-control" name="expected_duration_minutes" id="expected_duration_minutes" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2 class="h5 my-4">Equipment details</h2>
+                        <div class="row">
+                            <div class="col-sm-9 mb-3">
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input class="form-control" id="address" type="text" placeholder="Enter your home address" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 mb-3">
+                                <div class="form-group">
+                                    <label for="number">Number</label>
+                                    <input class="form-control" id="number" type="number" placeholder="No." required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 mb-3">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input class="form-control" id="city" type="text" placeholder="City" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="zip">ZIP</label>
+                                    <input class="form-control" id="zip" type="tel" placeholder="ZIP" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">Save All</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-12 col-xl-4">
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="card card-body bg-white border-light shadow-sm mb-4">
+                            <h2 class="h5 mb-4">... or upload a .PLN here</h2>
+                            <div class="d-xl-flex align-items-center">
+
+                                #Here
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'includes/footer.html' %}
+
+    </main>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.js" integrity="sha512-JwPA+oZ5uRgh1AATPhLKeByWbXcsRnMMSBpvhuAGQp+CWISl/fHecOshbRcPPgKWau9Wy1H5LhiwAa4QFiQKYw==" crossorigin="anonymous"></script>
+
+<script>
+    $('#departure_airport_name').autocomplete({
+        serviceUrl: '/api/airport_lookup/suggest_name',
+        onSelect: function (suggestion) {
+            $('#departure_airport_code').val(suggestion.data)
+        }
+    })
+
+    $('#destination_airport_name').autocomplete({
+        serviceUrl: '/api/airport_lookup/suggest_name',
+        onSelect: function (suggestion) {
+            $('#destination_airport_code').val(suggestion.data)
+        }
+    });
+
+</script>
+
+{% endblock javascripts %}
