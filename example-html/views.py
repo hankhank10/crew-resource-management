@@ -11,7 +11,7 @@ from jinja2  import TemplateNotFound
 from app import app
 
 # App main route + generic routing
-@app.route('/', defaults={'path': 'index.html'})
+@app.route('/', defaults={'path': 'login.html'})
 @app.route('/<path>')
 def index(path):
 
