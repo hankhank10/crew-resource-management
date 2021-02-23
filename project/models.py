@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 from . import db
 from datetime import datetime, timedelta
+from project import equipment
 
 
 class User(UserMixin, db.Model):
@@ -20,6 +21,8 @@ class User(UserMixin, db.Model):
     approved = db.Column(db.Boolean)
     unique_setup_key = db.Column(db.String(30))
 
+    active_flight_id = db.Column(db.Integer, default=None)
+
 
 class Flight(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,15 +36,43 @@ class Flight(db.Model):
     title = db.Column(db.String(100))
     atc_id = db.Column(db.String(30))
 
-    daparture_code = db.Column(db.String(10))
+    departure_code = db.Column(db.String(10))
     departure_name = db.Column(db.String(50))
     departure_scheduled_time = db.Column(db.DateTime)
 
-    arrival_code = db.Column(db.String(10))
-    arrival_name = db.Column(db.String(10))
+    equipment_full_name = db.Column(db.String(100))
+    equipment_manufacturer = db.Column(db.String(50))
+    equipment_operator = db.Column(db.String(50))
+    equipment_model = db.Column(db.String(50))
+
+    destination_code = db.Column(db.String(10))
+    destination_name = db.Column(db.String(10))
     departure_arrival_time = db.Column(db.DateTime)
 
-    expected_duration = db.Column(db.Integer)
+    passengers_first_class = db.Column(db.Integer)
+    passengers_business_class = db.Column(db.Integer)
+    passengers_premium_class = db.Column(db.Integer)
+    passengers_economy_class = db.Column(db.Integer)
+
+    cabin_crew_count = db.Column(db.Integer)
+
+    expected_duration_minutes = db.Column(db.Integer)
+
+    started = db.Column(db.Boolean, default=False)
+    completed = db.Column(db.Boolean, default=False)
+
+    @property
+    def passengers_total(self):
+        return self.passengers_first_class + self.passengers_business_class + self.passengers_premium_class + self.passengers_economy_class
+
+    @property
+    def operator_logo(self):
+        return equipment.lookup_logo(self.equipment_operator, "operator")
+
+    @property
+    def manufacturer_logo(self):
+        return equipment.lookup_logo(self.equipment_manufacturer, "manufacturer")
+
 
 
 class FlightEvent(db.Model):

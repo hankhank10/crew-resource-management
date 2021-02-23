@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Equipment {% endblock %}
+{% block title %} Flight plans {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
@@ -17,16 +17,16 @@
           <nav aria-label="breadcrumb">
               <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                   <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Equipment</li>
+                  <li class="breadcrumb-item active" aria-current="page">Flights</li>
               </ol>
           </nav>
           <div class="d-flex justify-content-between w-100 flex-wrap">
               <div class="mb-3 mb-lg-0">
-                  <h1 class="h4">Equipment types</h1>
-                  <p class="mb-0">All aircraft types available in the system to fly.</p>
+                  <h1 class="h4">Flight plans</h1>
+                  <p class="mb-0">Your flight plans</p>
               </div>
               <div>
-                <a class="btn btn-primary btn-sm mr-2 dropdown-toggle" href="{{ url_for('equipment.create_new') }}">
+                <a class="btn btn-primary btn-sm mr-2 dropdown-toggle" href="{{ url_for('flight_manager.new_flight') }}">
                     <span class="fas fa-plus mr-2"></span>New
                 </a>
               </div>
@@ -40,32 +40,45 @@
                 <thead>
                     <tr>
                         <th>Operator</th>
-                        <th>Manufacturer</th>
-                        <th>Type</th>
-                        <th>Passengers</th>
-                        <th>Cabin Crew</th>
+                        <th>Equipment type</th>
+                        <th>Departure</th>
+                        <th>Destination</th>
+                        <th>Pax / crew</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                {% for row in equipment_list %}
+                {% for row in flight_list %}
                     <tr>
                         <td>
-                            {% if row.operator_logo_url == "" %}
-                                {{row.operator}}
+
+                            {% if row.operator_logo == "" %}
+                                {{row.equipment_operator}}
                             {% else %}
-                                <img src="{{row.operator_logo_url}}" height="20"><span hidden>{{row.operator}}</span>
+                                <img src="{{row.operator_logo}}" height="20"><span hidden>{{row.equipment_operator}}</span>
                             {% endif %}
+
                         </td>
                         <td>
-                            {% if row.manufacturer_logo_url == "" %}
-                                {{row.manufacturer}}
+                            {% if row.manufacturer_logo == "" %}
+                                {{row.equipment_manufacturer}}
                             {% else %}
-                                <img src="{{row.manufacturer_logo_url}}" height="20"><span hidden>{{row.manufacturer}}</span>
-                            {% endif %}                        </td>
-                        <td>{{row.model}} {{row.variant}}</td>
-                        <td>{{row.first_class_seats + row.business_class_seats + row.premium_class_seats + row.economy_class_seats}}</td>
-                        <td>{{row.maximum_cabin_crew}}</td>
-
+                                <img src="{{row.manufacturer_logo}}" height="20"><span hidden>{{row.manufacturer_logo}}</span>
+                            {% endif %}
+                            {{row.equipment_model}}
+                        </td>
+                        <td>
+                            {{row.departure_name}}
+                        </td>
+                        <td>
+                            {{row.destination_name}}
+                        </td>
+                        <td>
+                            {{row.passengers_total}} / {{row.cabin_crew_count}}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('flight_manager.pre_flight', unique_reference = row.unique_reference) }}">Fly</a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

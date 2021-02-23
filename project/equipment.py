@@ -116,6 +116,7 @@ def lookup_logo(lookup_name, look_for):
 
     return ""
 
+
 def add_logos_to_json():
     global equipment_list
 
@@ -151,6 +152,39 @@ def lookup_logo_endpoint():
             'name': lookup_name,
             'logo_url': logo_url
         })
+
+
+@equipment.route('/api/equipment/suggest_name')
+def api_suggest_name():
+
+    equipment_name = request.args.get('query')
+    result_list = []
+
+    for item in equipment_list:
+        if equipment_name.upper() in item['full_name'].upper():
+            result_list.append({
+                'value': item['full_name'],
+            })
+
+    if len(result_list) > 0:
+        return jsonify({
+            'suggestions': result_list
+        })
+    else:
+        return jsonify({
+            'status': 'error'
+        })
+
+
+@equipment.route('/api/equipment/details')
+def api_details():
+
+    equipment_name = request.args.get('search_term')
+    print(equipment_name)
+
+    for item in equipment_list:
+        if equipment_name.upper() == item['full_name'].upper():
+            return jsonify(item)
 
 
 def check_if_already_exists(lookup_name):
