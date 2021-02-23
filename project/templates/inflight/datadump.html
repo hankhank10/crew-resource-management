@@ -1,0 +1,247 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Pre Flight Checklist {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<style>
+    .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+    .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+    .autocomplete-selected { background: #F0F0F0; }
+    .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+    .autocomplete-group { padding: 2px 5px; }
+    .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+                
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+
+            <div class="py-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                        <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
+                        <li class="breadcrumb-item"><a href="">In Flight</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Data dump</li>
+                    </ol>
+                </nav>
+            </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-12">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <h5>Static data</h5>
+                            <table class="table table-centered table-nowrap mb-0 rounded">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="border-0">Variable</th>
+                                        <th class="border-0">Data</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border-0">Current flight id</td>
+                                        <td class="border-0 font-weight-bold">{{current_user.active_flight_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Current flight unique reference</td>
+                                        <td class="border-0 font-weight-bold">{{flight.unique_reference}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Source ident</td>
+                                        <td class="border-0 font-weight-bold">{{flight.source_ident}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Departure code</td>
+                                        <td class="border-0 font-weight-bold">{{flight.departure_code}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Departure name</td>
+                                        <td class="border-0 font-weight-bold">{{flight.departure_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Destination code</td>
+                                        <td class="border-0 font-weight-bold">{{flight.destination_code}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Destination name</td>
+                                        <td class="border-0 font-weight-bold">{{flight.destination_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Equipment full name</td>
+                                        <td class="border-0 font-weight-bold">{{flight.equipment_full_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Equipment manufacturer</td>
+                                        <td class="border-0 font-weight-bold">{{flight.equipment_manufacturer}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Equipment operator</td>
+                                        <td class="border-0 font-weight-bold">{{flight.equipment_operator}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Equipment model</td>
+                                        <td class="border-0 font-weight-bold">{{flight.equipment_model}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Passengers - first class</td>
+                                        <td class="border-0 font-weight-bold">{{flight.passengers_first_class}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Passengers - business class</td>
+                                        <td class="border-0 font-weight-bold">{{flight.passengers_business_class}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Passengers - premium class</td>
+                                        <td class="border-0 font-weight-bold">{{flight.passengers_premium_class}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Passengers - economy class</td>
+                                        <td class="border-0 font-weight-bold">{{flight.passengers_economy_class}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Cabin crew count</td>
+                                        <td class="border-0 font-weight-bold">{{flight.cabin_crew_count}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+
+        <div class="row">
+            <div class="col-12 col-lg-12">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <h5>Moving data</h5>
+                            <table class="table table-centered table-nowrap mb-0 rounded">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="border-0">Variable</th>
+                                        <th class="border-0">Data</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border-0">Current latitude</td>
+                                        <td class="border-0 font-weight-bold"><span id="current_latitude"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Current longitude</td>
+                                        <td class="border-0 font-weight-bold"><span id="current_longitude"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Current altitude</td>
+                                        <td class="border-0 font-weight-bold"><span id="current_altitude"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Current speed</td>
+                                        <td class="border-0 font-weight-bold"><span id="current_speed"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Current compass</td>
+                                        <td class="border-0 font-weight-bold"><span id="current_compass"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Door status</td>
+                                        <td class="border-0 font-weight-bold"><span id="door_status"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Gear handle position</td>
+                                        <td class="border-0 font-weight-bold"><span id="gear_handle_position"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Parking brake</td>
+                                        <td class="border-0 font-weight-bold"><span id="parking_brake"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">No smoking sign</td>
+                                        <td class="border-0 font-weight-bold"><span id="no_smoking_sign"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">Seatbelt sign</td>
+                                        <td class="border-0 font-weight-bold"><span id="seatbelt_sign"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-0">On ground</td>
+                                        <td class="border-0 font-weight-bold"><span id="on_ground"></span></td>
+                                    </tr>
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <button id="refresh_button" class="button btn-primary">Refresh</button>
+
+        {% include 'includes/footer.html' %}
+
+    </main>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="/static/customjs/livedata.js"></script>
+
+<script>
+
+    update_labels()
+
+    $('#refresh_button').click(function () {
+        get_live_data("{{flight.source_ident}}");
+        update_labels();
+    })
+
+    function update_labels() {
+
+        $('#current_latitude').html(localStorage.getItem('current_latitude'))
+        $('#current_longitude').html(localStorage.getItem('current_longitude'))
+        $('#current_altitude').html(localStorage.getItem('current_altitude'))
+        $('#current_compass').html(localStorage.getItem('current_compass'))
+        $('#current_speed').html(localStorage.getItem('current_speed'))
+
+
+        $('#door_status').html(localStorage.getItem('door_status'))
+        $('#gear_handle_position').html(localStorage.getItem('gear_handle_position'))
+        $('#parking_brake').html(localStorage.getItem('parking_brake'))
+        $('#no_smoking_sign').html(localStorage.getItem('no_smoking_sign'))
+        $('#seatbelt_sign').html(localStorage.getItem('seatbelt_sign'))
+        $('#on_ground').html(localStorage.getItem('on_ground'))
+
+        alert((Date.now() - localStorage.getItem('last_updated_data'))/1000)
+
+    }
+
+
+
+
+</script>
+
+
+
+{% endblock javascripts %}

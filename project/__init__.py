@@ -45,6 +45,9 @@ app.register_blueprint(api_airport_lookup_blueprint)
 from .equipment import equipment as equipment_blueprint
 app.register_blueprint(equipment_blueprint)
 
+from .inflight import inflight as inflight_blueprint
+app.register_blueprint(inflight_blueprint)
+
 
 ###  ADMIN 
 from flask_admin import Admin

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, Flask, current_app, request, jsonify, flash, redirect
+from flask import Blueprint, render_template, Flask, current_app, request, jsonify, flash, redirect, url_for
 from flask_login import login_required, current_user
 import secrets
 from datetime import datetime
@@ -81,5 +81,6 @@ def start_flight(unique_reference, ident):
     current_user.active_flight_id = flight.id
     db.session.commit()
 
+    return redirect(url_for('inflight.datadump'))
 
 
