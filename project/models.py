@@ -77,6 +77,14 @@ class Flight(db.Model):
     def manufacturer_logo(self):
         return equipment.lookup_logo(self.equipment_manufacturer, "manufacturer")
 
+    @property
+    def phase_name(self, phase_category="flight"):
+        phase = FlightPhase.query.filter_by(flight = self.id, phase_category=phase_category).first()
+
+        if phase is None:
+            return None
+
+        return phase.phase_name
 
 
 class FlightEvent(db.Model):

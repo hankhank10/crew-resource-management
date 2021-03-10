@@ -5,7 +5,7 @@ from datetime import datetime
 from . import db
 from . import app
 from project import equipment
-from .models import Flight, FlightEvent
+from .models import Flight, FlightEvent, FlightPhase
 import requests
 
 
@@ -99,3 +99,54 @@ def api_log_event(unique_reference):
     db.session.commit()
 
     return jsonify({'status': 'success'})
+
+
+def set_phase(flight_id, phase_name, phase_category="flight"):
+
+    # Get the flight
+    flight = Flight.query.filter_by(id=flight_id).first()
+
+    if flight is None:
+        return None
+
+    # See if there is a current phase...
+    current_phase = None
+    if phase_category == "flight":
+        current_phase = FlightPhase.query.filter_by(id=flight.phase_flight).first()
+
+    if phase_category == "cabin":
+        current_phase = FlightPhase.query.filter_by(id=flight.phase_cabin).first()
+
+    if phase_category == "seatbelt_sign":
+        current_phase = FlightPhase.query.filter_by(id=flight.phase_seatbelt_sign).first()
+
+    # ... and if so end it
+    if current_phase is not None:
+        current_phase.end_time = datetime.utcnow()
+        current_phase.is_current = False
+
+    # Create a new phase
+    new_phase = FlightPhase(
+        flight=flight_id,
+        start_time=datetime.utcnow(),
+        phase_category=phase_category,
+        phase_name=phase_name,
+        is_current=True
+    )
+    db.session.add(new_phase)
+    db.session.commit()
+
+    db.session.refresh(new_phase)
+
+    if phase_category == "flight":
+        flight.phase_flight = new_phase.id
+
+    if phase_category == "cabin":
+        flight.phase_cabin = new_phase.id
+
+    if phase_category == "seatbelt_sign":
+        flight.phase_seatbelt_sign = new_phase.id
+
+    db.session.commit()
+
+    return new_phase

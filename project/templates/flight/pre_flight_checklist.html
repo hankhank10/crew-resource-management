@@ -18,42 +18,49 @@
 {% endblock stylesheets %}
 
 {% block content %}
-                
-    <main class="content">
 
-        {% include 'includes/navigation.html' %}
+<!-- [ Main Content ] start -->
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
 
-            <div class="py-4">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-                        <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
-                        <li class="breadcrumb-item"><a href="{{ url_for('flight_manager.flight_list') }}">Flights</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Pre flight checklist</li>
-                    </ol>
-                </nav>
-            </div>
+            <!-- [ breadcrumb ] end -->
 
-        <div class="row">
-            <div class="col-12 col-lg-12">
-                <div class="card shadow-sm">
-                    <div class="card-body">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{category}}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="row">
+                <!-- content start -->
+                <div class="col-xl-12">
+                    <div class="card bg-success">
+
+                        <div class="card-body table-border-style">
+
+
                         <div class="row d-block d-xl-flex align-items-center">
                             <div class="col-12 col-xl-2 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
-                                <div style="color: white" class="icon icon-shape icon-md icon-shape-primary rounded me-4 me-sm-0 bg-success"><i class="fas fa-3x fa-check"></i></div>
+                                <div style="color: white" class="btn btn-lg btn-success"><i class="fas fa-3x fa-check"></i></div>
                             </div>
-                            <div class="col-12 col-xl-8 px-xl-0">
+                            <div class="col-8 col-xl-8 px-xl-0">
                                 <div class="d-none d-sm-block">
                                     <h3 class="mb-1">Flight plan loaded</h3>
                                 </div>
-                                <small>
+                                <div>
                                     <i class="fas fa-plane-departure"></i> {{flight_plan.departure_name}}<br>
                                     <i class="fas fa-plane-arrival"></i> {{flight_plan.destination_name}}<br>
                                     <i class="fas fa-plane"></i> {{flight_plan.equipment_manufacturer}} {{flight_plan.equipment_model}}<br>
                                     <i class="fas fa-walking fa-lg"></i> {{flight_plan.passengers_total}} passengers
-                                </small>
+                                </div>
                             </div>
-                            <div class="col-12 col-xl-2 px-xl-0">
-                                <img src="{{flight_plan.operator_logo}}">
+                            <div class="col-2 col-xl-2 px-xl-0">
+                                <img height="30px" src="{{flight_plan.operator_logo}}">
                             </div>
                         </div>
                     </div>
@@ -64,19 +71,19 @@
 
         <div class="row">
             <div class="col-12 col-lg-12">
-                <div class="card shadow-sm">
+                <div class="card bg-warning" id="transponder_card">
                     <div class="card-body">
                         <div class="row d-block d-xl-flex align-items-center">
                             <div class="col-12 col-xl-2 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
-                                <div id="transponder_icon_holder" style="color: white" class="icon icon-shape icon-md icon-shape-primary rounded me-4 me-sm-0 bg-danger"><i id="transponder_icon" class="fas fa-3x fa-exclamation"></i></i></div>
+                                <div id="transponder_icon_holder" style="color: white" class="btn btn-lg"><i id="transponder_icon" class="fas fa-3x fa-exclamation"></i></i></div>
                             </div>
                             <div class="col-12 col-xl-6 px-xl-0">
                                 <div class="d-none d-sm-block">
                                     <h3 id="transponder_header" class="mb-1">Connect transponder</h3>
                                 </div>
                                 <div id="transponder_instructions">
-                                <small>Live tracking of your plane is managed by <b><a href="https://findmyplane.live">Find My Plane</small></a></b><br>
-                                <small>Once you have downloaded the client you can enter the ident here</small>
+                                <div>Live tracking of your plane is managed by <b><a href="https://findmyplane.live">Find My Plane</a></b>
+                                <br>Once you have downloaded the client you can enter the ident here</div>
                                 </div>
                             </div>
                             <div class="col-12 col-xl-4 px-xl-0">
@@ -98,7 +105,7 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="row d-block d-xl-flex align-items-center">
-                            <button class="btn btn-lg btn-success" id="begin_flight_button" type="button">Begin Flight</button>
+                            <button class="btn btn-lg btn-primary" id="begin_flight_button" type="button">Begin Flight</button>
 
                         </div>
                     </div>
@@ -132,8 +139,9 @@
                     $('#transponder_header').html ("Transponder connected")
                     $('#transponder_input_group').hide()
                     $('#transponder_instructions').html("Ident code: <b>" + $('#transponder_ident').val() + "</b>")
-                    $('#transponder_icon_holder').removeClass("bg-danger").addClass("bg-success")
+                    $('#transponder_icon_holder').removeClass("bg-danger")
                     $('#transponder_icon').removeClass("fa-exclamation").addClass("fa-check")
+                    $('#transponder_card').removeClass("bg-warning").addClass("bg-success")
                     $('#begin_flight_card').show()
 
                 } else {
