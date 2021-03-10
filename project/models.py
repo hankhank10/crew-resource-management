@@ -61,6 +61,10 @@ class Flight(db.Model):
     started = db.Column(db.Boolean, default=False)
     completed = db.Column(db.Boolean, default=False)
 
+    phase_flight = db.Column(db.Integer)
+    phase_cabin = db.Column(db.Integer)
+    phase_seatbelt_sign = db.Column(db.Integer)
+
     @property
     def passengers_total(self):
         return self.passengers_first_class + self.passengers_business_class + self.passengers_premium_class + self.passengers_economy_class
@@ -95,6 +99,33 @@ class FlightEvent(db.Model):
     event_additional_detail = db.Column(db.String(500))
 
     read = db.Column(db.Boolean, default=False)
+
+
+class FlightPhase(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    flight = db.Column(db.Integer, db.ForeignKey('flight.id'), nullable=False)
+
+    start_time = db.Column(db.DateTime)
+    end_time = db.Column(db.DateTime)
+
+    is_current = db.Column(db.Boolean)
+
+    phase_category = db.Column(db.String(20))
+        # flight
+        # cabin
+        # seatbelt_sign
+
+    phase_name = db.Column(db.String(50))
+        # Pre-Boarding
+        # Boarding
+        # Securing cabin
+        # Taxi for takeoff
+        # Takeoff
+        # Climb
+        # Cruise
+        # Descent and landing
+        # Taxi to gate
+        # Deboarding
 
 
 class EquipmentType(db.Model):
