@@ -1,0 +1,110 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Data dump {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<style>
+    .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+    .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+    .autocomplete-selected { background: #F0F0F0; }
+    .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+    .autocomplete-group { padding: 2px 5px; }
+    .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+                
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+
+            <div class="py-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                        <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
+                        <li class="breadcrumb-item"><a href="">In Flight</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Events</li>
+                    </ol>
+                </nav>
+            </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-12">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <h5>Main events</h5>
+                            <table class="table table-centered table-nowrap mb-0 rounded">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="border-0">Event name</th>
+                                        <th class="border-0">Event description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for row in flight_events %}
+                                    <tr>
+                                        <td class="border-0">{{row.event_name}}</td>
+                                        <td class="border-0 font-weight-bold">{{row.event_description}}</td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="table-responsive">
+                            <h5>Location updates</h5>
+                            <table class="table table-centered table-nowrap mb-0 rounded">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="border-0">Timestamp</th>
+                                        <th class="border-0">Latitude</th>
+                                        <th class="border-0">Longitude</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for row in location_updates %}
+                                    <tr>
+                                        <td class="border-0">{{row.event_time}}</td>
+                                        <td class="border-0 font-weight-bold">{{row.current_latitude}}</td>
+                                        <td class="border-0 font-weight-bold">{{row.current_longitude}}</td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+
+
+        <br>
+
+        <button id="refresh_button" class="button btn-primary">Refresh</button>
+
+        {% include 'includes/footer.html' %}
+
+    </main>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+
+
+{% endblock javascripts %}

@@ -11,4 +11,4 @@ main = Blueprint('main', __name__)
 @login_required
 def dashboard():
 
-    return render_template('dashboard.html')
+    return render_template('index.html')

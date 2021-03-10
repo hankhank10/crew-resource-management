@@ -21,7 +21,7 @@ def flight_list():
 
 @flight_manager.route('/flight/new', methods=['GET', 'POST'])
 @login_required
-def new_flight():
+def create_new():
 
     if request.method == "GET":
         return render_template('flight/new_flight.html', equipment_list=equipment.equipment_list)

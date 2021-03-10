@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Pre Flight Checklist {% endblock %}
+{% block title %} Data dump {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
@@ -213,7 +213,7 @@
     update_labels()
 
     $('#refresh_button').click(function () {
-        get_live_data("{{flight.source_ident}}");
+        get_live_data("{{flight.unique_reference}}");
         update_labels();
     })
 
@@ -225,7 +225,6 @@
         $('#current_compass').html(localStorage.getItem('current_compass'))
         $('#current_speed').html(localStorage.getItem('current_speed'))
 
-
         $('#door_status').html(localStorage.getItem('door_status'))
         $('#gear_handle_position').html(localStorage.getItem('gear_handle_position'))
         $('#parking_brake').html(localStorage.getItem('parking_brake'))
@@ -233,11 +232,9 @@
         $('#seatbelt_sign').html(localStorage.getItem('seatbelt_sign'))
         $('#on_ground').html(localStorage.getItem('on_ground'))
 
-        alert((Date.now() - localStorage.getItem('last_updated_data'))/1000)
+        //alert((Date.now() - localStorage.getItem('last_updated_data'))/1000)
 
     }
-
-
 
 
 </script>

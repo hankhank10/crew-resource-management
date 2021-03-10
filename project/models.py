@@ -89,8 +89,12 @@ class FlightEvent(db.Model):
 
     # if event_type != location_update
     event_initiated_by = db.Column(db.String(20))  # pilot, simulator, crew, passenger
+    event_code = db.Column(db.String(50))
     event_name = db.Column(db.String(100))
     event_description = db.Column(db.String(500))
+    event_additional_detail = db.Column(db.String(500))
+
+    read = db.Column(db.Boolean, default=False)
 
 
 class EquipmentType(db.Model):

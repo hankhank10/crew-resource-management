@@ -1,9 +1,8 @@
 
 function get_live_data(ident) {
 
-
     $.ajax({
-        url: 'https://findmyplane.live/api/plane/'+ident,
+        url: '/api/inflight/update_plane_data/'+ident,
         type: 'GET',
         success: function (response) {
 
@@ -27,4 +26,3 @@ function get_live_data(ident) {
     });
 
 }
-
