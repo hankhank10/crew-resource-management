@@ -20,62 +20,49 @@
 {% block content %}
 
 <!-- [ Main Content ] start -->
-    <section class="pcoded-main-container">
-        <div class="pcoded-content">
-            <!-- [ breadcrumb ] start -->
+<div class="row">
+    <!-- [ sample-page ] start -->
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+            <h5 class="card-header bg-success text-white">Flight plan status</h5>
 
-            <!-- [ breadcrumb ] end -->
+            <div class="card-body">
 
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{category}}" role="alert">
-                            {{ message }}
+                <div class="row">
+                    <div class="col-2 col-xl-2 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                        <i class="fas fa-3x fa-check text-success"></i>
+                    </div>
+                    <div class="col-8 col-xl-8 px-xl-0 align-self-center">
+                        <div class="d-none d-sm-block">
+                            <h3 class="mb-1">Flight plan loaded</h3>
                         </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-
-            <div class="row">
-                <!-- content start -->
-                <div class="col-xl-12">
-                    <div class="card bg-success">
-
-                        <div class="card-body table-border-style">
-
-
-                        <div class="row d-block d-xl-flex align-items-center">
-                            <div class="col-12 col-xl-2 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
-                                <div style="color: white" class="btn btn-lg btn-success"><i class="fas fa-3x fa-check"></i></div>
-                            </div>
-                            <div class="col-8 col-xl-8 px-xl-0">
-                                <div class="d-none d-sm-block">
-                                    <h3 class="mb-1">Flight plan loaded</h3>
-                                </div>
-                                <div>
-                                    <i class="fas fa-plane-departure"></i> {{flight_plan.departure_name}}<br>
-                                    <i class="fas fa-plane-arrival"></i> {{flight_plan.destination_name}}<br>
-                                    <i class="fas fa-plane"></i> {{flight_plan.equipment_manufacturer}} {{flight_plan.equipment_model}}<br>
-                                    <i class="fas fa-walking fa-lg"></i> {{flight_plan.passengers_total}} passengers
-                                </div>
-                            </div>
-                            <div class="col-2 col-xl-2 px-xl-0">
-                                <img height="30px" src="{{flight_plan.operator_logo}}">
-                            </div>
+                        <div>
+                            <i class="fas fa-plane-departure"></i> {{flight_plan.departure_name}}<br>
+                            <i class="fas fa-plane-arrival"></i> {{flight_plan.destination_name}}<br>
+                            <i class="fas fa-plane"></i> {{flight_plan.equipment_manufacturer}} {{flight_plan.equipment_model}}<br>
+                            <i class="fas fa-walking fa-lg"></i> {{flight_plan.passengers_total}} passengers
                         </div>
                     </div>
+                    <div class="col-2 col-xl-2 px-xl-0 align-self-center">
+                        <img height="30px" src="{{flight_plan.operator_logo}}">
+                    </div>
                 </div>
+
             </div>
         </div>
+
         <br>
 
         <div class="row">
             <div class="col-12 col-lg-12">
-                <div class="card bg-warning" id="transponder_card">
+                <div class="card" id="transponder_card">
+                    <h5 class="card-header bg-warning text-white" id="transponder_title">Transponder status</h5>
                     <div class="card-body">
                         <div class="row d-block d-xl-flex align-items-center">
                             <div class="col-12 col-xl-2 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
-                                <div id="transponder_icon_holder" style="color: white" class="btn btn-lg"><i id="transponder_icon" class="fas fa-3x fa-exclamation"></i></i></div>
+                                <div id="transponder_icon_holder">
+                                    <i id="transponder_icon" class="fas fa-3x fa-exclamation text-warning"></i>
+                                </div>
                             </div>
                             <div class="col-12 col-xl-6 px-xl-0">
                                 <div class="d-none d-sm-block">
@@ -113,8 +100,6 @@
             </div>
         </div>
 
-        {% include 'includes/footer.html' %}
-
     </main>
     
 {% endblock content %}
@@ -139,9 +124,11 @@
                     $('#transponder_header').html ("Transponder connected")
                     $('#transponder_input_group').hide()
                     $('#transponder_instructions').html("Ident code: <b>" + $('#transponder_ident').val() + "</b>")
-                    $('#transponder_icon_holder').removeClass("bg-danger")
+                    $('#transponder_icon_holder').removeClass("text-danger")
                     $('#transponder_icon').removeClass("fa-exclamation").addClass("fa-check")
-                    $('#transponder_card').removeClass("bg-warning").addClass("bg-success")
+                    $('#transponder_icon').removeClass("text-warning").addClass("text-success")
+                    $('#transponder_title').removeClass("bg-warning").addClass("bg-success")
+
                     $('#begin_flight_card').show()
 
                 } else {

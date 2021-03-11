@@ -38,7 +38,7 @@
     }
 
     function Dattaclp(el, src) {
-        return new ClipboardJS(el, {
+        return new Clipboard(el, {
             text: function() {
                 return src;
             }
@@ -52,9 +52,9 @@
         var closeBtn = document.querySelector('.datta-example-modal-close');
 
         var btn_copyTimeout = null;
-        var ClipboardJS = Dattaclp(btn_copy, src);
+        var clipboard = Dattaclp(btn_copy, src);
 
-        ClipboardJS.on('success', function(e) {
+        clipboard.on('success', function(e) {
             if (btn_copyTimeout) {
                 clearTimeout(btn_copyTimeout);
                 btn_copyTimeout = null;
@@ -72,7 +72,7 @@
             document.querySelector('.datta-example-modal-content').innerHTML = '';
             document.querySelector('.datta-example-modal').scrollTop = 0;
             closeBtn.removeEventListener('click', closeListener);
-            ClipboardJS.destroy();
+            clipboard.destroy();
             document.documentElement.className = document.documentElement.className.replace(' datta-example-modal-opened', '');
         };
         closeBtn.addEventListener('click', closeListener);

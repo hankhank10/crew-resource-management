@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Flash Able - Horizontal layout</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Flash Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
+    <meta name="keywords" content="admin templates, bootstrap admin templates, bootstrap 4, dashboard, dashboard templets, sass admin templets, html admin templates, responsive, bootstrap admin templates free download,premium bootstrap admin templates, Flash Able, Flash Able bootstrap admin template">
+    <meta name="author" content="Codedthemes" />
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <!-- fontawesome icon -->
+    <link rel="stylesheet" href="../assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <!-- animation css -->
+    <link rel="stylesheet" href="../assets/plugins/animation/css/animate.min.css">
+    <!-- prism css -->
+    <link rel="stylesheet" href="../assets/plugins/prism/css/prism.min.css">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style media="screen">
+        .sidenav-horizontal:before,
+        .sidenav-horizontal:after {
+            content: "";
+            background: #242e3e;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            height: 100%;
+            z-index: 5;
+        }
+        .sidenav-horizontal:before{
+            left: 100%;
+        }
+        .sidenav-horizontal:after {
+            right: 100%;
+        }
+        @media only screen and (max-width: 991px){
+            .sidenav-horizontal:before,
+            .sidenav-horizontal:after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+
+    <!-- [ navigation menu ] start -->
+    <nav class="pcoded-navbar theme-horizontal navbar-blue">
+        <div class="navbar-wrapper container">
+            <div class="navbar-brand header-logo">
+                <a href="index.html" class="b-brand">
+                    <!-- <div class="b-bg">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <span class="b-title">Flash Able</span> -->
+                    <img src="../assets/images/logo-dark.svg" alt="" class="logo images">
+                    <img src="../assets/images/logo-icon-dark.svg" alt="" class="logo-thumb images">
+                </a>
+                <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
+            </div>
+            <div class="navbar-content sidenav-horizontal" id="layout-sidenav">
+                <ul class="nav pcoded-inner-navbar sidenav-inner">
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>Navigation</label>
+                    </li>
+                    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                        <ul class="pcoded-submenu">
+                    		<li class=""><a href="index.html" class="">Analytics</a></li>
+                    		<li class=""><a href="dashboard-sale.html" class="">Sales</a></li>
+                    		<li class=""><a href="dashboard-crypto.html" class="">Crypto</a></li>
+                    		<li class=""><a href="dashboard-project.html" class="">Project</a></li>
+                    		<li class=""><a href="dashboard-help.html" class="">Helpdesk<span class="pcoded-badge label label-danger">NEW</span></a></li>
+                    	</ul>
+                    </li>
+                    <li data-username="Vertical Horizontal Box Layout RTL fixed static collapse menu color icon dark" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-layout"></i></span><span class="pcoded-mtext">Page layouts</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class="pcoded-hasmenu"><a href="#!" class="">Vertical</a>
+                                <ul class="pcoded-submenu">
+                                    <li class=""><a href="layout-static.html" class="" >Static</a></li>
+                                    <li class=""><a href="layout-fixed.html" class="" >Fixed</a></li>
+                                    <li class=""><a href="layout-menu-fixed.html" class="" >Navbar fixed</a></li>
+                                    <li class=""><a href="layout-mini-menu.html" class="" >Collapse menu</a></li>
+                                    <li class=""><a href="layout-navbg.html" class="" >Navbar imagebg</a></li>
+                                </ul>
+                            </li>
+                            <li class=""><a href="layout-horizontal.html" class="" >Horizontal</a></li>
+                            <li class=""><a href="layout-horizontal-1.html" class="" >Horizontal v1</a></li>
+                            <li class=""><a href="layout-horizontal-2.html" class="" >Horizontal v2</a></li>
+                            <li class=""><a href="layout-box.html" class="" >Box layout</a></li>
+                            <li class=""><a href="layout-rtl.html" class="" >RTL</a></li>
+                            <li class=""><a href="layout-light.html" class="" >Light layout</a></li>
+                            <li class=""><a href="layout-dark.html" class="" >Dark layout <span class="pcoded-badge label label-danger">Hot</span></a></li>
+                            <li class=""><a href="layout-menu-icon.html" class="" >Color icon</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="widget Statistic Data Table User card Chart" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-layers"></i></span><span class="pcoded-mtext">Widget</span><span class="pcoded-badge label label-info">100+</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="widget-statistic.html" class="">Statistic</a></li>
+                            <li class=""><a href="widget-data.html" class="">Data</a></li>
+                            <li class=""><a href="widget-chart.html" class="">Chart</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>UI Element</label>
+                    </li>
+                    <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Basic</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="bc_alert.html" class="">Alert</a></li>
+                            <li class=""><a href="bc_button.html" class="">Button</a></li>
+                            <li class=""><a href="bc_badges.html" class="">Badges</a></li>
+                            <li class=""><a href="bc_breadcrumb-pagination.html" class="">Breadcrumb & Paggination</a></li>
+                            <li class=""><a href="bc_card.html" class="">Cards</a></li>
+                            <li class=""><a href="bc_collapse.html" class="">Collapse</a></li>
+                            <li class=""><a href="bc_carousel.html" class="">Carousel</a></li>
+                            <li class=""><a href="bc_grid.html" class="">Grid System</a></li>
+                            <li class=""><a href="bc_progress.html" class="">Progress</a></li>
+                            <li class=""><a href="bc_modal.html" class="">Modal</a></li>
+                            <li class=""><a href="bc_spinner.html" class="">Spinner<span class="pcoded-badge label label-danger">NEW</span></a></li>
+                            <li class=""><a href="bc_tabs.html" class="">Tabs & pills</a></li>
+                            <li class=""><a href="bc_typography.html" class="">Typography</a></li>
+                            <li class=""><a href="bc_tooltip-popover.html" class="">Tooltip & popovers</a></li>
+                            <li class=""><a href="bc_toasts.html" class="">Toasts<span class="pcoded-badge label label-danger">NEW</span></a></li>
+                            <li class=""><a href="bc_extra.html" class="">Other</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="advance components Alert gridstack lightbox modal notification pnotify rating rangeslider slider syntax highlighter Tour Tree view Nestable Toolbar" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-gitlab"></i></span><span class="pcoded-mtext">Advance</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="ac_alert.html" class="">Sweet alert</a></li>
+                            <li class=""><a href="ac-datepicker-componant.html" class="">Datepicker</a></li>
+                            <li class=""><a href="ac_gridstack.html" class="">Gridstack</a></li>
+                            <li class=""><a href="ac_lightbox.html" class="">Lightbox</a></li>
+                            <li class=""><a href="ac_modal.html" class="">Modal</a></li>
+                            <li class=""><a href="ac_notification.html" class="">Notification</a></li>
+                            <li class=""><a href="ac_nestable.html" class="">Nestable</a></li>
+                            <li class=""><a href="ac_pnotify.html" class="">pnotify</a></li>
+                            <li class=""><a href="ac_rating.html" class="">Rating</a></li>
+                            <li class=""><a href="ac_rangeslider.html" class="">Rangeslider</a></li>
+                            <li class=""><a href="ac_slider.html" class="">Slider</a></li>
+                            <li class=""><a href="ac_syntax_highlighter.html" class="">Syntax highlighter</a></li>
+                            <li class=""><a href="ac_tour.html" class="">Tour</a></li>
+                            <li class=""><a href="ac_treeview.html" class="">Tree view</a></li>
+                            <li class=""><a href="ac_toolbar.html" class="">Toolbar</a></li>
+                            <li class=""><a href="ac_usercard.html" class="">User card</a></li>
+                            <li class=""><a href="timeline.html" class="">Timeline</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="extra components Session Timeout Session Idle Timeout Offline" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-package"></i></span><span class="pcoded-mtext">Extra</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="ec-session-timeout.html" class="">Session timeout</a></li>
+                            <li class=""><a href="ec-session-idle-timeout.html" class="">Session idle timeout</a></li>
+                            <li class=""><a href="ec-offline.html" class="">Offline</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="Animations" class="nav-item"><a href="animation.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-aperture"></i></span><span class="pcoded-mtext">Animations</span></a></li>
+                    <li data-username="icons Feather Fontawsome flag material simple line themify" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-feather"></i></span><span class="pcoded-mtext">Icons</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="icon-feather.html" class="">Feather<span class="pcoded-badge label label-danger">NEW</span></a></li>
+                            <li class=""><a href="icon-fontawsome.html" class="">Font Awesome 5<span class="pcoded-badge label label-primary">1000+</span></a></li>
+                            <li class=""><a href="icon-flag.html" class="">Flag</a></li>
+                            <li class=""><a href="icon-material.html" class="">Material</a></li>
+                            <li class=""><a href="icon-simple-line.html" class="">Simple line</a></li>
+                            <li class=""><a href="icon-themify.html" class="">Themify</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>Forms</label>
+                    </li>
+                    <li data-username="form elements advance componant validation masking wizard picker select" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">Forms</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="form_elements.html" class="">Form elements</a></li>
+                            <li class=""><a href="form-elements-advance.html" class="">Form advance</a></li>
+                            <li class=""><a href="form-validation.html" class="">Form validation</a></li>
+                            <li class=""><a href="form-masking.html" class="">Form masking</a></li>
+                            <li class=""><a href="form-wizard.html" class="">Form wizard</a></li>
+                            <li class=""><a href="form-picker.html" class="">Form picker</a></li>
+                            <li class=""><a href="form-select.html" class="">Form select</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>Table</label>
+                    </li>
+                    <li data-username="table basic sizing border styling" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-align-justify"></i></span><span class="pcoded-mtext">Bootstrap table</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="tbl_bootstrap.html" class="">Basic table</a></li>
+                            <li class=""><a href="tbl_sizing.html" class="">Sizing table</a></li>
+                            <li class=""><a href="tbl_border.html" class="">Border table</a></li>
+                            <li class=""><a href="tbl_styling.html" class="">Styling table</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="table basic advance styling api ajax server plugin data sources" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-package"></i></span><span class="pcoded-mtext">Data table</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="dt_basic.html" class="">Basic initialization</a></li>
+                            <li class=""><a href="dt_advance.html" class="">Advance initialization</a></li>
+                            <li class=""><a href="dt_styling.html" class="">Styling</a></li>
+                            <li class=""><a href="dt_api.html" class="">API</a></li>
+                            <li class=""><a href="dt_ajax.html" class="">Ajax</a></li>
+                            <li class=""><a href="dt_serverside.html" class="">Server side</a></li>
+                            <li class=""><a href="dt_plugin.html" class="">Plug-in</a></li>
+                            <li class=""><a href="dt_sources.html" class="">Data sources</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="table extensions autofill basic data export col reorder fixed columns header key responsive row scroller select" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">DT extensions</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="dt_ext_autofill.html" class="">Autofill</a></li>
+                            <li class="nav-item pcoded-hasmenu">
+                                <a href="#!" class="nav-link"><span class="pcoded-mtext">Button</span></a>
+                                <ul class="pcoded-submenu">
+                                    <li class=""><a href="dt_ext_basic_buttons.html" class="">Basic button</a></li>
+                                    <li class=""><a href="dt_ext_export_buttons.html" class="">Data export</a></li>
+                                </ul>
+                            </li>
+                            <li class=""><a href="dt_ext_col_reorder.html" class="">Col reorder</a></li>
+                            <li class=""><a href="dt_ext_fixed_columns.html" class="">Fixed columns</a></li>
+                            <li class=""><a href="dt_ext_fixed_header.html" class="">Fixed header</a></li>
+                            <li class=""><a href="dt_ext_key_table.html" class="">Key table</a></li>
+                            <li class=""><a href="dt_ext_responsive.html" class="">Responsive</a></li>
+                            <li class=""><a href="dt_ext_row_reorder.html" class="">Row reorder</a></li>
+                            <li class=""><a href="dt_ext_scroller.html" class="">Scroller</a></li>
+                            <li class=""><a href="dt_ext_select.html" class="">Select table</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="table editable" class="nav-item"><a href="editable_table.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-grid"></i></span><span class="pcoded-mtext">Editable table</span></a></li>
+                    <li data-username="table foo" class="nav-item"><a href="tbl_foo.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-list"></i></span><span class="pcoded-mtext">Foo table</span></a></li>
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>Chart & Maps</label>
+                    </li>
+                    <li data-username="Charts AM Chart js Echart Google Highchart Knob Morris Nvd3 Peity Radial" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Chart</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="chart-am.html" class="">amChart 4</a></li>
+                            <li class=""><a href="chart-chartjs.html" class="">Chart js</a></li>
+                            <li class=""><a href="chart-echart.html" class="">Echart</a></li>
+                            <li class=""><a href="chart-google.html" class="">Google</a></li>
+                            <li class=""><a href="chart-highchart.html" class="">Highchart</a></li>
+                            <li class=""><a href="chart-knob.html" class="">Knob</a></li>
+                            <li class=""><a href="chart-morris.html" class="">Morris</a></li>
+                            <li class=""><a href="chart-nvd3.html" class="">Nvd3</a></li>
+                            <li class=""><a href="chart-peity.html" class="">Peity</a></li>
+                            <li class=""><a href="chart-radial.html" class="">Radial</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="Maps Google Vector Google Map Search API Location" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-map"></i></span><span class="pcoded-mtext">Maps</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="map-google.html" class="">Google</a></li>
+                            <li class=""><a href="map-vector.html" class="">Vector</a></li>
+                            <li class=""><a href="map-api.html" class="">Gmap search API</a></li>
+                            <li class=""><a href="map-location.html" class="">Location</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="landing page" class="nav-item"><a href="extra-pages/landingpage/index.html" class="nav-link" ><span class="pcoded-micon"><i class="feather icon-navigation-2"></i></span><span class="pcoded-mtext">Landing
+                                page</span></a></li>
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>Pages</label>
+                    </li>
+                    <li data-username="Authentication Sign up Sign in reset password Change password Personal information profile settings map form subscribe" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Authentication</span></a>
+                        <ul class="pcoded-submenu">
+                    		<li class=""><a href="auth-signup.html" class="" >Sign up</a></li>
+                    		<li class=""><a href="auth-signup1.html" class="" >Sign up v2<span class="pcoded-badge label label-primary">New</span></a></li>
+                    		<li class=""><a href="auth-signin.html" class="" >Sign in</a></li>
+                    		<li class=""><a href="auth-signin-img-side.html" class="" >Sign in v2<span class="pcoded-badge label label-primary">New</span></a></li>
+                    		<li class=""><a href="auth-signin-img-slider.html" class="" >Sign in v3<span class="pcoded-badge label label-primary">New</span></a></li>
+                    		<li class=""><a href="auth-signin-img-slider2.html" class="" >Sign in v4<span class="pcoded-badge label label-primary">New</span></a></li>
+                    		<li class=""><a href="auth-signin-img-tabs.html" class="" >Sign in v5<span class="pcoded-badge label label-primary">New</span></a></li>
+                    		<li class=""><a href="auth-reset-password.html" class="" >Reset password</a></li>
+                    		<li class=""><a href="auth-change-password.html" class="" >Change password</a></li>
+                    		<li class=""><a href="auth-profile-settings.html" class="" >Profile settings</a></li>
+                    	</ul>
+                    </li>
+                    <li data-username="Maintenance Error offline ui" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-sliders"></i></span><span class="pcoded-mtext">Maintenance</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="maint-error.html" class="">Error</a></li>
+
+                            <li class=""><a href="maint-offline-ui.html" class="" >Offline UI</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>App</label>
+                    </li>
+                    <li data-username="message" class="nav-item"><a href="message.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-message-circle"></i></span><span class="pcoded-mtext">Message</span></a></li>
+                    <li data-username="inbox read mail compose" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-mail"></i></span><span class="pcoded-mtext">Email</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="email_inbox.html" class="">Inbox</a></li>
+                            <li class=""><a href="email_read.html" class="">Read mail</a></li>
+                            <li class=""><a href="email_compose.html" class="">Compose mail</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="Task list board details" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Task</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="task-list.html" class="">List</a></li>
+                            <li class=""><a href="task-board.html" class="">Board</a></li>
+                            <li class=""><a href="task-detail.html" class="">Detail</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="To-Do notes" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-check-square"></i></span><span class="pcoded-mtext">To-Do</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="todo.html" class="">To-Do</a></li>
+                            <li class=""><a href="notes.html" class="">Notes</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="Gallery Grid Masonry Advance" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-image"></i></span><span class="pcoded-mtext">Gallery</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="gallery-grid.html" class="">Grid</a></li>
+                            <li class=""><a href="gallery-masonry.html" class="">Masonry</a></li>
+                            <li class=""><a href="gallery-advance.html" class="">Advance</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="search1 search2 search2" class="nav-item pcoded-hasmenu">
+                    	<a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-search"></i></span><span class="pcoded-mtext">Search<span class="pcoded-badge label label-info">NEW</span></span></a>
+                    	<ul class="pcoded-submenu">
+                    		<li class=""><a href="search1.html" class="">Search1</a></li>
+                    		<li class=""><a href="search2.html" class="">Search2</a></li>
+                    		<li class=""><a href="search3.html" class="">Search3</a></li>
+                    	</ul>
+                    </li>
+                    <li data-username="search1 search2 search2" class="nav-item pcoded-hasmenu">
+                    	<a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-help-circle"></i></span><span class="pcoded-mtext">Helpdesk<span class="pcoded-badge label label-success">NEW</span></span></a>
+                    	<ul class="pcoded-submenu">
+                            <li class=""><a href="hd-help-desk.html" class="">Helpdesk dashboard</a></li>
+        					<li class=""><a href="hd-dashboard.html" class="">Customer dashboard</a></li>
+        					<li class=""><a href="hd-cust-list.html" class="">Customer list</a></li>
+        					<li class=""><a href="hd-detail.html" class="">Customer detail</a></li>
+        					<li class=""><a href="hd-new-ticket.html" class="">Ticket</a></li>
+                    	</ul>
+                    </li>
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>Extension</label>
+                    </li>
+                    <li data-username="Editor CK-Editor Tinemce" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-file-plus"></i></span><span class="pcoded-mtext">Editor</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class="pcoded-hasmenu">
+                                <a href="#!" class="">CK editor</a>
+                                <ul class="pcoded-submenu">
+                                    <li class=""><a href="editor-classic.html" class="">Classic</a></li>
+                                    <li class=""><a href="editor-balloon.html" class="">Balloon</a></li>
+                                    <li class=""><a href="editor-inline.html" class="">Inline</a></li>
+                                    <li class=""><a href="editor-document.html" class="">Document</a></li>
+                                </ul>
+                            </li>
+                            <li class=""><a href="editor-tinymce.html" class="">Tinymce editor</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="Full Calendar" class="nav-item"><a href="full-calendar.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-calendar"></i></span><span class="pcoded-mtext">Full calendar</span></a></li>
+                    <li data-username="File Upload" class="nav-item"><a href="file-upload.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-upload-cloud"></i></span><span class="pcoded-mtext">File upload</span></a></li>
+                    <li data-username="image cropper" class="nav-item"><a href="image_crop.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-scissors"></i></span><span class="pcoded-mtext">Image cropper</span></a></li>
+                    <li data-username="grid animation" class="nav-item"><a href="grid-animation.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-globe"></i></span><span class="pcoded-mtext">Grid animation</span><span class="pcoded-badge label label-info">NEW</span></a></li>
+                    <li data-username="minimal form" class="nav-item"><a href="minimal-form.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-book"></i></span><span class="pcoded-mtext">Minimal form</span><span class="pcoded-badge label label-danger">NEW</span></a></li>
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>Other</label>
+                    </li>
+                    <li data-username="Menu levels Menu level 2.1 Menu level 2.2" class="nav-item pcoded-hasmenu">
+                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-menu"></i></span><span class="pcoded-mtext">Menu levels</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="" class="">Menu Level 2.1</a></li>
+                            <li class="pcoded-hasmenu">
+                                <a href="#!" class="">Menu level 2.2</a>
+                                <ul class="pcoded-submenu">
+                                    <li class=""><a href="" class="">Menu level 3.1</a></li>
+                                    <li class=""><a href="" class="">Menu level 3.2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li data-username="Disabled Menu" class="nav-item disabled"><a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Disabled menu</span></a></li>
+                    <li data-username="Sample Page" class="nav-item"><a href="sample-page.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-sidebar"></i></span><span class="pcoded-mtext">Sample page</span></a></li>
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>Support</label>
+                    </li>
+                    <li data-username="Documentation" class="nav-item"><a href="../doc/index.html" class="nav-link" ><span class="pcoded-micon"><i class="feather icon-book"></i></span><span class="pcoded-mtext">Documentation</span></a></li>
+                    <li data-username="Need Support" class="nav-item"><a href="#" class="nav-link" ><span class="pcoded-micon"><i class="feather icon-help-circle"></i></span><span class="pcoded-mtext">Need
+                                support ?</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- [ navigation menu ] end -->
+
+    <!-- [ Header ] start -->
+    <header class="navbar pcoded-header navbar-expand-lg navbar-light">
+        <div class="container">
+            <div class="m-header">
+                <a class="mobile-menu" id="mobile-collapse1" href="#!"><span></span></a>
+                <a href="index.html" class="b-brand">
+                    <!-- <div class="b-bg">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <span class="b-title">Flash Able</span> -->
+                    <img src="../assets/images/logo-dark.svg" alt="" class="logo images">
+                    <img src="../assets/images/logo-icon-dark.svg" alt="" class="logo-thumb images">
+                </a>
+            </div>
+            <a class="mobile-menu" id="mobile-header" href="#!">
+                <i class="feather icon-more-horizontal"></i>
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <div class="main-search open">
+                            <div class="input-group">
+                                <input type="text" id="m-search" class="form-control" placeholder="Search . . .">
+                                <a href="#!" class="input-group-append search-close">
+                                    <i class="feather icon-x input-group-text"></i>
+                                </a>
+                                <span class="input-group-append search-btn btn btn-primary">
+                                    <i class="feather icon-search input-group-text"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- <li> -->
+                    <!-- [ breadcrumb ] start -->
+                    <!-- <div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-12">
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">Horizontal Layout</h5>
+                                        </div>
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                            <li class="breadcrumb-item"><a href="#!">Page Layouts</a></li>
+                                            <li class="breadcrumb-item"><a href="#!">Horizontal Layout</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    <!-- [ breadcrumb ] end -->
+                    <!-- </li> -->
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right notification">
+                                <div class="noti-head">
+                                    <h6 class="d-inline-block m-b-0">Notifications</h6>
+                                    <div class="float-right">
+                                        <a href="#!" class="m-r-10">mark as read</a>
+                                        <a href="#!">clear all</a>
+                                    </div>
+                                </div>
+                                <ul class="noti-body">
+                                    <li class="n-title">
+                                        <p class="m-b-0">NEW</p>
+                                    </li>
+                                    <li class="notification">
+                                        <div class="media">
+                                            <img class="img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <p><strong>John Doe</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span></p>
+                                                <p>New ticket Added</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="n-title">
+                                        <p class="m-b-0">EARLIER</p>
+                                    </li>
+                                    <li class="notification">
+                                        <div class="media">
+                                            <img class="img-radius" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>10 min</span></p>
+                                                <p>Prchace New Theme and make payment</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="notification">
+                                        <div class="media">
+                                            <img class="img-radius" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>12 min</span></p>
+                                                <p>currently login</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="notification">
+                                        <div class="media">
+                                            <img class="img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
+                                                <p>Prchace New Theme and make payment</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="notification">
+                                        <div class="media">
+                                            <img class="img-radius" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>1 hour</span></p>
+                                                <p>currently login</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="notification">
+                                        <div class="media">
+                                            <img class="img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>2 hour</span></p>
+                                                <p>Prchace New Theme and make payment</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="noti-footer">
+                                    <a href="#!">show all</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="#!" class="displayChatbox"><i class="icon feather icon-mail"></i></a></li>
+                    <li>
+                        <div class="dropdown drp-user">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon feather icon-settings"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right profile-notification">
+                                <div class="pro-head">
+                                    <img src="../assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
+                                    <span>John Doe</span>
+                                    <a href="auth-signin.html" class="dud-logout" title="Logout">
+                                        <i class="feather icon-log-out"></i>
+                                    </a>
+                                </div>
+                                <ul class="pro-body">
+                                    <li><a href="#!" class="dropdown-item"><i class="feather icon-settings"></i> Settings</a></li>
+                                    <li><a href="#!" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
+                                    <li><a href="message.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
+                                    <li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- [ Header ] end -->
+
+    <!-- [ chat user list ] start -->
+    <section class="header-user-list">
+        <a href="#!" class="h-close-text"><i class="feather icon-x"></i></a>
+        <ul class="nav nav-tabs" id="chatTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active text-uppercase" id="chat-tab" data-toggle="tab" href="#chat" role="tab" aria-controls="chat" aria-selected="true"><i class="feather icon-message-circle mr-2"></i>Chat</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" id="user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="user" aria-selected="false"><i class="feather icon-users mr-2"></i>User</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" id="setting-tab" data-toggle="tab" href="#setting" role="tab" aria-controls="setting" aria-selected="false"><i class="feather icon-settings mr-2"></i>Setting</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="chatTabContent">
+            <div class="tab-pane fade show active" id="chat" role="tabpanel" aria-labelledby="chat-tab">
+                <div class="h-list-header">
+                    <div class="input-group">
+                        <input type="text" id="search-friends" class="form-control" placeholder="Search Friend . . .">
+                    </div>
+                </div>
+                <div class="h-list-body">
+                    <div class="main-friend-cont scroll-div">
+                        <div class="main-friend-list">
+                            <div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image ">
+                                    <div class="live-status">3</div>
+                                </a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Josephin Doe<small class="d-block text-c-green">Typing . . </small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="2" data-status="online" data-username="Lary Doe">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
+                                    <div class="live-status">1</div>
+                                </a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Lary Doe<small class="d-block text-c-green">online</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="3" data-status="online" data-username="Alice">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image"></a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Alice<small class="d-block text-c-green">online</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="4" data-status="offline" data-username="Alia">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+                                    <div class="live-status">1</div>
+                                </a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Alia<small class="d-block text-muted">10 min ago</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="5" data-status="offline" data-username="Suzen">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-4.jpg" alt="Generic placeholder image"></a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Suzen<small class="d-block text-muted">15 min ago</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image ">
+                                    <div class="live-status">3</div>
+                                </a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Josephin Doe<small class="d-block text-c-green">Typing . . </small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="2" data-status="online" data-username="Lary Doe">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
+                                    <div class="live-status">1</div>
+                                </a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Lary Doe<small class="d-block text-c-green">online</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="3" data-status="online" data-username="Alice">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image"></a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Alice<small class="d-block text-c-green">online</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="4" data-status="offline" data-username="Alia">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+                                    <div class="live-status">1</div>
+                                </a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Alia<small class="d-block text-muted">10 min ago</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="5" data-status="offline" data-username="Suzen">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-4.jpg" alt="Generic placeholder image"></a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Suzen<small class="d-block text-muted">15 min ago</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image ">
+                                    <div class="live-status">3</div>
+                                </a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Josephin Doe<small class="d-block text-c-green">Typing . . </small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="2" data-status="online" data-username="Lary Doe">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
+                                    <div class="live-status">1</div>
+                                </a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Lary Doe<small class="d-block text-c-green">online</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="3" data-status="online" data-username="Alice">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image"></a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Alice<small class="d-block text-c-green">online</small></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab">
+                <div class="h-list-body">
+                    <div class="main-friend-cont scroll-div">
+                        <div class="main-friend-list">
+                            <div class="media px-3 d-flex align-items-center mt-3">
+                                <a class="media-left m-r-15" href="#!">
+                                    <div class="hei-50 wid-50 bg-primary img-radius d-flex text-white f-22 align-items-center justify-content-center"><i class="icon feather icon-users"></i></div>
+                                </a>
+                                <div class="media-body">
+                                    <p class="chat-header f-w-600 mb-0">New Group</p>
+                                </div>
+                            </div>
+                            <div class="media p-3 d-flex align-items-center">
+                                <a class="media-left m-r-15" href="#!">
+                                    <div class="hei-50 wid-50 bg-primary img-radius d-flex text-white f-22 align-items-center justify-content-center"><i class="icon feather icon-user-plus"></i></div>
+                                </a>
+                                <div class="media-body">
+                                    <p class="chat-header f-w-600 mb-0">New Contact</p>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image "></a>
+                                <div class="media-body">
+                                    <p class="chat-header">Josephin Doe<small class="d-block">i am not what happened . .</small></p>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="2" data-status="online" data-username="Lary Doe">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image"></a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Lary Doe<small class="d-block">Avalable</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="3" data-status="online" data-username="Alice">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image"></a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Alice<small class="d-block">hear using Flash Able</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="4" data-status="offline" data-username="Alia">
+                                <a class="media-left" href="#!">
+                                    <div class="hei-50 wid-50 img-radius bg-success d-flex text-white f-22 align-items-center justify-content-center">A</div>
+                                </a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Alia<small class="d-block text-muted">Avalable</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="5" data-status="offline" data-username="Suzen">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-4.jpg" alt="Generic placeholder image"></a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Suzen<small class="d-block text-muted">Avalable</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe">
+                                <a class="media-left" href="#!">
+                                    <div class="hei-50 wid-50 bg-danger img-radius d-flex text-white f-22 align-items-center justify-content-center">JD</div>
+                                </a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Josephin Doe<small class="d-block text-muted">Don't send me image</small></h6>
+                                </div>
+                            </div>
+                            <div class="media userlist-box" data-id="2" data-status="online" data-username="Lary Doe">
+                                <a class="media-left" href="#!"><img class="media-object img-radius" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image"></a>
+                                <div class="media-body">
+                                    <h6 class="chat-header">Lary Doe<small class="d-block text-muted">not send free msg</small></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="setting" role="tabpanel" aria-labelledby="setting-tab">
+                <div class="p-4 main-friend-cont scroll-div">
+                    <h6 class="mt-2"><i class="feather icon-monitor mr-2"></i>Desktop settings</h6>
+                    <hr>
+                    <div class="form-group mb-0">
+                        <div class="switch switch-primary d-inline m-r-10">
+                            <input type="checkbox" id="cn-p-1" checked>
+                            <label for="cn-p-1" class="cr"></label>
+                        </div>
+                        <label class="f-w-600">Allow desktop notification</label>
+                    </div>
+                    <p class="text-muted ml-5">you get lettest content at a time when data will updated</p>
+                    <div class="form-group mb-0">
+                        <div class="switch switch-primary d-inline m-r-10">
+                            <input type="checkbox" id="cn-p-5">
+                            <label for="cn-p-5" class="cr"></label>
+                        </div>
+                        <label class="f-w-600">Store Cookie</label>
+                    </div>
+                    <h6 class="mb-0 mt-5"><i class="feather icon-layout mr-2"></i>Application settings</h6>
+                    <hr>
+                    <div class="form-group mb-0">
+                        <div class="switch switch-primary d-inline m-r-10">
+                            <input type="checkbox" id="cn-p-3" checked>
+                            <label for="cn-p-3" class="cr"></label>
+                        </div>
+                        <label class="f-w-600">Backup Storage</label>
+                    </div>
+                    <p class="text-muted mb-0 ml-5">Automaticaly take backup as par schedule</p>
+                    <div class="form-group mb-4">
+                        <div class="switch switch-primary d-inline m-r-10">
+                            <input type="checkbox" id="cn-p-4" checked>
+                            <label for="cn-p-4" class="cr"></label>
+                        </div>
+                        <label class="f-w-600">Allow guest to print file</label>
+                    </div>
+                    <h6 class="mb-0 mt-5"><i class="feather icon-globe mr-2"></i>System settings</h6>
+                    <hr>
+                    <div class="form-group mb-0">
+                        <div class="switch switch-primary d-inline m-r-10">
+                            <input type="checkbox" id="cn-p-2">
+                            <label for="cn-p-2" class="cr"></label>
+                        </div>
+                        <label class="f-w-600">View other user chat</label>
+                    </div>
+                    <p class="text-muted ml-5">Allow to show public user message</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- [ chat user list ] end -->
+
+    <!-- [ chat message ] start -->
+    <section class="header-chat">
+        <div class="h-list-header">
+            <h6>Josephin Doe</h6>
+            <a href="#!" class="h-back-user-list"><i class="feather icon-chevron-left"></i></a>
+        </div>
+        <div class="h-list-body">
+            <div class="main-chat-cont scroll-div">
+                <div class="main-friend-chat">
+                    <div class="media chat-messages">
+                        <a class="media-left photo-table" href="#!"><img class="media-object img-radius img-radius m-t-5" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image"></a>
+                        <div class="media-body chat-menu-content">
+                            <div class="">
+                                <p class="chat-cont">hello tell me something</p>
+                                <p class="chat-cont">about yourself?</p>
+                            </div>
+                            <p class="chat-time">8:20 a.m.</p>
+                        </div>
+                    </div>
+                    <div class="media chat-messages">
+                        <div class="media-body chat-menu-reply">
+                            <div class="">
+                                <p class="chat-cont">Ohh! very nice</p>
+                            </div>
+                            <p class="chat-time">8:22 a.m.</p>
+                        </div>
+                        <a class="media-right photo-table" href="#!"><img class="media-object img-radius img-radius m-t-5" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image"></a>
+                    </div>
+                    <div class="media chat-messages">
+                        <a class="media-left photo-table" href="#!"><img class="media-object img-radius img-radius m-t-5" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image"></a>
+                        <div class="media-body chat-menu-content">
+                            <div class="">
+                                <p class="chat-cont">can you help me?</p>
+                            </div>
+                            <p class="chat-time">8:20 a.m.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="h-list-footer">
+            <div class="input-group">
+                <input type="file" class="chat-attach" style="display:none">
+                <a href="#!" class="input-group-prepend btn btn-success btn-attach">
+                    <i class="feather icon-paperclip"></i>
+                </a>
+                <input type="text" name="h-chat-text" class="form-control h-send-chat" placeholder="Write hear . . ">
+                <button type="submit" class="input-group-append btn-send btn btn-primary">
+                    <i class="feather icon-message-circle"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- [ chat message ] end -->
+
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper container">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <div class="page-header">
+                                <div class="page-block">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-12">
+                                            <div class="page-header-title">
+                                                    <h5 class="m-b-10">Horizontal Layout 2</h5>
+                                            </div>
+                                            <ul class="breadcrumb">
+                                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                                <li class="breadcrumb-item"><a href="#!">Page Layout</a></li>
+                                                <li class="breadcrumb-item"><a href="#!">Horizontal Layout 2</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- [ Main Content ] start -->
+                            <div class="row">
+                                <!-- [ horizontal-layout ] start -->
+                                <div class="col-sm-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Horizontal layout</h5>
+                                            <div class="card-header-right">
+                                                <div class="btn-group card-option">
+                                                    <button type="button" class="btn dropdown-toggle btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="feather icon-more-horizontal"></i>
+                                                    </button>
+                                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p>Horizontal layout is useful for those users who wants horizontal menu in your page.</p>
+                                            <h6>To use Fixed layout for your project link <code><strong>&lt;script src="../assets/js/horizontal-menu.js"&gt;&lt;/script&gt;</strong></code> and add below given snippet js in bottom of page.</h6>
+                                            <pre>
+                                                <code class="language-markup">
+                                                    &lt;!-- [ navigation menu ] start --&gt;
+                                                    &lt;nav class="pcoded-navbar theme-horizontal navbar-blue"&gt;
+                                                        &lt;div class="navbar-wrapper container"&gt;
+                                                            &lt;div class="navbar-brand header-logo"&gt;
+                                                                &lt;!-- Your Logo is hear --&gt;
+                                                            &lt;/div&gt;
+                                                            &lt;div class="navbar-content sidenav-horizontal" id="layout-sidenav"&gt;
+                                                                &lt;ul class="nav pcoded-inner-navbar sidenav-inner"&gt;
+                                                                &lt;/ul&gt;
+                                                            &lt;/div&gt;
+                                                        &lt;/div&gt;
+                                                    &lt;/nav&gt;
+                                                    &lt;!-- [ navigation menu ] end --&gt;
+
+                                                    &lt;!-- [ snippet js for horizontal layouts ] Start --&gt;
+                                                    &lt;script type="text/javascript"&gt;
+                                                    (function() {
+                                                        if ($('#layout-sidenav').hasClass('sidenav-horizontal') || window.layoutHelpers.isSmallScreen()) {
+                                                            return;
+                                                        }
+                                                        try {
+                                                            window.layoutHelpers.setCollapsed(
+                                                                localStorage.getItem('layoutCollapsed') === 'true',
+                                                                false
+                                                            );
+                                                        } catch (e) {}
+                                                    })();
+                                                    $(function() {
+                                                        // Initialize sidenav
+                                                        $('#layout-sidenav').each(function() {
+                                                            new SideNav(this, {
+                                                                orientation: $(this).hasClass('sidenav-horizontal') ? 'horizontal' : 'vertical'
+                                                            });
+                                                        });
+                                                        // Initialize sidenav togglers
+                                                        $('body').on('click', '.layout-sidenav-toggle', function(e) {
+                                                            e.preventDefault();
+                                                            window.layoutHelpers.toggleCollapsed();
+                                                            if (!window.layoutHelpers.isSmallScreen()) {
+                                                                try {
+                                                                    localStorage.setItem('layoutCollapsed', String(window.layoutHelpers.isCollapsed()));
+                                                                } catch (e) {}
+                                                            }
+                                                        });
+                                                    });
+                                                    $(document).ready(function() {
+                                                        $("#pcoded").pcodedmenu({
+                                                            MenuTrigger: 'hover',
+                                                            SubMenuTrigger: 'hover',
+                                                        });
+                                                    });
+                                                    &lt;/script&gt;
+                                                    &lt;!-- [ snippet js for horizontal layouts ] end --&gt;
+                                                </code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Page Layout</h5>
+                                            <div class="card-header-right">
+                                                <div class="btn-group card-option">
+                                                    <button type="button" class="btn dropdown-toggle btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="feather icon-more-horizontal"></i>
+                                                    </button>
+                                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <pre>
+                                                <code class="language-markup">
+                                                    &lt;!DOCTYPE html&gt;
+                                                    &lt;html lang="en"&gt;
+
+                                                    &lt;head&gt;
+                                                        &lt;title&gt;&lt;/title&gt;
+                                                        &lt;!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries --&gt;
+                                                        &lt;!-- WARNING: Respond.js doesn't work if you view the page via file:// --&gt;
+                                                        &lt;!--[if lt IE 10]&gt;
+                                                    		&lt;script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"&gt;&lt;/script&gt;
+                                                    		&lt;script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"&gt;&lt;/script&gt;
+                                                    		&lt;![endif]--&gt;
+                                                        &lt;!-- Meta --&gt;
+                                                        &lt;meta charset="utf-8"&gt;
+                                                        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui"&gt;
+                                                        &lt;meta http-equiv="X-UA-Compatible" content="IE=edge" /&gt;
+                                                        &lt;meta name="description" content="" /&gt;
+                                                        &lt;meta name="keywords" content=""&gt;
+                                                        &lt;meta name="author" content="" /&gt;
+
+                                                        &lt;!-- Favicon icon --&gt;
+                                                        &lt;link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon"&gt;
+                                                        &lt;!-- fontawesome icon --&gt;
+                                                        &lt;link rel="stylesheet" href="../assets/fonts/fontawesome/css/fontawesome-all.min.css"&gt;
+                                                        &lt;!-- animation css --&gt;
+                                                        &lt;link rel="stylesheet" href="../assets/plugins/animation/css/animate.min.css"&gt;
+                                                        &lt;!-- prism css --&gt;
+                                                        &lt;link rel="stylesheet" href="../assets/plugins/prism/css/prism.min.css"&gt;
+                                                        &lt;!-- vendor css --&gt;
+                                                        &lt;link rel="stylesheet" href="../assets/css/style.css"&gt;
+
+                                                    &lt;/head&gt;
+
+                                                    &lt;body&gt;
+                                                        &lt;!-- [ Pre-loader ] start --&gt;
+                                                        &lt;div class="loader-bg"&gt;
+                                                            &lt;div class="loader-track"&gt;
+                                                                &lt;div class="loader-fill"&gt;&lt;/div&gt;
+                                                            &lt;/div&gt;
+                                                        &lt;/div&gt;
+                                                        &lt;!-- [ Pre-loader ] End --&gt;
+
+                                                        &lt;!-- [ navigation menu ] start --&gt;
+                                                        &lt;nav class="pcoded-navbar theme-horizontal navbar-blue"&gt;
+                                                            &lt;div class="navbar-wrapper container"&gt;
+                                                                &lt;div class="navbar-brand header-logo"&gt;
+                                                                &lt;a href="index.html" class="b-brand"&gt;
+                                                                    &lt;!-- &lt;div class="b-bg"&gt;
+                                                                        &lt;i class="fas fa-bolt"&gt;&lt;/i&gt;
+                                                                    &lt;/div&gt;
+                                                                    &lt;span class="b-title"&gt;Flash Able&lt;/span&gt; --&gt;
+                                                                    &lt;img src="../assets/images/logo-dark.svg" alt="" class="logo images"&gt;
+                                                                    &lt;img src="../assets/images/logo-icon-dark.svg" alt="" class="logo-thumb images"&gt;
+                                                                &lt;/a&gt;
+                                                                    &lt;a class="mobile-menu" id="mobile-collapse" href="#!"&gt;&lt;span&gt;&lt;/span&gt;&lt;/a&gt;
+                                                                &lt;/div&gt;
+                                                                &lt;div class="navbar-content sidenav-horizontal" id="layout-sidenav"&gt;
+                                                                    &lt;ul class="nav pcoded-inner-navbar sidenav-inner"&gt;
+                                                                        &lt;li class="nav-item pcoded-menu-caption"&gt;
+                                                                            &lt;label&gt;Navigation&lt;/label&gt;
+                                                                        &lt;/li&gt;
+                                                                        &lt;li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item"&gt;
+                                                                            &lt;a href="index.html" class="nav-link"&gt;&lt;span class="pcoded-micon"&gt;&lt;i class="feather icon-home"&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class="pcoded-mtext"&gt;Dashboard&lt;/span&gt;&lt;/a&gt;
+                                                                        &lt;/li&gt;
+                                                                        &lt;li class="nav-item pcoded-menu-caption"&gt;
+                                                                            &lt;label&gt;Other&lt;/label&gt;
+                                                                        &lt;/li&gt;
+                                                                        &lt;li data-username="Menu levels Menu level 2.1 Menu level 2.2" class="nav-item pcoded-hasmenu"&gt;
+                                                                            &lt;a href="#!" class="nav-link"&gt;&lt;span class="pcoded-micon"&gt;&lt;i class="feather icon-menu"&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class="pcoded-mtext"&gt;Menu levels&lt;/span&gt;&lt;/a&gt;
+                                                                            &lt;ul class="pcoded-submenu"&gt;
+                                                                                &lt;li class=""&gt;&lt;a href="" class=""&gt;Menu Level 2.1&lt;/a&gt;&lt;/li&gt;
+                                                                                &lt;li class="pcoded-hasmenu"&gt;
+                                                                                    &lt;a href="#!" class=""&gt;Menu level 2.2&lt;/a&gt;
+                                                                                    &lt;ul class="pcoded-submenu"&gt;
+                                                                                        &lt;li class=""&gt;&lt;a href="" class=""&gt;Menu level 3.1&lt;/a&gt;&lt;/li&gt;
+                                                                                        &lt;li class=""&gt;&lt;a href="" class=""&gt;Menu level 3.2&lt;/a&gt;&lt;/li&gt;
+                                                                                    &lt;/ul&gt;
+                                                                                &lt;/li&gt;
+                                                                            &lt;/ul&gt;
+                                                                        &lt;/li&gt;
+                                                                        &lt;li data-username="Disabled Menu" class="nav-item disabled"&gt;&lt;a href="#!" class="nav-link"&gt;&lt;span class="pcoded-micon"&gt;&lt;i class="feather icon-power"&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class="pcoded-mtext"&gt;Disabled menu&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                                                                        &lt;li data-username="Sample Page" class="nav-item active"&gt;&lt;a href="sample-page.html" class="nav-link"&gt;&lt;span class="pcoded-micon"&gt;&lt;i class="feather icon-sidebar"&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class="pcoded-mtext"&gt;Sample page&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                                                                        &lt;li class="nav-item pcoded-menu-caption"&gt;
+                                                                            &lt;label&gt;Support&lt;/label&gt;
+                                                                        &lt;/li&gt;
+                                                                        &lt;li data-username="Documentation" class="nav-item"&gt;&lt;a href="#!" class="nav-link" &gt;&lt;span class="pcoded-micon"&gt;&lt;i class="feather icon-book"&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class="pcoded-mtext"&gt;Documentation&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                                                                        &lt;li data-username="Need Support" class="nav-item"&gt;&lt;a href="#" class="nav-link" &gt;&lt;span class="pcoded-micon"&gt;&lt;i class="feather icon-help-circle"&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class="pcoded-mtext"&gt;Need
+                                                                                    support ?&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                                                                    &lt;/ul&gt;
+                                                                &lt;/div&gt;
+                                                            &lt;/div&gt;
+                                                        &lt;/nav&gt;
+                                                        &lt;!-- [ navigation menu ] end --&gt;
+
+                                                        &lt;!-- [ Header ] start --&gt;
+                                                        &lt;header class="navbar pcoded-header navbar-expand-lg navbar-light"&gt;
+                                                        &lt;div class="container"&gt;
+                                                            &lt;div class="m-header"&gt;
+                                                                &lt;a class="mobile-menu" id="mobile-collapse1" href="#!"&gt;&lt;span&gt;&lt;/span&gt;&lt;/a&gt;
+                                                                &lt;a href="index.html" class="b-brand"&gt;
+                                                                    &lt;!-- &lt;div class="b-bg"&gt;
+                                                                        &lt;i class="fas fa-bolt"&gt;&lt;/i&gt;
+                                                                    &lt;/div&gt;
+                                                                    &lt;span class="b-title"&gt;Flash Able&lt;/span&gt; --&gt;
+                                                                    &lt;img src="../assets/images/logo-dark.svg" alt="" class="logo images"&gt;
+                                                                    &lt;img src="../assets/images/logo-icon-dark.svg" alt="" class="logo-thumb images"&gt;
+                                                                &lt;/a&gt;
+                                                            &lt;/div&gt;
+                                                            &lt;a class="mobile-menu" id="mobile-header" href="#!"&gt;
+                                                                &lt;i class="feather icon-more-horizontal"&gt;&lt;/i&gt;
+                                                            &lt;/a&gt;
+                                                            &lt;div class="collapse navbar-collapse"&gt;
+                                                                &lt;ul class="navbar-nav mr-auto"&gt;
+                                                                    &lt;li class="nav-item"&gt;
+                                                                        &lt;div class="main-search open"&gt;
+                                                                            &lt;div class="input-group"&gt;
+                                                                                &lt;input type="text" id="m-search" class="form-control" placeholder="Search . . ."&gt;
+                                                                                &lt;a href="#!" class="input-group-append search-close"&gt;
+                                                                                    &lt;i class="feather icon-x input-group-text"&gt;&lt;/i&gt;
+                                                                                &lt;/a&gt;
+                                                                                &lt;span class="input-group-append search-btn btn btn-primary"&gt;
+                                                                                    &lt;i class="feather icon-search input-group-text"&gt;&lt;/i&gt;
+                                                                                &lt;/span&gt;
+                                                                            &lt;/div&gt;
+                                                                        &lt;/div&gt;
+                                                                    &lt;/li&gt;
+                                                                &lt;/ul&gt;
+                                                                &lt;ul class="navbar-nav ml-auto"&gt;
+                                                                    &lt;li&gt;
+                                                                        &lt;div class="dropdown"&gt;
+                                                                            &lt;a class="dropdown-toggle" href="#" data-toggle="dropdown"&gt;&lt;i class="icon feather icon-bell"&gt;&lt;/i&gt;&lt;/a&gt;
+                                                                            &lt;div class="dropdown-menu dropdown-menu-right notification"&gt;
+                                                                                &lt;div class="noti-head"&gt;
+                                                                                    &lt;h6 class="d-inline-block m-b-0"&gt;Notifications&lt;/h6&gt;
+                                                                                    &lt;div class="float-right"&gt;
+                                                                                        &lt;a href="#!" class="m-r-10"&gt;mark as read&lt;/a&gt;
+                                                                                        &lt;a href="#!"&gt;clear all&lt;/a&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;ul class="noti-body"&gt;
+                                                                                    &lt;li class="n-title"&gt;
+                                                                                        &lt;p class="m-b-0"&gt;NEW&lt;/p&gt;
+                                                                                    &lt;/li&gt;
+                                                                                    &lt;li class="notification"&gt;
+                                                                                        &lt;div class="media"&gt;
+                                                                                            &lt;img class="img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image"&gt;
+                                                                                            &lt;div class="media-body"&gt;
+                                                                                                &lt;p&gt;&lt;strong&gt;John Doe&lt;/strong&gt;&lt;span class="n-time text-muted"&gt;&lt;i class="icon feather icon-clock m-r-10"&gt;&lt;/i&gt;5 min&lt;/span&gt;&lt;/p&gt;
+                                                                                                &lt;p&gt;New ticket Added&lt;/p&gt;
+                                                                                            &lt;/div&gt;
+                                                                                        &lt;/div&gt;
+                                                                                    &lt;/li&gt;
+                                                                                    &lt;li class="n-title"&gt;
+                                                                                        &lt;p class="m-b-0"&gt;EARLIER&lt;/p&gt;
+                                                                                    &lt;/li&gt;
+                                                                                    &lt;li class="notification"&gt;
+                                                                                        &lt;div class="media"&gt;
+                                                                                            &lt;img class="img-radius" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image"&gt;
+                                                                                            &lt;div class="media-body"&gt;
+                                                                                                &lt;p&gt;&lt;strong&gt;Joseph William&lt;/strong&gt;&lt;span class="n-time text-muted"&gt;&lt;i class="icon feather icon-clock m-r-10"&gt;&lt;/i&gt;10 min&lt;/span&gt;&lt;/p&gt;
+                                                                                                &lt;p&gt;Prchace New Theme and make payment&lt;/p&gt;
+                                                                                            &lt;/div&gt;
+                                                                                        &lt;/div&gt;
+                                                                                    &lt;/li&gt;
+                                                                                    &lt;li class="notification"&gt;
+                                                                                        &lt;div class="media"&gt;
+                                                                                            &lt;img class="img-radius" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image"&gt;
+                                                                                            &lt;div class="media-body"&gt;
+                                                                                                &lt;p&gt;&lt;strong&gt;Sara Soudein&lt;/strong&gt;&lt;span class="n-time text-muted"&gt;&lt;i class="icon feather icon-clock m-r-10"&gt;&lt;/i&gt;12 min&lt;/span&gt;&lt;/p&gt;
+                                                                                                &lt;p&gt;currently login&lt;/p&gt;
+                                                                                            &lt;/div&gt;
+                                                                                        &lt;/div&gt;
+                                                                                    &lt;/li&gt;
+                                                                                    &lt;li class="notification"&gt;
+                                                                                        &lt;div class="media"&gt;
+                                                                                            &lt;img class="img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image"&gt;
+                                                                                            &lt;div class="media-body"&gt;
+                                                                                                &lt;p&gt;&lt;strong&gt;Joseph William&lt;/strong&gt;&lt;span class="n-time text-muted"&gt;&lt;i class="icon feather icon-clock m-r-10"&gt;&lt;/i&gt;30 min&lt;/span&gt;&lt;/p&gt;
+                                                                                                &lt;p&gt;Prchace New Theme and make payment&lt;/p&gt;
+                                                                                            &lt;/div&gt;
+                                                                                        &lt;/div&gt;
+                                                                                    &lt;/li&gt;
+                                                                                    &lt;li class="notification"&gt;
+                                                                                        &lt;div class="media"&gt;
+                                                                                            &lt;img class="img-radius" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image"&gt;
+                                                                                            &lt;div class="media-body"&gt;
+                                                                                                &lt;p&gt;&lt;strong&gt;Sara Soudein&lt;/strong&gt;&lt;span class="n-time text-muted"&gt;&lt;i class="icon feather icon-clock m-r-10"&gt;&lt;/i&gt;1 hour&lt;/span&gt;&lt;/p&gt;
+                                                                                                &lt;p&gt;currently login&lt;/p&gt;
+                                                                                            &lt;/div&gt;
+                                                                                        &lt;/div&gt;
+                                                                                    &lt;/li&gt;
+                                                                                    &lt;li class="notification"&gt;
+                                                                                        &lt;div class="media"&gt;
+                                                                                            &lt;img class="img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image"&gt;
+                                                                                            &lt;div class="media-body"&gt;
+                                                                                                &lt;p&gt;&lt;strong&gt;Joseph William&lt;/strong&gt;&lt;span class="n-time text-muted"&gt;&lt;i class="icon feather icon-clock m-r-10"&gt;&lt;/i&gt;2 hour&lt;/span&gt;&lt;/p&gt;
+                                                                                                &lt;p&gt;Prchace New Theme and make payment&lt;/p&gt;
+                                                                                            &lt;/div&gt;
+                                                                                        &lt;/div&gt;
+                                                                                    &lt;/li&gt;
+                                                                                &lt;/ul&gt;
+                                                                                &lt;div class="noti-footer"&gt;
+                                                                                    &lt;a href="#!"&gt;show all&lt;/a&gt;
+                                                                                &lt;/div&gt;
+                                                                            &lt;/div&gt;
+                                                                        &lt;/div&gt;
+                                                                    &lt;/li&gt;
+                                                                    &lt;li&gt;&lt;a href="#!" class="displayChatbox"&gt;&lt;i class="icon feather icon-mail"&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+                                                                    &lt;li&gt;
+                                                                        &lt;div class="dropdown drp-user"&gt;
+                                                                            &lt;a href="#" class="dropdown-toggle" data-toggle="dropdown"&gt;
+                                                                                &lt;i class="icon feather icon-settings"&gt;&lt;/i&gt;
+                                                                            &lt;/a&gt;
+                                                                            &lt;div class="dropdown-menu dropdown-menu-right profile-notification"&gt;
+                                                                                &lt;div class="pro-head"&gt;
+                                                                                    &lt;img src="../assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image"&gt;
+                                                                                    &lt;span&gt;John Doe&lt;/span&gt;
+                                                                                    &lt;a href="auth-signin.html" class="dud-logout" title="Logout"&gt;
+                                                                                        &lt;i class="feather icon-log-out"&gt;&lt;/i&gt;
+                                                                                    &lt;/a&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;ul class="pro-body"&gt;
+                                                                                    &lt;li&gt;&lt;a href="#!" class="dropdown-item"&gt;&lt;i class="feather icon-settings"&gt;&lt;/i&gt; Settings&lt;/a&gt;&lt;/li&gt;
+                                                                                    &lt;li&gt;&lt;a href="#!" class="dropdown-item"&gt;&lt;i class="feather icon-user"&gt;&lt;/i&gt; Profile&lt;/a&gt;&lt;/li&gt;
+                                                                                    &lt;li&gt;&lt;a href="message.html" class="dropdown-item"&gt;&lt;i class="feather icon-mail"&gt;&lt;/i&gt; My Messages&lt;/a&gt;&lt;/li&gt;
+                                                                                    &lt;li&gt;&lt;a href="auth-signin.html" class="dropdown-item"&gt;&lt;i class="feather icon-lock"&gt;&lt;/i&gt; Lock Screen&lt;/a&gt;&lt;/li&gt;
+                                                                                &lt;/ul&gt;
+                                                                            &lt;/div&gt;
+                                                                        &lt;/div&gt;
+                                                                    &lt;/li&gt;
+                                                                &lt;/ul&gt;
+                                                            &lt;/div&gt;
+                                                            &lt;/div&gt;
+                                                        &lt;/header&gt;
+                                                        &lt;!-- [ Header ] end --&gt;
+
+                                                        &lt;!-- [ chat user list ] start --&gt;
+                                                        &lt;section class="header-user-list"&gt;
+                                                            &lt;a href="#!" class="h-close-text"&gt;&lt;i class="feather icon-x"&gt;&lt;/i&gt;&lt;/a&gt;
+                                                            &lt;ul class="nav nav-tabs" id="chatTab" role="tablist"&gt;
+                                                                &lt;li class="nav-item"&gt;
+                                                                    &lt;a class="nav-link active text-uppercase" id="chat-tab" data-toggle="tab" href="#chat" role="tab" aria-controls="chat" aria-selected="true"&gt;&lt;i class="feather icon-message-circle mr-2"&gt;&lt;/i&gt;Chat&lt;/a&gt;
+                                                                &lt;/li&gt;
+                                                                &lt;li class="nav-item"&gt;
+                                                                    &lt;a class="nav-link text-uppercase" id="user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="user" aria-selected="false"&gt;&lt;i class="feather icon-users mr-2"&gt;&lt;/i&gt;User&lt;/a&gt;
+                                                                &lt;/li&gt;
+                                                                &lt;li class="nav-item"&gt;
+                                                                    &lt;a class="nav-link text-uppercase" id="setting-tab" data-toggle="tab" href="#setting" role="tab" aria-controls="setting" aria-selected="false"&gt;&lt;i class="feather icon-settings mr-2"&gt;&lt;/i&gt;Setting&lt;/a&gt;
+                                                                &lt;/li&gt;
+                                                            &lt;/ul&gt;
+                                                            &lt;div class="tab-content" id="chatTabContent"&gt;
+                                                                &lt;div class="tab-pane fade show active" id="chat" role="tabpanel" aria-labelledby="chat-tab"&gt;
+                                                                    &lt;div class="h-list-header"&gt;
+                                                                        &lt;div class="input-group"&gt;
+                                                                            &lt;input type="text" id="search-friends" class="form-control" placeholder="Search Friend . . ."&gt;
+                                                                        &lt;/div&gt;
+                                                                    &lt;/div&gt;
+                                                                    &lt;div class="h-list-body"&gt;
+                                                                        &lt;div class="main-friend-cont scroll-div"&gt;
+                                                                            &lt;div class="main-friend-list"&gt;
+                                                                                &lt;div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image "&gt;
+                                                                                        &lt;div class="live-status"&gt;3&lt;/div&gt;
+                                                                                    &lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Josephin Doe&lt;small class="d-block text-c-green"&gt;Typing . . &lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="2" data-status="online" data-username="Lary Doe"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image"&gt;
+                                                                                        &lt;div class="live-status"&gt;1&lt;/div&gt;
+                                                                                    &lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Lary Doe&lt;small class="d-block text-c-green"&gt;online&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="3" data-status="online" data-username="Alice"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image"&gt;&lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Alice&lt;small class="d-block text-c-green"&gt;online&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="4" data-status="offline" data-username="Alia"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image"&gt;
+                                                                                        &lt;div class="live-status"&gt;1&lt;/div&gt;
+                                                                                    &lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Alia&lt;small class="d-block text-muted"&gt;10 min ago&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="5" data-status="offline" data-username="Suzen"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-4.jpg" alt="Generic placeholder image"&gt;&lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Suzen&lt;small class="d-block text-muted"&gt;15 min ago&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image "&gt;
+                                                                                        &lt;div class="live-status"&gt;3&lt;/div&gt;
+                                                                                    &lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Josephin Doe&lt;small class="d-block text-c-green"&gt;Typing . . &lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="2" data-status="online" data-username="Lary Doe"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image"&gt;
+                                                                                        &lt;div class="live-status"&gt;1&lt;/div&gt;
+                                                                                    &lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Lary Doe&lt;small class="d-block text-c-green"&gt;online&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="3" data-status="online" data-username="Alice"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image"&gt;&lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Alice&lt;small class="d-block text-c-green"&gt;online&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="4" data-status="offline" data-username="Alia"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image"&gt;
+                                                                                        &lt;div class="live-status"&gt;1&lt;/div&gt;
+                                                                                    &lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Alia&lt;small class="d-block text-muted"&gt;10 min ago&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="5" data-status="offline" data-username="Suzen"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-4.jpg" alt="Generic placeholder image"&gt;&lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Suzen&lt;small class="d-block text-muted"&gt;15 min ago&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image "&gt;
+                                                                                        &lt;div class="live-status"&gt;3&lt;/div&gt;
+                                                                                    &lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Josephin Doe&lt;small class="d-block text-c-green"&gt;Typing . . &lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="2" data-status="online" data-username="Lary Doe"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image"&gt;
+                                                                                        &lt;div class="live-status"&gt;1&lt;/div&gt;
+                                                                                    &lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Lary Doe&lt;small class="d-block text-c-green"&gt;online&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="3" data-status="online" data-username="Alice"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image"&gt;&lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Alice&lt;small class="d-block text-c-green"&gt;online&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                            &lt;/div&gt;
+                                                                        &lt;/div&gt;
+                                                                    &lt;/div&gt;
+                                                                &lt;/div&gt;
+                                                                &lt;div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab"&gt;
+                                                                    &lt;div class="h-list-body"&gt;
+                                                                        &lt;div class="main-friend-cont scroll-div"&gt;
+                                                                            &lt;div class="main-friend-list"&gt;
+                                                                                &lt;div class="media px-3 d-flex align-items-center mt-3"&gt;
+                                                                                    &lt;a class="media-left m-r-15" href="#!"&gt;
+                                                                                        &lt;div class="hei-50 wid-50 bg-primary img-radius d-flex text-white f-22 align-items-center justify-content-center"&gt;&lt;i class="icon feather icon-users"&gt;&lt;/i&gt;&lt;/div&gt;
+                                                                                    &lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;p class="chat-header f-w-600 mb-0"&gt;New Group&lt;/p&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media p-3 d-flex align-items-center"&gt;
+                                                                                    &lt;a class="media-left m-r-15" href="#!"&gt;
+                                                                                        &lt;div class="hei-50 wid-50 bg-primary img-radius d-flex text-white f-22 align-items-center justify-content-center"&gt;&lt;i class="icon feather icon-user-plus"&gt;&lt;/i&gt;&lt;/div&gt;
+                                                                                    &lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;p class="chat-header f-w-600 mb-0"&gt;New Contact&lt;/p&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image "&gt;&lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;p class="chat-header"&gt;Josephin Doe&lt;small class="d-block"&gt;i am not what happened . .&lt;/small&gt;&lt;/p&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="2" data-status="online" data-username="Lary Doe"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image"&gt;&lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Lary Doe&lt;small class="d-block"&gt;Avalable&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="3" data-status="online" data-username="Alice"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image"&gt;&lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Alice&lt;small class="d-block"&gt;hear using Flash Able&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="4" data-status="offline" data-username="Alia"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;
+                                                                                        &lt;div class="hei-50 wid-50 img-radius bg-success d-flex text-white f-22 align-items-center justify-content-center"&gt;A&lt;/div&gt;
+                                                                                    &lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Alia&lt;small class="d-block text-muted"&gt;Avalable&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="5" data-status="offline" data-username="Suzen"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-4.jpg" alt="Generic placeholder image"&gt;&lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Suzen&lt;small class="d-block text-muted"&gt;Avalable&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;
+                                                                                        &lt;div class="hei-50 wid-50 bg-danger img-radius d-flex text-white f-22 align-items-center justify-content-center"&gt;JD&lt;/div&gt;
+                                                                                    &lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Josephin Doe&lt;small class="d-block text-muted"&gt;Don't send me image&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;div class="media userlist-box" data-id="2" data-status="online" data-username="Lary Doe"&gt;
+                                                                                    &lt;a class="media-left" href="#!"&gt;&lt;img class="media-object img-radius" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image"&gt;&lt;/a&gt;
+                                                                                    &lt;div class="media-body"&gt;
+                                                                                        &lt;h6 class="chat-header"&gt;Lary Doe&lt;small class="d-block text-muted"&gt;not send free msg&lt;/small&gt;&lt;/h6&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                            &lt;/div&gt;
+                                                                        &lt;/div&gt;
+                                                                    &lt;/div&gt;
+                                                                &lt;/div&gt;
+                                                                &lt;div class="tab-pane fade" id="setting" role="tabpanel" aria-labelledby="setting-tab"&gt;
+                                                                    &lt;div class="p-4 main-friend-cont scroll-div"&gt;
+                                                                        &lt;h6 class="mt-2"&gt;&lt;i class="feather icon-monitor mr-2"&gt;&lt;/i&gt;Desktop settings&lt;/h6&gt;
+                                                                        &lt;hr&gt;
+                                                                        &lt;div class="form-group mb-0"&gt;
+                                                                            &lt;div class="switch switch-primary d-inline m-r-10"&gt;
+                                                                                &lt;input type="checkbox" id="cn-p-1" checked&gt;
+                                                                                &lt;label for="cn-p-1" class="cr"&gt;&lt;/label&gt;
+                                                                            &lt;/div&gt;
+                                                                            &lt;label class="f-w-600"&gt;Allow desktop notification&lt;/label&gt;
+                                                                        &lt;/div&gt;
+                                                                        &lt;p class="text-muted ml-5"&gt;you get lettest content at a time when data will updated&lt;/p&gt;
+                                                                        &lt;div class="form-group mb-0"&gt;
+                                                                            &lt;div class="switch switch-primary d-inline m-r-10"&gt;
+                                                                                &lt;input type="checkbox" id="cn-p-5"&gt;
+                                                                                &lt;label for="cn-p-5" class="cr"&gt;&lt;/label&gt;
+                                                                            &lt;/div&gt;
+                                                                            &lt;label class="f-w-600"&gt;Store Cookie&lt;/label&gt;
+                                                                        &lt;/div&gt;
+                                                                        &lt;h6 class="mb-0 mt-5"&gt;&lt;i class="feather icon-layout mr-2"&gt;&lt;/i&gt;Application settings&lt;/h6&gt;
+                                                                        &lt;hr&gt;
+                                                                        &lt;div class="form-group mb-0"&gt;
+                                                                            &lt;div class="switch switch-primary d-inline m-r-10"&gt;
+                                                                                &lt;input type="checkbox" id="cn-p-3" checked&gt;
+                                                                                &lt;label for="cn-p-3" class="cr"&gt;&lt;/label&gt;
+                                                                            &lt;/div&gt;
+                                                                            &lt;label class="f-w-600"&gt;Backup Storage&lt;/label&gt;
+                                                                        &lt;/div&gt;
+                                                                        &lt;p class="text-muted mb-0 ml-5"&gt;Automaticaly take backup as par schedule&lt;/p&gt;
+                                                                        &lt;div class="form-group mb-4"&gt;
+                                                                            &lt;div class="switch switch-primary d-inline m-r-10"&gt;
+                                                                                &lt;input type="checkbox" id="cn-p-4" checked&gt;
+                                                                                &lt;label for="cn-p-4" class="cr"&gt;&lt;/label&gt;
+                                                                            &lt;/div&gt;
+                                                                            &lt;label class="f-w-600"&gt;Allow guest to print file&lt;/label&gt;
+                                                                        &lt;/div&gt;
+                                                                        &lt;h6 class="mb-0 mt-5"&gt;&lt;i class="feather icon-globe mr-2"&gt;&lt;/i&gt;System settings&lt;/h6&gt;
+                                                                        &lt;hr&gt;
+                                                                        &lt;div class="form-group mb-0"&gt;
+                                                                            &lt;div class="switch switch-primary d-inline m-r-10"&gt;
+                                                                                &lt;input type="checkbox" id="cn-p-2"&gt;
+                                                                                &lt;label for="cn-p-2" class="cr"&gt;&lt;/label&gt;
+                                                                            &lt;/div&gt;
+                                                                            &lt;label class="f-w-600"&gt;View other user chat&lt;/label&gt;
+                                                                        &lt;/div&gt;
+                                                                        &lt;p class="text-muted ml-5"&gt;Allow to show public user message&lt;/p&gt;
+                                                                    &lt;/div&gt;
+                                                                &lt;/div&gt;
+                                                            &lt;/div&gt;
+                                                        &lt;/section&gt;
+                                                        &lt;!-- [ chat user list ] end --&gt;
+
+                                                        &lt;!-- [ chat message ] start --&gt;
+                                                        &lt;section class="header-chat"&gt;
+                                                            &lt;div class="h-list-header"&gt;
+                                                                &lt;h6&gt;Josephin Doe&lt;/h6&gt;
+                                                                &lt;a href="#!" class="h-back-user-list"&gt;&lt;i class="feather icon-chevron-left"&gt;&lt;/i&gt;&lt;/a&gt;
+                                                            &lt;/div&gt;
+                                                            &lt;div class="h-list-body"&gt;
+                                                                &lt;div class="main-chat-cont scroll-div"&gt;
+                                                                    &lt;div class="main-friend-chat"&gt;
+                                                                        &lt;div class="media chat-messages"&gt;
+                                                                            &lt;a class="media-left photo-table" href="#!"&gt;&lt;img class="media-object img-radius img-radius m-t-5" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image"&gt;&lt;/a&gt;
+                                                                            &lt;div class="media-body chat-menu-content"&gt;
+                                                                                &lt;div class=""&gt;
+                                                                                    &lt;p class="chat-cont"&gt;hello tell me something&lt;/p&gt;
+                                                                                    &lt;p class="chat-cont"&gt;about yourself?&lt;/p&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;p class="chat-time"&gt;8:20 a.m.&lt;/p&gt;
+                                                                            &lt;/div&gt;
+                                                                        &lt;/div&gt;
+                                                                        &lt;div class="media chat-messages"&gt;
+                                                                            &lt;div class="media-body chat-menu-reply"&gt;
+                                                                                &lt;div class=""&gt;
+                                                                                    &lt;p class="chat-cont"&gt;Ohh! very nice&lt;/p&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;p class="chat-time"&gt;8:22 a.m.&lt;/p&gt;
+                                                                            &lt;/div&gt;
+                                                                            &lt;a class="media-right photo-table" href="#!"&gt;&lt;img class="media-object img-radius img-radius m-t-5" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image"&gt;&lt;/a&gt;
+                                                                        &lt;/div&gt;
+                                                                        &lt;div class="media chat-messages"&gt;
+                                                                            &lt;a class="media-left photo-table" href="#!"&gt;&lt;img class="media-object img-radius img-radius m-t-5" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image"&gt;&lt;/a&gt;
+                                                                            &lt;div class="media-body chat-menu-content"&gt;
+                                                                                &lt;div class=""&gt;
+                                                                                    &lt;p class="chat-cont"&gt;can you help me?&lt;/p&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;p class="chat-time"&gt;8:20 a.m.&lt;/p&gt;
+                                                                            &lt;/div&gt;
+                                                                        &lt;/div&gt;
+                                                                    &lt;/div&gt;
+                                                                &lt;/div&gt;
+                                                            &lt;/div&gt;
+                                                            &lt;div class="h-list-footer"&gt;
+                                                                &lt;div class="input-group"&gt;
+                                                                    &lt;input type="file" class="chat-attach" style="display:none"&gt;
+                                                                    &lt;a href="#!" class="input-group-prepend btn btn-success btn-attach"&gt;
+                                                                        &lt;i class="feather icon-paperclip"&gt;&lt;/i&gt;
+                                                                    &lt;/a&gt;
+                                                                    &lt;input type="text" name="h-chat-text" class="form-control h-send-chat" placeholder="Write hear . . "&gt;
+                                                                    &lt;button type="submit" class="input-group-append btn-send btn btn-primary"&gt;
+                                                                        &lt;i class="feather icon-message-circle"&gt;&lt;/i&gt;
+                                                                    &lt;/button&gt;
+                                                                &lt;/div&gt;
+                                                            &lt;/div&gt;
+                                                        &lt;/section&gt;
+                                                        &lt;!-- [ chat message ] end --&gt;
+
+                                                        &lt;!-- [ Main Content ] start --&gt;
+                                                        &lt;div class="pcoded-main-container"&gt;
+                                                            &lt;div class="pcoded-wrapper container"&gt;
+                                                                &lt;div class="pcoded-content"&gt;
+                                                                    &lt;div class="pcoded-inner-content"&gt;
+                                                                        &lt;!-- [ breadcrumb ] start --&gt;
+                                                                        &lt;div class="page-header"&gt;
+                                                                            &lt;div class="page-block"&gt;
+                                                                                &lt;div class="row align-items-center"&gt;
+                                                                                    &lt;div class="col-md-12"&gt;
+                                                                                        &lt;div class="page-header-title"&gt;
+                                                                                            &lt;h5 class="m-b-10"&gt;Horizontal Layout 2&lt;/h5&gt;
+                                                                                        &lt;/div&gt;
+                                                                                        &lt;ul class="breadcrumb"&gt;
+                                                                                            &lt;li class="breadcrumb-item"&gt;&lt;a href="index.html"&gt;&lt;i class="feather icon-home"&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+                                                                                            &lt;li class="breadcrumb-item"&gt;&lt;a href="#!"&gt;Page Layouts&lt;/a&gt;&lt;/li&gt;
+                                                                                            &lt;li class="breadcrumb-item"&gt;&lt;a href="#!"&gt;Horizontal Layout 2&lt;/a&gt;&lt;/li&gt;
+                                                                                        &lt;/ul&gt;
+                                                                                    &lt;/div&gt;
+                                                                                &lt;/div&gt;
+                                                                            &lt;/div&gt;
+                                                                        &lt;/div&gt;
+                                                                        &lt;!-- [ breadcrumb ] end --&gt;
+                                                                        &lt;div class="main-body"&gt;
+                                                                            &lt;div class="page-wrapper"&gt;
+                                                                                &lt;!-- [ Main Content ] start --&gt;
+                                                                                &lt;div class="row"&gt;
+                                                                                &lt;/div&gt;
+                                                                                &lt;!-- [ Main Content ] end --&gt;
+                                                                            &lt;/div&gt;
+                                                                        &lt;/div&gt;
+                                                                    &lt;/div&gt;
+                                                                &lt;/div&gt;
+                                                            &lt;/div&gt;
+                                                        &lt;/div&gt;
+                                                        &lt;!-- [ Main Content ] end --&gt;
+
+                                                        &lt;!-- Required Js --&gt;
+                                                        &lt;script src="../assets/js/vendor-all.min.js"&gt;&lt;/script&gt;
+                                                        &lt;script src="../assets/plugins/bootstrap/js/bootstrap.min.js"&gt;&lt;/script&gt;
+                                                        &lt;script src="../assets/js/pcoded.min.js"&gt;&lt;/script&gt;
+                                                        &lt;!-- prism Js --&gt;
+                                                        &lt;script src="../assets/plugins/prism/js/prism.min.js"&gt;&lt;/script&gt;
+
+                                                        &lt;script src="../assets/js/horizontal-menu.js"&gt;&lt;/script&gt;
+                                                        &lt;script src="../assets/js/menu-setting.min.js"&gt;&lt;/script&gt;
+                                                        &lt;script type="text/javascript"&gt;
+                                                            // Collapse menu
+                                                            (function() {
+                                                                if ($('#layout-sidenav').hasClass('sidenav-horizontal') || window.layoutHelpers.isSmallScreen()) {
+                                                                    return;
+                                                                }
+                                                                try {
+                                                                    window.layoutHelpers.setCollapsed(
+                                                                        localStorage.getItem('layoutCollapsed') === 'true',
+                                                                        false
+                                                                    );
+                                                                } catch (e) {}
+                                                            })();
+                                                            $(function() {
+                                                                // Initialize sidenav
+                                                                $('#layout-sidenav').each(function() {
+                                                                    new SideNav(this, {
+                                                                        orientation: $(this).hasClass('sidenav-horizontal') ? 'horizontal' : 'vertical'
+                                                                    });
+                                                                });
+
+                                                                // Initialize sidenav togglers
+                                                                $('body').on('click', '.layout-sidenav-toggle', function(e) {
+                                                                    e.preventDefault();
+                                                                    window.layoutHelpers.toggleCollapsed();
+                                                                    if (!window.layoutHelpers.isSmallScreen()) {
+                                                                        try {
+                                                                            localStorage.setItem('layoutCollapsed', String(window.layoutHelpers.isCollapsed()));
+                                                                        } catch (e) {}
+                                                                    }
+                                                                });
+                                                            });
+                                                            $(document).ready(function() {
+                                                                $("#pcoded").pcodedmenu({
+                                                                    themelayout: 'horizontal',
+                                                                    MenuTrigger: 'hover',
+                                                                    SubMenuTrigger: 'hover',
+                                                                });
+                                                            });
+                                                        &lt;/script&gt;
+
+                                                    &lt;/body&gt;
+                                                    &lt;/html&gt;
+
+                                                </code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- [ horizontal-layout ] end -->
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+    <!-- Required Js -->
+    <script src="../assets/js/vendor-all.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/js/pcoded.min.js"></script>
+    <!-- prism Js -->
+    <script src="../assets/plugins/prism/js/prism.min.js"></script>
+    <script src="../assets/js/horizontal-menu.js"></script>
+    <script type="text/javascript">
+
+        (function() {
+            if ($('#layout-sidenav').hasClass('sidenav-horizontal') || window.layoutHelpers.isSmallScreen()) {
+                return;
+            }
+            try {
+                window.layoutHelpers.setCollapsed(
+                    localStorage.getItem('layoutCollapsed') === 'true',
+                    false
+                );
+            } catch (e) {}
+        })();
+        $(function() {
+
+            $('#layout-sidenav').each(function() {
+                new SideNav(this, {
+                    orientation: $(this).hasClass('sidenav-horizontal') ? 'horizontal' : 'vertical'
+                });
+            });
+
+
+            $('body').on('click', '.layout-sidenav-toggle', function(e) {
+                e.preventDefault();
+                window.layoutHelpers.toggleCollapsed();
+                if (!window.layoutHelpers.isSmallScreen()) {
+                    try {
+                        localStorage.setItem('layoutCollapsed', String(window.layoutHelpers.isCollapsed()));
+                    } catch (e) {}
+                }
+            });
+        });
+        $(document).ready(function() {
+            $("#pcoded").pcodedmenu({
+                themelayout: 'horizontal',
+                MenuTrigger: 'hover',
+                SubMenuTrigger: 'hover',
+            });
+        });
+    </script>
+
+    <div class="footer-fab">
+        <div class="b-bg">
+            <i class="fas fa-question"></i>
+        </div>
+        <div class="fab-hover">
+            <ul class="list-unstyled">
+                <li><a href="../doc/index-bc-package.html"  data-text="UI Kit" class="btn btn-icon btn-rounded btn-info m-0"><i class="feather icon-layers"></i></a></li>
+                <li><a href="../doc/index.html"  data-text="Document" class="btn btn-icon btn-rounded btn-primary m-0"><i class="feather icon feather icon-book"></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="../assets/js/analytics.js"></script>
+
+</body>
+
+</html>

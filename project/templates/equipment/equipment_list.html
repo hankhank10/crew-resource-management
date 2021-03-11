@@ -9,105 +9,88 @@
 
 {% block content %}
 
-  	<!-- [ Main Content ] start -->
-    <section class="pcoded-main-container">
-        <div class="pcoded-content">
-            <!-- [ breadcrumb ] start -->
-            <div class="page-header">
-                <div class="page-block">
-                    <div class="row align-items-center">
-                        <div class="col-md-12">
-                            <div class="page-header-title">
-                                <h5 class="m-b-10">Equipment</h5>
-                            </div>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="#!">Equipment</a></li>
-                            </ul>
-                        </div>
+  	<!-- [ breadcrumb ] start -->
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">Equipment</h5>
                     </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('main.dashboard') }}"><i class="feather icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="#!">Equipment</a></li>
+                    </ul>
                 </div>
             </div>
-            <!-- [ breadcrumb ] end -->
-            <!-- [ Main Content ] start -->
-            <div class="row">
-                <!-- content start -->
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row">
-                                 <div class="col-md-6">
-                                    <h5>Equipment list</h5>
-                                    <span class="d-block m-t-5">List of all current available equipment</span>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="float-right">
-                                        <a href="{{ url_for('equipment.create_new') }}" class="btn btn-primary">+ New</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        </div>
+    </div>
+    <!-- [ breadcrumb ] end -->
 
-                        <div class="card-body table-border-style">
-                            <div class="table-responsive">
-
-                                <table id="example" class="table table-striped table-bordered" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Operator</th>
-                                            <th>Manufacturer</th>
-                                            <th>Type</th>
-                                            <th>Passengers</th>
-                                            <th>Cabin Crew</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for row in equipment_list %}
-                                        <tr>
-                                            <td>
-                                                {% if row.operator_logo_url == "" %}
-                                                    {{row.operator}}
-                                                {% else %}
-                                                    <img src="{{row.operator_logo_url}}" alt="{{row.operator}}" height="20"><span hidden>{{row.operator}}</span>
-                                                {% endif %}
-                                            </td>
-                                            <td>
-                                                {% if row.manufacturer_logo_url == "" %}
-                                                    {{row.manufacturer}}
-                                                {% else %}
-                                                    <img src="{{row.manufacturer_logo_url}}" alt="{{row.manufacturer}}" height="20"><span hidden>{{row.manufacturer}}</span>
-                                                {% endif %}                        </td>
-                                            <td>{{row.model}} {{row.variant}}</td>
-                                            <td>{{row.first_class_seats + row.business_class_seats + row.premium_class_seats + row.economy_class_seats}}</td>
-                                            <td>{{row.maximum_cabin_crew}}</td>
-
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-
-                            </div>
+    <!-- [ Main Content ] start -->
+    <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Current equipment list</h5>
+                    <div class="card-header-right">
+                        <div class="btn-group card-option">
+                            <a href="{{ url_for('equipment.new') }}" class="btn btn-small btn-primary text-white"><i class="fas fa-plus-square"></i>New</a>
                         </div>
                     </div>
                 </div>
-          </div>
-      </div>
-      
-      {% include 'includes/footer.html' %}
+                <div class="card-body">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Operator</th>
+                                <th>Manufacturer</th>
+                                <th>Type</th>
+                                <th>Passengers</th>
+                                <th>Cabin Crew</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in equipment_list %}
+                            <tr>
+                                <td>
+                                    {% if row.operator_logo_url == "" %}
+                                        {{row.operator}}
+                                    {% else %}
+                                        <img src="{{row.operator_logo_url}}" alt="{{row.operator}}" height="20"><span hidden>{{row.operator}}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if row.manufacturer_logo_url == "" %}
+                                        {{row.manufacturer}}
+                                    {% else %}
+                                        <img src="{{row.manufacturer_logo_url}}" alt="{{row.manufacturer}}" height="20"><span hidden>{{row.manufacturer}}</span>
+                                    {% endif %}                        </td>
+                                <td>{{row.model}} {{row.variant}}</td>
+                                <td>{{row.first_class_seats + row.business_class_seats + row.premium_class_seats + row.economy_class_seats}}</td>
+                                <td>{{row.maximum_cabin_crew}}</td>
 
-  </main>
-
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- [ sample-page ] end -->
+    </div>
+    <!-- [ Main Content ] end -->
 {% endblock content %}
 
-<!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-    $('#example').DataTable();
-} );
-</script>
+    <script>
+        $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+    </script>
 
 {% endblock javascripts %}

@@ -1,0 +1,168 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Pre Flight Checklist {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<style>
+    .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+    .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+    .autocomplete-selected { background: #F0F0F0; }
+    .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+    .autocomplete-group { padding: 2px 5px; }
+    .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- [ Main Content ] start -->
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+
+            <!-- [ breadcrumb ] end -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{category}}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="row">
+                <!-- content start -->
+                <div class="col-xl-12">
+                    <div class="card bg-success">
+
+                        <div class="card-body table-border-style">
+
+
+                        <div class="row d-block d-xl-flex align-items-center">
+                            <div class="col-12 col-xl-2 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                <div style="color: white" class="btn btn-lg btn-success"><i class="fas fa-3x fa-check"></i></div>
+                            </div>
+                            <div class="col-8 col-xl-8 px-xl-0">
+                                <div class="d-none d-sm-block">
+                                    <h3 class="mb-1">Flight plan loaded</h3>
+                                </div>
+                                <div>
+                                    <i class="fas fa-plane-departure"></i> {{flight_plan.departure_name}}<br>
+                                    <i class="fas fa-plane-arrival"></i> {{flight_plan.destination_name}}<br>
+                                    <i class="fas fa-plane"></i> {{flight_plan.equipment_manufacturer}} {{flight_plan.equipment_model}}<br>
+                                    <i class="fas fa-walking fa-lg"></i> {{flight_plan.passengers_total}} passengers
+                                </div>
+                            </div>
+                            <div class="col-2 col-xl-2 px-xl-0">
+                                <img height="30px" src="{{flight_plan.operator_logo}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-12 col-lg-12">
+                <div class="card bg-warning" id="transponder_card">
+                    <div class="card-body">
+                        <div class="row d-block d-xl-flex align-items-center">
+                            <div class="col-12 col-xl-2 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                <div id="transponder_icon_holder" style="color: white" class="btn btn-lg"><i id="transponder_icon" class="fas fa-3x fa-exclamation"></i></i></div>
+                            </div>
+                            <div class="col-12 col-xl-6 px-xl-0">
+                                <div class="d-none d-sm-block">
+                                    <h3 id="transponder_header" class="mb-1">Connect transponder</h3>
+                                </div>
+                                <div id="transponder_instructions">
+                                <div>Live tracking of your plane is managed by <b><a href="https://findmyplane.live">Find My Plane</a></b>
+                                <br>Once you have downloaded the client you can enter the ident here</div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-4 px-xl-0">
+                                <div id="transponder_input_group" class="input-group">
+                                        <input type="text" class="form-control" id="transponder_ident" placeholder="Find My Plane IDENT" aria-label="Search">
+                                        <button class="btn btn-primary" id="connect_transponder" type="button">Connect</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div id="begin_flight_card" class="row">
+            <div class="col-12 col-lg-12">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="row d-block d-xl-flex align-items-center">
+                            <button class="btn btn-lg btn-primary" id="begin_flight_button" type="button">Begin Flight</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'includes/footer.html' %}
+
+    </main>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script>
+
+    $('#begin_flight_card').hide()
+
+    $('#connect_transponder').click(function() {
+
+        $('#connect_transponder').html('<i class="fas fa-spinner fa-spin"></i>')
+
+        $.ajax({
+            url: 'https://findmyplane.live/api/plane/'+$('#transponder_ident').val(),
+            type: 'GET',
+            complete: function (response) {
+                if (response.status === 200) {
+
+                    $('#transponder_header').html ("Transponder connected")
+                    $('#transponder_input_group').hide()
+                    $('#transponder_instructions').html("Ident code: <b>" + $('#transponder_ident').val() + "</b>")
+                    $('#transponder_icon_holder').removeClass("bg-danger")
+                    $('#transponder_icon').removeClass("fa-exclamation").addClass("fa-check")
+                    $('#transponder_card').removeClass("bg-warning").addClass("bg-success")
+                    $('#begin_flight_card').show()
+
+                } else {
+                    alert ("IDENT not found")
+                    $('#connect_transponder').html('Try again')
+                }
+            },
+            contentType: 'application/json; charset=utf-8'
+        });
+    });
+
+    $('#begin_flight_button').click(function() {
+
+        let ident = $('#transponder_ident').val()
+        let url = "/pre-flight/{{ flight_plan.unique_reference }}/start/" + ident
+        alert(url)
+
+        window.location.replace(url);
+
+    })
+
+</script>
+
+{% endblock javascripts %}

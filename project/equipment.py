@@ -33,7 +33,7 @@ def load_logos_from_json():
 
 
 @equipment.route('/equipment')
-def equipment_list():
+def view_list():
 
     add_logos_to_json()
     load_equipment_from_json()
@@ -42,7 +42,7 @@ def equipment_list():
 
 
 @equipment.route('/equipment/new', methods=['GET', 'POST'])
-def create_new():
+def new():
 
     if request.method == "GET":
         return render_template('equipment/new_equipment.html')
@@ -103,7 +103,9 @@ def create_new():
         equipment_list.append(new_equipment)
         write_equipment_to_json()
 
-        return redirect(url_for('equipment.equipment_list'))
+        flash("New equipment created", "success")
+
+        return redirect(url_for('equipment.view_list'))
 
 
 def lookup_logo(lookup_name, look_for):

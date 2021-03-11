@@ -22,7 +22,7 @@ $(document).ready(function() {
         lng: 72.866472,
         title: 'Marker with InfoWindow',
         infoWindow: {
-            content: '<p><Phoenicoded></Phoenicoded> <br/> Buy Now at <a href="">Themeforest</a></p>'
+            content: '<p><Demo></Demo> <br/> Buy Now at <a href="">Demo</a></p>'
         }
     });
     // [ Gmap-overlay ]

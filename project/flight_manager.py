@@ -12,7 +12,7 @@ flight_manager = Blueprint('flight_manager', __name__)
 
 @flight_manager.route('/flight')
 @login_required
-def flight_list():
+def view_list():
 
     flights = Flight.query.filter_by(user = current_user.id).all()
 
@@ -21,7 +21,7 @@ def flight_list():
 
 @flight_manager.route('/flight/new', methods=['GET', 'POST'])
 @login_required
-def create_new():
+def new():
 
     if request.method == "GET":
         return render_template('flight/new_flight.html', equipment_list=equipment.equipment_list)
@@ -55,7 +55,9 @@ def create_new():
             flash ("Error creating new flight plan", "danger")
             return render_template('flight/new_flight.html', equipment_list=equipment.equipment_list)
 
-        return redirect(url_for('flight_manager.flight_list'))
+        flash("New flight plan created", "success")
+
+        return redirect(url_for('flight_manager.view_list'))
 
 
 @flight_manager.route('/pre-flight/<unique_reference>')

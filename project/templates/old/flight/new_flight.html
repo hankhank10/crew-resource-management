@@ -1,0 +1,430 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} New flight plan {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<style>
+    .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+    .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+    .autocomplete-selected { background: #F0F0F0; }
+    .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+    .autocomplete-group { padding: 2px 5px; }
+    .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+{% endblock stylesheets %}
+
+{% block content %}
+                
+<!-- [ Main Content ] start -->
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Flight plans</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="{{ url_for('flight_manager.flight_list') }}">Flight plans</a></li>
+                                <li class="breadcrumb-item"><a href="#!">New flight plan</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{category}}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="row">
+                <!-- content start -->
+                <div class="col-xl-8">
+                    <div class="card">
+
+                        <div class="card-body table-border-style">
+
+                            <h2 class="h5 mb-4">Flight plan details</h2>
+                            <form method="POST">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div>
+                                            <label for="departure_airport_name">Departure airport name</label>
+                                            <input class="form-control" name="departure_airport_name" id="departure_airport_name" type="text" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div>
+                                            <label for="departure_airport_code">Departure airport code</label>
+                                            <input class="form-control" name="departure_airport_code" id="departure_airport_code" type="text" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div>
+                                            <label for="destination_airport_name">Destination airport name</label>
+                                            <input class="form-control" name="destination_airport_name" id="destination_airport_name" type="text" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div>
+                                            <label for="destination_airport_code">Destination airport code</label>
+                                            <input class="form-control" name="destination_airport_code" id="destination_airport_code" type="text" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="col-md-6 mb-3">
+                                        <div>
+                                            <label for="expected_duration_hours">Expected duration (hours)</label>
+                                            <input class="form-control" name="expected_duration_hours" id="expected_duration_hours" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div>
+                                            <label for="expected_duration_minutes">Expected duration (minutes)</label>
+                                            <input class="form-control" name="expected_duration_minutes" id="expected_duration_minutes" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h2 class="h5 my-4">Equipment details</h2>
+                                <div class="row">
+                                    <div class="col-sm-10 mb-3">
+                                        <div>
+                                            <label for="equipment_selector">Equipment type</label>
+                                            <select id="equipment_selector" name="equipment_selector" class="form-control">
+                                                <option selected>Select equipment type</option>
+                                                {% for item in equipment_list|sort(attribute='full_name') %}
+                                                    <option value="{{item.full_name}}">{{item.full_name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 mb-3 float-right">
+                                        <label for="departure_airport_name">&nbsp</label><br>
+                                        <a class="btn btn-primary btn-sm mr-2 dropdown-toggle" href="{{ url_for('equipment.create_new') }}">
+                                            <span class="fas fa-plus mr-2"></span>New
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row align-middle">
+                                    <div class="col-sm-5 mb-3">
+                                       <img class="align-middle" width="250px" id="operator_logo" src="">
+                                    </div>
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-5 mb-3 align-middle">
+                                       <img class="align-middle" width="250px" id="manufacturer_logo" src="">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="col-sm-8 mb-3">
+                                    <h2 class="h5 my-4">Passenger details</h2>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div>
+                                            <label for="first_class_maximum">First class passengers (maximum)</label>
+                                            <input class="form-control" name="first_class_maximum" id="first_class_maximum" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div>
+                                            <label for="first_class_actual">(actual)</label>
+                                            <input class="form-control passenger_actual" name="first_class_actual" id="first_class_actual" type="text" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+                                        <div>
+                                            <label for="first_class_load">(load %)</label>
+                                            <input class="form-control" name="first_class_load" id="first_class_load" type="text" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div>
+                                            <label for="business_class_maximum">Business class passengers (maximum)</label>
+                                            <input class="form-control" name="business_class_maximum" id="business_class_maximum" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div>
+                                            <label for="business_class_actual">(actual)</label>
+                                            <input class="form-control passenger_actual" name="business_class_actual" id="business_class_actual" type="text" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+                                        <div>
+                                            <label for="business_class_load">(load %)</label>
+                                            <input class="form-control" name="business_class_load" id="business_class_load" type="text" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div>
+                                            <label for="premium_class_maximum">Premium Economy passengers (maximum)</label>
+                                            <input class="form-control" name="premium_class_maximum" id="premium_class_maximum" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div>
+                                            <label for="premium_class_actual">(actual)</label>
+                                            <input class="form-control passenger_actual" name="premium_class_actual" id="premium_class_actual" type="text" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+                                        <div>
+                                            <label for="premium_class_load">(load %)</label>
+                                            <input class="form-control" name="premium_class_load" id="premium_class_load" type="text" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div>
+                                            <label for="economy_class_maximum">Economy class passengers (maximum)</label>
+                                            <input class="form-control" name="economy_class_maximum" id="economy_class_maximum" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div>
+                                            <label for="economy_class_actual">(actual)</label>
+                                            <input class="form-control passenger_actual" name="economy_class_actual" id="economy_class_actual" type="text" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+                                        <div>
+                                            <label for="economy_class_load">(load %)</label>
+                                            <input class="form-control" name="economy_class_load" id="economy_class_load" type="text" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div>
+                                            <label for="total_maximum">Total passengers (maximum)</label>
+                                            <input class="form-control" name="total_maximum" id="total_maximum" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div>
+                                            <label for="total_actual">(actual)</label>
+                                            <input class="form-control passenger_actual" name="total_actual" id="total_actual" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+                                        <div>
+                                            <label for="total_load">(load %)</label>
+                                            <input class="form-control" name="total_load" id="total_load" type="text" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="col-sm-8 mb-3">
+                                    <h2 class="h5 my-4">Cabin crew details</h2>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div>
+                                            <label for="cabin_crew_maximum">Cabin crew (maximum)</label>
+                                            <input class="form-control" name="cabin_crew_maximum" id="cabin_crew_maximum" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div>
+                                            <label for="cabin_crew_actual">(actual)</label>
+                                            <input class="form-control" name="cabin_crew_actual" id="cabin_crew_actual" type="text" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <hr>
+
+                                <input id="equipment_manufacturer" name="equipment_manufacturer" type="hidden">
+                                <input id="equipment_operator" name="equipment_operator" type="hidden">
+                                <input id="equipment_model" name="equipment_model" type="hidden">
+                                <input id="equipment_variant" name="equipment_variant" type="hidden">
+
+                                <div class="mt-3">
+                                    <button id="submit_button" type="submit" class="btn btn-primary">Create new flight plan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-xl-4">
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div class="card card-body bg-white border-light shadow-sm mb-4">
+                                <h2 class="h5 mb-4">... or upload a .PLN here</h2>
+                                <div class="d-xl-flex align-items-center">
+
+                                    #Here
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'includes/footer.html' %}
+
+    </main>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.js" integrity="sha512-JwPA+oZ5uRgh1AATPhLKeByWbXcsRnMMSBpvhuAGQp+CWISl/fHecOshbRcPPgKWau9Wy1H5LhiwAa4QFiQKYw==" crossorigin="anonymous"></script>
+
+<script>
+
+    let load_factors_ok = false;
+
+    $('#departure_airport_name').autocomplete({
+        serviceUrl: '/api/airport_lookup/suggest_name',
+        autoSelectFirst: true,
+        onSelect: function (suggestion) {
+            $('#departure_airport_code').val(suggestion.data)
+        }
+    })
+
+    $('#destination_airport_name').autocomplete({
+        serviceUrl: '/api/airport_lookup/suggest_name',
+        autoSelectFirst: true,
+        onSelect: function (suggestion) {
+            $('#destination_airport_code').val(suggestion.data)
+        }
+    });
+
+    $('#equipment_selector').change(function() {
+
+        $.ajax({
+            url: '/api/equipment/details',
+            type: 'GET',
+            data: { search_term: $("#equipment_selector").val() },
+            success: function (response) {
+
+                $('#operator_logo').attr('src',response.operator_logo_url)
+                $('#manufacturer_logo').attr('src',response.manufacturer_logo_url)
+
+                $('#equipment_operator').val(response.operator)
+                $('#equipment_manufacturer').val(response.manufacturer)
+                $('#equipment_model').val(response.model)
+                $('#equipment_variant').val(response.variant)
+
+                $('#first_class_maximum').val(response.first_class_seats)
+                $('#business_class_maximum').val(response.business_class_seats)
+                $('#premium_class_maximum').val(response.premium_class_seats)
+                $('#economy_class_maximum').val(response.economy_class_seats)
+                $('#cabin_crew_maximum').val(response.maximum_cabin_crew)
+
+                $('#first_class_actual').val(response.first_class_seats)
+                $('#business_class_actual').val(response.business_class_seats)
+                $('#premium_class_actual').val(response.premium_class_seats)
+                $('#economy_class_actual').val(response.economy_class_seats)
+                $('#cabin_crew_actual').val(response.maximum_cabin_crew)
+
+                $('#total_maximum').val(response.first_class_seats + response.business_class_seats + response.premium_class_seats + response.economy_class_seats)
+
+                refresh_load_calcs();
+
+            },
+            contentType: 'application/json; charset=utf-8'
+        });
+
+
+    });
+
+    $('.passenger_actual').change(function() {
+        refresh_load_calcs();
+    })
+
+    function refresh_load_calcs() {
+
+        load_factors_ok = true;
+
+        total_actual = Number($('#first_class_actual').val()) + Number($('#business_class_actual').val()) + Number($('#premium_class_actual').val()) + Number($('#economy_class_actual').val())
+
+        $('#total_actual').val(total_actual)
+
+        first_class_load = ($('#first_class_actual').val() / $('#first_class_maximum').val()) * 100
+        business_class_load = ($('#business_class_actual').val() / $('#business_class_maximum').val()) * 100
+        premium_class_load = ($('#premium_class_actual').val() / $('#premium_class_maximum').val()) * 100
+        economy_class_load = ($('#economy_class_actual').val() / $('#economy_class_maximum').val()) * 100
+        total_load = ($('#total_actual').val() / $('#total_maximum').val()) * 100
+
+        $('#first_class_load').val(parseInt(first_class_load,10) + "%").removeClass('is-invalid')
+        $('#business_class_load').val(parseInt(business_class_load,10) + "%").removeClass('is-invalid')
+        $('#premium_class_load').val(parseInt(premium_class_load,10) + "%").removeClass('is-invalid')
+        $('#economy_class_load').val(parseInt(economy_class_load,10) + "%").removeClass('is-invalid')
+        $('#total_load').val(parseInt(total_load,10) + "%").removeClass('is-invalid')
+
+        $('#first_class_actual').removeClass('is-invalid')
+        $('#business_class_actual').removeClass('is-invalid')
+        $('#premium_class_actual').removeClass('is-invalid')
+        $('#economy_class_actual').removeClass('is-invalid')
+        $('#total_load').removeClass('is-invalid')
+
+        if (first_class_load > 100) {
+            $('#first_class_load').addClass('is-invalid')
+            $('#first_class_actual').addClass('is-invalid')
+            load_factors_ok = false;
+        }
+
+        if (business_class_load > 100) {
+            $('#business_class_load').addClass('is-invalid')
+            $('#business_class_actual').addClass('is-invalid')
+            load_factors_ok = false;
+        }
+
+        if (premium_class_load > 100) {
+            $('#premium_class_load').addClass('is-invalid')
+            $('#premium_class_actual').addClass('is-invalid')
+            load_factors_ok = false;
+        }
+
+        if (economy_class_load > 100) {
+            $('#economy_class_load').addClass('is-invalid')
+            $('#economy_class_actual').addClass('is-invalid')
+            load_factors_ok = false;
+        }
+
+        if (load_factors_ok === false) {
+            $("#submit_button").prop("disabled", true);
+        } else {
+            $("#submit_button").removeAttr('disabled');
+
+        }
+
+    }
+
+</script>
+
+
+{% endblock javascripts %}
