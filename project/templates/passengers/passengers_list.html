@@ -1,0 +1,117 @@
+{% extends "layouts/base.html" %}
+
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- [ breadcrumb ] start -->
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">Passnenger manifest</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('main.dashboard') }}"><i class="feather icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="#!">Passengers</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ breadcrumb ] end -->
+
+
+    <!-- [ Main Content ] start -->
+    <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Current passenger manifest</h5>
+                    <div class="card-header-right">
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Manifest</th>
+                                <th>Seat</th>
+                                <th>Class</th>
+                                <th>Full Name</th>
+                                <th>Frequent Flyer</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+
+    url = "/api/passengers/list/" + localStorage.getItem('current_flight_unique_reference')
+
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "ajax": {url, dataSrc: "seats"},
+            "columns": [
+                {
+                    "data": "manifest_number",
+                    "width": "5%"
+                },
+                {
+                    "data": "seat_type",
+                    "width": "5%"
+                },
+                { "data": "seat_type_text"},
+                { "data": "full_name"},
+                {
+                    "data": "frequent_flyer_status_text",
+                    "render": function(data) {
+                        if (data === 'VIP') {return '<h5><span class="badge badge-danger">VIP</span></h5>'}
+                        if (data === 'Gold') {return '<h5><span class="badge badge-warning">Gold</span></h5>'}
+                        if (data === 'Silver') {return '<h5><span class="badge badge-secondary">Silver</span></h5>'}
+                        if (data === 'Bronze') {return '<h5><span class="badge badge-info">Bronze</span></h5>'}
+                        if (data === 'Blue') {return '<h5><span class="badge badge-primary">Blue</span></h5>'}
+                        if (data === 'None') {return '<h5><span class="badge badge-dark">None</span></h5>'}
+                    }
+                },
+                {
+                    "data": "status",
+                    "render": function(data) {
+                        if (data === 'Waiting to Board') {return '<h5><span class="badge badge-warning">'+data+'</span></h5>'}
+                        if (data === 'Boarding') {return '<h5><span class="badge badge-primary">'+data+'</span></h5>'}
+                        if (data === 'Seated') {return '<h5><span class="badge badge-success">'+data+'</span></h5>'}
+                        if (data === 'Unseated') {return '<h5><span class="badge badge-danger">'+data+'</span></h5>'}
+                        if (data === 'Deboarded') {return '<h5><span class="badge badge-info">'+data+'</span></h5>'}
+
+
+                    }
+                },
+            ],
+            "paging": false,
+            "colReorder": true
+        } );
+
+    } );
+</script>
+
+{% endblock javascripts %}

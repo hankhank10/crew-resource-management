@@ -4,7 +4,7 @@ import secrets
 from datetime import datetime
 from . import db
 from . import app
-from project import equipment
+from project import equipment, inflight
 from .models import Flight, FlightEvent, FlightPhase, FlightMessage
 import requests
 import random
@@ -93,8 +93,12 @@ def send_message_from_pilot():
         if "dick" in message_content: message_interpretation = "profanity"
 
     # Compile the response
+    # First of all load the flight so we can do some checks
+    current_flight = Flight.query.filter_by(id = current_user.active_flight_id).first()
+
     message_response = None
 
+    # Get some useful phrases to use later
     random_will_do = random.choices([
         "Will do Captain, ",
         "Will do, ",
@@ -102,7 +106,6 @@ def send_message_from_pilot():
         "No problem, ",
         "Sure, got it, "
     ])[0]
-
     random_will_report_back = random.choices([
         " We'll report back when we're done.",
         " I'll let you know when we're complete.",
@@ -110,26 +113,6 @@ def send_message_from_pilot():
         " I'll ping you when we're done.",
         ""
     ])[0]
-
-    if message_interpretation == "pilot_wants_coffee":
-        message_response = random.choices([
-            "Coming right up!",
-            "Just made a fresh pot, coming up."
-        ])[0]
-
-    if message_interpretation == "begin_boarding":
-
-        message_response = random_will_do
-        message_response = message_response + random.choices([
-            "we'll begin boarding procedures now.",
-            "letting them on now.",
-            "we'll begin boarding now.",
-            "boarding underway."
-        ])[0]
-        message_response = message_response + random_will_report_back
-
-    if message_interpretation == "profanity":
-        message_response = "Don't speak like that please."
 
     if message_response is None:
         message_response = random.choices([
@@ -140,7 +123,42 @@ def send_message_from_pilot():
             "Didn't get that, sorry, come again please?"
         ])[0]
 
-    # Store and send the response
+    if message_interpretation == "pilot_wants_coffee":
+        message_response = random.choices([
+            "Coming right up!",
+            "Just made a fresh pot, coming up."
+        ])[0]
+
+    if message_interpretation == "begin_boarding":
+
+        # See if we can begin boarding
+        problem_detected = False
+
+        if current_flight.door_status == 0:
+            problem_detected = True
+            message_response = "Doors are still closed captain. You might need to attach the jet bridge first."
+
+        if current_flight.phase_cabin_name != "Pre-Boarding":
+            problem_detected = True
+            message_response = "You want us to start boarding? It's a bit late for that."
+            if current_flight.phase_cabin_name == "Boarding":
+                message_response = "Already on it. They're coming on now."
+
+        if problem_detected == False:
+            message_response = random_will_do
+            message_response = message_response + random.choices([
+                "we'll begin boarding procedures now.",
+                "letting them on now.",
+                "we'll begin boarding now.",
+                "boarding underway."
+            ])[0]
+            message_response = message_response + random_will_report_back
+
+            # Actually start boarding
+            inflight.set_phase(current_flight.id, "Boarding", "cabin")
+
+
+    # Store and send the message response
     if message_response is not None:
         create_new_message_from_crew(message_response, False)
 

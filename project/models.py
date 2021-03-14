@@ -86,24 +86,6 @@ class Flight(db.Model):
     gear_handle_position = db.Column(db.Integer)
 
     @property
-    def seatbelt_sign_text(self):
-        if self.seatbelt_sign == None: return ["Unknown", "yellow"]
-        if self.seatbelt_sign == True: return ["On", "green"]
-        if self.seatbelt_sign == False: return ["Off", "red"]
-
-    @property
-    def no_smoking_sign_text(self):
-        if self.no_smoking_sign == None: return ["Unknown", "yellow"]
-        if self.no_smoking_sign == True: return ["On", "green"]
-        if self.no_smoking_sign == False: return ["Off", "red"]
-
-    @property
-    def door_status_text(self):
-        if self.door_status == None: return ["Unknown", "yellow"]
-        if self.door_status == 0: return ["Secured", "green"]
-        if self.door_status == 1: return ["Open", "red"]
-
-    @property
     def passengers_total(self):
         return self.passengers_first_class + self.passengers_business_class + self.passengers_premium_class + self.passengers_economy_class
 
@@ -116,12 +98,15 @@ class Flight(db.Model):
         return equipment.lookup_logo(self.equipment_manufacturer, "manufacturer")
 
     @property
-    def phase_name(self, phase_category="flight"):
-        phase = FlightPhase.query.filter_by(flight = self.id, phase_category=phase_category).first()
+    def phase_flight_name(self):
+        phase = FlightPhase.query.filter_by(id = self.phase_flight).first()
+        if phase is None: return None
+        return phase.phase_name
 
-        if phase is None:
-            return None
-
+    @property
+    def phase_cabin_name(self):
+        phase = FlightPhase.query.filter_by(id=self.phase_cabin).first()
+        if phase is None: return None
         return phase.phase_name
 
 
@@ -181,16 +166,21 @@ class FlightPhase(db.Model):
         # seatbelt_sign
 
     phase_name = db.Column(db.String(50))
-        # Pre-Boarding
-        # Boarding
-        # Securing cabin
-        # Taxi for takeoff
-        # Takeoff
-        # Climb
+        # FLIGHT
+        # At Gate
+        # Taxi for Takeoff
+        # Takeoff and Climb
         # Cruise
         # Descent and landing
         # Taxi to gate
-        # Deboarding
+        # Shutdown
+
+        # CABIN
+        # Pre-Boarding
+        # Boarding
+        # Cabin Secure
+        # Drinks Service
+        # Meal Service
 
 
 class EquipmentType(db.Model):
@@ -211,3 +201,68 @@ class EquipmentType(db.Model):
     approved_for_general_use = db.Column(db.Boolean)
     created_by_user = db.Column(db.Integer)
 
+
+class Seat(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    flight = db.Column(db.Integer, db.ForeignKey('flight.id'), nullable=False)
+
+    manifest_number = db.Column(db.Integer)
+
+    row = db.Column(db.Integer)
+    col = db.Column(db.Integer)
+
+    seat_type = db.Column(db.String(1))  # F=First, B=Business, P=Premium, E=Economy, A=Aisle
+
+    @property
+    def seat_type_text(self):
+        if self.seat_type is None: return None
+        if self.seat_type == "F": return "First"
+        if self.seat_type == "B": return "Business"
+        if self.seat_type == "P": return "Premium"
+        if self.seat_type == "E": return "Economy"
+
+    occupied = db.Column(db.Boolean())
+    occupied_by = db.Column(db.Integer)
+
+    status = db.Column(db.String(25), default="Waiting to Board")  # Waiting to Board, Boarding, Seated, Unseated, Deboarded
+    activity = db.Column(db.String(50))
+
+    status_bladder_need = db.Column(db.Integer)
+    status_hunger = db.Column(db.Integer)
+    status_thirst = db.Column(db.Integer)
+
+    @property
+    def full_name(self):
+        if self.occupied_by is None: return None
+        passenger = Passenger.query.filter_by(id=self.occupied_by).first()
+        return passenger.full_name
+
+    @property
+    def frequent_flyer_status(self):
+        if self.occupied_by is None: return None
+        passenger = Passenger.query.filter_by(id=self.occupied_by).first()
+        return passenger.frequent_flyer_status
+
+    @property
+    def frequent_flyer_status_text(self):
+
+        if self.frequent_flyer_status == 0: return "None"
+        if self.frequent_flyer_status == 1: return "Blue"
+        if self.frequent_flyer_status == 2: return "Bronze"
+        if self.frequent_flyer_status == 3: return "Silver"
+        if self.frequent_flyer_status == 4: return "Gold"
+        if self.frequent_flyer_status == 5: return "VIP"
+
+
+class Passenger(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(50))
+    second_name = db.Column(db.String(50))
+
+    @property
+    def full_name(self):
+        return self.first_name + " " + self.second_name
+
+    age = db.Column(db.Integer)
+    frequent_flyer_status = db.Column(db.Integer)

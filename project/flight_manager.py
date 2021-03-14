@@ -4,8 +4,8 @@ import secrets
 from datetime import datetime
 from . import db
 from . import app
-from project import equipment
-from .models import Flight
+from project import equipment, inflight, passengers
+from .models import Flight, FlightPhase
 
 
 flight_manager = Blueprint('flight_manager', __name__)
@@ -76,13 +76,25 @@ def start_flight(unique_reference, ident):
     if unique_reference is None or ident is None:
         return "error", 404
 
+    # Find the relevant flight
     flight = Flight.query.filter_by(unique_reference=unique_reference).first_or_404()
+
+    # Add the findmyplane_ident to that flight
     flight.source = "findmyplane"
     flight.source_ident = ident
+    db.session.commit()
 
+    # Create the phases
+    inflight.set_phase(flight.id, "At Gate", "flight")
+    inflight.set_phase(flight.id, "Pre-Boarding", "cabin")
+
+    # Fill the flight with passengers
+    passengers.fill_flight_with_passengers(flight.id)
+
+    # Set the current user's flight
     current_user.active_flight_id = flight.id
     db.session.commit()
 
-    return redirect(url_for('inflight.datadump'))
+    return redirect(url_for('inflight.dashboard'))
 
 

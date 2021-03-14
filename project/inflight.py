@@ -5,7 +5,7 @@ from datetime import datetime
 from . import db
 from . import app
 from project import equipment
-from .models import Flight, FlightEvent, FlightPhase, FlightMessage
+from .models import Flight, FlightEvent, FlightPhase, FlightMessage, Seat
 import requests
 import random
 
@@ -88,11 +88,22 @@ def update_plane_data(unique_reference):
 
     # Perform application logic
 
+    passenger_status = {
+        'waiting_to_board': Seat.query.filter_by(status = "Waiting to Board").count(),
+        'boarding': Seat.query.filter_by(status = "Boarding").count(),
+        'seated': Seat.query.filter_by(status="Seated").count(),
+        'unseated': Seat.query.filter_by(status="Unseated").count(),
+        'deboarded': Seat.query.filter_by(status="Deboarded").count(),
+        'total': Seat.query.count()
+    }
 
     # Return the info we want
     return_dictionary = {
         'my_plane': r.json()['my_plane'],
-        'unread_flight_messages': current_user.unread_flight_messages
+        'unread_flight_messages': current_user.unread_flight_messages,
+        'phase_flight_name': flight.phase_flight_name,
+        'phase_cabin_name': flight.phase_cabin_name,
+        'passenger_status': passenger_status
     }
 
     return return_dictionary
