@@ -23,6 +23,16 @@ class User(UserMixin, db.Model):
 
     active_flight_id = db.Column(db.Integer, default=None)
 
+    unread_flight_messages = db.Column(db.Integer, default=0)
+
+    @property
+    def active_flight_unique_reference(self):
+        if self.active_flight_id == None:
+            return None
+
+        active_flight = Flight.query.filter_by(id=self.active_flight_id).first()
+        return active_flight.unique_reference
+
 
 class Flight(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -65,6 +75,34 @@ class Flight(db.Model):
     phase_cabin = db.Column(db.Integer)
     phase_seatbelt_sign = db.Column(db.Integer)
 
+    # Current flight variables
+    current_altitude = db.Column(db.Integer)
+    current_speed = db.Column(db.Integer)
+    on_ground = db.Column(db.Boolean)
+    seatbelt_sign = db.Column(db.Boolean)
+    no_smoking_sign = db.Column(db.Boolean)
+    door_status = db.Column(db.Integer)
+    parking_brake = db.Column(db.Boolean)
+    gear_handle_position = db.Column(db.Integer)
+
+    @property
+    def seatbelt_sign_text(self):
+        if self.seatbelt_sign == None: return ["Unknown", "yellow"]
+        if self.seatbelt_sign == True: return ["On", "green"]
+        if self.seatbelt_sign == False: return ["Off", "red"]
+
+    @property
+    def no_smoking_sign_text(self):
+        if self.no_smoking_sign == None: return ["Unknown", "yellow"]
+        if self.no_smoking_sign == True: return ["On", "green"]
+        if self.no_smoking_sign == False: return ["Off", "red"]
+
+    @property
+    def door_status_text(self):
+        if self.door_status == None: return ["Unknown", "yellow"]
+        if self.door_status == 0: return ["Secured", "green"]
+        if self.door_status == 1: return ["Open", "red"]
+
     @property
     def passengers_total(self):
         return self.passengers_first_class + self.passengers_business_class + self.passengers_premium_class + self.passengers_economy_class
@@ -105,8 +143,27 @@ class FlightEvent(db.Model):
     event_name = db.Column(db.String(100))
     event_description = db.Column(db.String(500))
     event_additional_detail = db.Column(db.String(500))
+    associated_message = db.Column(db.Integer)
 
     read = db.Column(db.Boolean, default=False)
+
+
+class FlightMessage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    flight = db.Column(db.Integer, db.ForeignKey('flight.id'), nullable=False)
+
+    message_time = db.Column(db.DateTime)
+
+    message_type = db.Column(db.String(10))  # cabin, crew
+    message_from = db.Column(db.String(10))  # pilot, crew
+    message_to = db.Column(db.String(10))  # pilot, crew, cabin
+    message_content = db.Column(db.String(500))
+
+    read = db.Column(db.Boolean, default=False)
+
+    @property
+    def seconds_since_epoch(self):
+        return self.message_time.timestamp()
 
 
 class FlightPhase(db.Model):

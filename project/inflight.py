@@ -5,8 +5,9 @@ from datetime import datetime
 from . import db
 from . import app
 from project import equipment
-from .models import Flight, FlightEvent, FlightPhase
+from .models import Flight, FlightEvent, FlightPhase, FlightMessage
 import requests
+import random
 
 
 inflight = Blueprint('inflight', __name__)
@@ -21,6 +22,16 @@ def datadump():
     return render_template('inflight/datadump.html', flight=flight)
 
 
+@inflight.route('/inflight/dashboard')
+@login_required
+def dashboard():
+
+    flight = Flight.query.filter_by(id=current_user.active_flight_id).first()
+    #flight_phase = FlightPhase.query.filter_by(flight.phase_flight).first()
+
+    return render_template('inflight/dashboard.html', flight=flight)
+
+
 @inflight.route('/inflight/events')
 @login_required
 def flight_events():
@@ -33,44 +44,66 @@ def flight_events():
     return render_template('inflight/events.html', flight_events=flight_events, location_updates=location_updates)
 
 
-@inflight.route('/api/inflight/update_plane_data/<unique_reference>')
-@login_required
-def api_update_plane_data(unique_reference):
-
+def update_plane_data(unique_reference):
     # Get the flight and work out the ident
     flight = Flight.query.filter_by(unique_reference=unique_reference).first_or_404()
     ident = flight.source_ident
-
 
     # Pull the data from Find My Plane, return error json if there is a problem
     try:
         r = requests.get("https://findmyplane.live/api/plane/" + ident.upper())
     except:
-        return jsonify({'status': 'error', 'error_message': 'Requests error'})
+        return {
+            'status': 'error',
+            'error_message': 'Requests error'
+        }
 
     if r.status_code != 200:
-        return jsonify({'status': 'error', 'error_message': 'Requests error'})
-
+        return {
+            'status': 'error',
+            'error_message': 'Requests error'
+        }
 
     # Create new flight events
-    flight_event = FlightEvent(
-        flight=flight.id,
-        event_time=datetime.utcnow(),
-        event_type="location_update",
-        current_latitude=r.json()['my_plane']['current_latitude'],
-        current_longitude=r.json()['my_plane']['current_longitude']
-    )
-    db.session.add(flight_event)
+    #flight_event = FlightEvent(
+    #    flight=flight.id,
+    #    event_time=datetime.utcnow(),
+    #    event_type="location_update",
+    #    current_latitude=r.json()['my_plane']['current_latitude'],
+    #    current_longitude=r.json()['my_plane']['current_longitude']
+    #)
+    #db.session.add(flight_event)
+
+    # Update plane details
+    flight.current_altitude = r.json()['my_plane']['current_altitude']
+    flight.current_speed = r.json()['my_plane']['current_speed']
+    flight.on_ground = r.json()['my_plane']['on_ground']
+    flight.seatbelt_sign = r.json()['my_plane']['seatbelt_sign']
+    flight.no_smoking_sign = r.json()['my_plane']['no_smoking_sign']
+    flight.door_status = r.json()['my_plane']['door_status']
+    flight.parking_brake = r.json()['my_plane']['parking_brake']
+    flight.gear_handle_position = r.json()['my_plane']['gear_handle_position']
+
     db.session.commit()
 
     # Perform application logic
 
+
     # Return the info we want
     return_dictionary = {
-        'my_plane': r.json()['my_plane']
+        'my_plane': r.json()['my_plane'],
+        'unread_flight_messages': current_user.unread_flight_messages
     }
 
     return return_dictionary
+
+@inflight.route('/api/inflight/update_plane_data/<unique_reference>')
+@login_required
+def api_update_plane_data(unique_reference):
+
+    return_dictionary = update_plane_data(unique_reference)
+    return jsonify(return_dictionary)
+
 
 
 @inflight.route('/api/inflight/log_event/<unique_reference>', methods=['POST'])

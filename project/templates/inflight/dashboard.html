@@ -1,0 +1,348 @@
+{% extends "layouts/base.html" %}
+
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- [ breadcrumb ] start -->
+<div class="page-header">
+	<div class="page-block">
+		<div class="row align-items-center">
+			<div class="col-md-12">
+				<div class="page-header-title">
+					<h5>Inflight Dashboard</h5>
+				</div>
+				<ul class="breadcrumb">
+					<li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+					<li class="breadcrumb-item"><a href="#!">Inflight</a></li>
+					<li class="breadcrumb-item"><a href="#!">Dashboard</a></li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- [ breadcrumb ] end -->
+
+<!-- [ Main Content ] start -->
+<div class="row">
+	<div class="col-xl-6 col-md-6 col-sm-12">
+		<div class="card">
+			<div class="card-header">
+				<h5>Current location</h5>
+			</div>
+			<div class="card-body">
+				<div class="embed-responsive embed-responsive-4by3">
+  					<iframe class="embed-responsive-item" src="https://findmyplane.live/view/DUMMY/just_map"></iframe>
+				</div>
+				<!--<div id="sales-analytics-chart" style="height:345px"></div>-->
+			</div>
+		</div>
+
+
+		<div class="card">
+			<div class="card-body p-0">
+				<div class="row d-flex align-items-center m-0">
+					<div class="col-6 text-center bg-primary p-0">
+						<div style="padding:20px 25px; color: white">
+							<i class="fas fa-plane-departure fa-3x"></i>
+							<h6 class="mt-2 mb-0 text-white f-w-400">{{flight.departure_name}}</h6>
+						</div>
+					</div>
+					<div class="col-6 text-center p-0">
+						<div style="padding:20px 25px;">
+							<i class="fas fa-plane-arrival fa-3x"></i>
+							<h6 class="mt-2 mb-0 f-w-400">{{flight.destination_name}}</h6>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-xl-6 col-md-6 col-sm-12">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card table-card widget-primary-card bg-c-blue">
+					<div class="row-table">
+						<div class="col-sm-4 card-body-big">
+							<i class="fas fa-plane-departure"></i>
+						</div>
+						<div class="col-sm-8">
+							<h4>[Pre boarding]</h4>
+							<h6>Flight status</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="card table-card widget-primary-card bg-c-blue">
+					<div class="row-table">
+						<div class="col-sm-4 card-body-big">
+							<i class="fas fa-user-clock"></i>
+						</div>
+						<div class="col-sm-8">
+							<h4>[Pre boarding]</h4>
+							<h6>Cabin status</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="card mrr-card">
+					<div class="card-body mb-3">
+						<span class="d-flex align-items-center"><i class="fas fa-arrow-up text-c-blue f-22 m-r-5"></i>Altitude</span>
+					</div>
+					<div id="average-chart11" class="position-absolute bottom-chart" style="height:145px;width:100%;"></div>
+					<div class="card-body">
+						<h3 class="m-0">{{ flight.current_altitude }}</h3>
+						<span>ft</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card mrr-card">
+					<div class="card-body mb-3">
+						<span class="d-flex align-items-center"><i class="fas fa-tachometer-alt text-c-green f-22 m-r-5"></i>Speed</span>
+					</div>
+					<div id="average-chart12" class="position-absolute bottom-chart" style="height:145px;width:100%;"></div>
+					<div class="card-body">
+						<h3 class="m-0">{{ flight.current_speed }}</h3>
+						<span>mph</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-md-6">
+				<div class="card table-card widget-primary-card bg-c-yellow">
+					<div class="row-table">
+						<div class="col-sm-4 card-body-big">
+							<i class="fas fa-door-closed"></i>
+						</div>
+						<div class="col-sm-8">
+							<h4>?</h4>
+							<h6>Doors</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="card table-card widget-primary-card bg-c-yellow">
+					<div class="row-table">
+						<div class="col-sm-4 card-body-big">
+							<i class="fas fa-cog"></i>
+						</div>
+						<div class="col-sm-8">
+							<h4>?</h4>
+							<h6>Landing Gear</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="card table-card widget-primary-card bg-c-yellow">
+					<div class="row-table">
+						<div class="col-sm-4 card-body-big">
+							<i class="fas fa-user-lock"></i>
+						</div>
+						<div class="col-sm-8">
+							<h4>?</h4>
+							<h6>Seatbelt sign</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="card table-card widget-primary-card bg-c-yellow">
+					<div class="row-table">
+						<div class="col-sm-4 card-body-big">
+							<i class="fas fa-smoking-ban"></i>
+						</div>
+						<div class="col-sm-8">
+							<h4>?</h4>
+							<h6>No Smoking Sign</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-body">
+						<div class="row align-items-start">
+							<div class="col">
+								<h2>{{ flight.passengers_total }} passengers</h2>
+							</div>
+							<div class="col-auto text-right">
+								<h6 class="text-muted">Passenger status</h6>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col-sm-6">
+								<span class="d-block"><i class="fas fa-circle text-c-yellow f-10 m-r-10"></i>Waiting to board</span>
+								<span class="d-block"><i class="fas fa-circle text-c-blue f-10 m-r-10"></i>Boarding</span>
+							</div>
+							<div class="col-sm-6">
+								<span class="d-block"><i class="fas fa-circle text-c-green f-10 m-r-10"></i>Seated</span>
+								<span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>Unseated</span>
+								<span class="d-block"><i class="fas fa-circle text-c-purple f-10 m-r-10"></i>Deboarded</span>
+							</div>
+
+						</div>
+						<div class="progress mt-3" style="height:20px;">
+							<div class="progress-bar bg-warning rounded" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">24%</div>
+							<div class="progress-bar bg-primary rounded" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">12%</div>
+							<div class="progress-bar bg-success rounded" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">10%</div>
+							<div class="progress-bar bg-danger rounded" role="progressbar" style="width: 15%;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">8%</div>
+							<div class="progress-bar bg-purple rounded" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">35%</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+</div>
+
+<div class="row">
+
+	<!-- lettest acivity and statustic card start -->
+                            <div class="col-xl-4 col-md-12">
+                                <div class="card latest-update-card update-card">
+                                    <div class="card-header">
+                                        <h5>What’s New</h5>
+                                        <div class="card-header-right">
+                                            <div class="btn-group card-option">
+                                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="feather icon-more-horizontal"></i>
+                                                </button>
+                                                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                                    <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                                    <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                                    <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                                    <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="new-scroll" style="height:370px;position:relative;">
+                                        <div class="card-body">
+                                            <div class="latest-update-box">
+                                                <div class="row p-t-20 p-b-30">
+                                                    <div class="col-auto text-right update-meta">
+                                                        <img src="/static/assets/images/user/avatar-1.jpg" alt="user image" class="img-radius align-top update-icon">
+                                                    </div>
+                                                    <div class="col p-l-5">
+                                                        <a href="#!">
+                                                            <h6 class="m-0">Your Manager Posted.</h6>
+                                                        </a>
+                                                        <p class="m-b-0">Jonny michel</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row p-b-30">
+                                                    <div class="col-auto text-right update-meta">
+                                                        <i class="feather icon-briefcase bg-c-red update-icon"></i>
+                                                    </div>
+                                                    <div class="col p-l-5">
+                                                        <a href="#!">
+                                                            <h6 class="m-0">You have 3 pending Task.</h6>
+                                                        </a>
+                                                        <p class="m-b-0">Hemilton</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row p-b-30">
+                                                    <div class="col-auto text-right update-meta">
+                                                        <i class="feather icon-check f-w-600 bg-c-green update-icon"></i>
+                                                    </div>
+                                                    <div class="col p-l-5">
+                                                        <a href="#!">
+                                                            <h6 class="m-0">New Order Received.</h6>
+                                                        </a>
+                                                        <p class="m-b-0">Hemilton</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row p-b-30">
+                                                    <div class="col-auto text-right update-meta">
+                                                        <i class="feather icon-briefcase bg-c-red update-icon"></i>
+                                                    </div>
+                                                    <div class="col p-l-5">
+                                                        <a href="#!">
+                                                            <h6 class="m-0">You have 3 pending Task.</h6>
+                                                        </a>
+                                                        <p class="m-b-0">Hemilton</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row p-b-30">
+                                                    <div class="col-auto text-right update-meta">
+                                                        <img src="/static/assets/images/user/avatar-4.jpg" alt="user image" class="img-radius align-top update-icon">
+                                                    </div>
+                                                    <div class="col p-l-5">
+                                                        <a href="#!">
+                                                            <h6 class="m-0">Your Manager Posted.</h6>
+                                                        </a>
+                                                        <p class="m-b-0">Jonny michel</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row p-b-30">
+                                                    <div class="col-auto text-right update-meta">
+                                                        <i class="feather icon-check f-w-600 bg-c-green update-icon"></i>
+                                                    </div>
+                                                    <div class="col p-l-5">
+                                                        <a href="#!">
+                                                            <h6 class="m-0">New Order Received.</h6>
+                                                        </a>
+                                                        <p class="m-b-0">Shirley Hoe</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-auto text-right update-meta">
+                                                        <i class="feather icon-briefcase bg-c-red update-icon"></i>
+                                                    </div>
+                                                    <div class="col p-l-5">
+                                                        <a href="#!">
+                                                            <h6 class="m-0">You have 2 pending Task.</h6>
+                                                        </a>
+                                                        <p class="m-b-0">James Alexander</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- lettest acivity and statustic card end -->
+
+</div>
+
+
+
+{% endblock content %}
+
+
+
+{% block javascripts %}
+
+
+<!-- dashboard-custom js -->
+<script src="/static/assets/js/pages/dashboard-analytics.js"></script>
+
+<script src="/static/customjs/auto-update.js"></script>
+
+{% endblock javascripts %}
+
+
+

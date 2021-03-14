@@ -19,6 +19,7 @@
 				<a href="#!" class="mob-toggler"></a>
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
+						<!--
 						<div class="main-search open">
 							<div class="input-group">
 								<input type="text" id="m-search" class="form-control" placeholder="Search . . .">
@@ -30,84 +31,41 @@
 								</span>
 							</div>
 						</div>
+						-->
 					</li>
 				</ul>
 				<ul class="navbar-nav ml-auto">
 					<li>
 						<div class="dropdown">
-							<a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i></a>
+							<a class="dropdown-toggle" href="#" data-toggle="dropdown"><span id="navbar_notification_bell"><i class="far fa-bell"></i></span></a>
+
+
 							<div class="dropdown-menu dropdown-menu-right notification">
 								<div class="noti-head">
 									<h6 class="d-inline-block m-b-0">Notifications</h6>
-									<div class="float-right">
-										<a href="#!" class="m-r-10">mark as read</a>
-										<a href="#!">clear all</a>
-									</div>
+
 								</div>
 								<ul class="noti-body">
 									<li class="n-title">
 										<p class="m-b-0">NEW</p>
 									</li>
-									<li class="notification">
+									<li id="navbar_new_crew_message_notification_card" class="notification">
 										<div class="media">
-											<img class="img-radius" src="/static/assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+											<a href="{{ url_for('messaging.chat', message_type='crew') }}">
+												<img class="img-radius" src="/static/assets/images/user/crew.png" alt="Generic placeholder image">
+											</a>
 											<div class="media-body">
-												<p><strong>John Doe</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span></p>
-												<p>New ticket Added</p>
+												<a href="{{ url_for('messaging.chat', message_type='crew') }}">
+													<p><strong>Cabin Crew</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i></span></p>
+													<p>New message</p>
+												</a>
 											</div>
 										</div>
 									</li>
-									<li class="n-title">
-										<p class="m-b-0">EARLIER</p>
-									</li>
-									<li class="notification">
-										<div class="media">
-											<img class="img-radius" src="/static/assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
-											<div class="media-body">
-												<p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>10 min</span></p>
-												<p>Prchace New Theme and make payment</p>
-											</div>
-										</div>
-									</li>
-									<li class="notification">
-										<div class="media">
-											<img class="img-radius" src="/static/assets/images/user/avatar-3.jpg" alt="Generic placeholder image">
-											<div class="media-body">
-												<p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>12 min</span></p>
-												<p>currently login</p>
-											</div>
-										</div>
-									</li>
-									<li class="notification">
-										<div class="media">
-											<img class="img-radius" src="/static/assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
-											<div class="media-body">
-												<p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
-												<p>Prchace New Theme and make payment</p>
-											</div>
-										</div>
-									</li>
-									<li class="notification">
-										<div class="media">
-											<img class="img-radius" src="/static/assets/images/user/avatar-3.jpg" alt="Generic placeholder image">
-											<div class="media-body">
-												<p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>1 hour</span></p>
-												<p>currently login</p>
-											</div>
-										</div>
-									</li>
-									<li class="notification">
-										<div class="media">
-											<img class="img-radius" src="/static/assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
-											<div class="media-body">
-												<p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>2 hour</span></p>
-												<p>Prchace New Theme and make payment</p>
-											</div>
-										</div>
-									</li>
+
 								</ul>
 								<div class="noti-footer">
-									<a href="#!">show all</a>
+									<a href="#!">Close</a>
 								</div>
 							</div>
 						</div>

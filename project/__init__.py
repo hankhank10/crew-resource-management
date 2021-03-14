@@ -48,6 +48,8 @@ app.register_blueprint(equipment_blueprint)
 from .inflight import inflight as inflight_blueprint
 app.register_blueprint(inflight_blueprint)
 
+from .messaging import messaging as messaging_blueprint
+app.register_blueprint(messaging_blueprint)
 
 ###  ADMIN 
 from flask_admin import Admin

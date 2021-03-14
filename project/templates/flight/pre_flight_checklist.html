@@ -143,8 +143,8 @@
     $('#begin_flight_button').click(function() {
 
         let ident = $('#transponder_ident').val()
+
         let url = "/pre-flight/{{ flight_plan.unique_reference }}/start/" + ident
-        alert(url)
 
         window.location.replace(url);
 

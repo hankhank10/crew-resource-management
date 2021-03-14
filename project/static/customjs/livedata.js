@@ -1,5 +1,9 @@
 
-function get_live_data(ident) {
+
+function get_live_data() {
+
+    console.log ("Updating data")
+    let ident = localStorage.getItem('current_flight_unique_reference')
 
     $.ajax({
         url: '/api/inflight/update_plane_data/'+ident,
@@ -21,8 +25,16 @@ function get_live_data(ident) {
 
             localStorage.setItem('last_updated_data', Date.now().toString())
 
+            update_notifications(response.unread_flight_messages)
+
         },
         contentType: 'application/json; charset=utf-8'
     });
+
+}
+
+function regular_checks() {
+
+    get_live_data()
 
 }

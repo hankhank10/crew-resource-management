@@ -24,6 +24,10 @@
     <!-- vendor css -->
     <link rel="stylesheet" href="/static/assets/css/style.css">
 
+    <!-- page css -->
+    <link rel="stylesheet" href="/static/assets/css/pages/pages.css">
+
+
     <!-- Specific CSS goes HERE -->
     {% block stylesheets %}{% endblock stylesheets %}
 
@@ -116,9 +120,32 @@
     <script src="/static/assets/js/vendor-all.min.js"></script>
     <script src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/assets/js/pcoded.min.js"></script>
-	
+
+    <!-- am chart js -->
+    <script src="/static/assets/plugins/chart-am4/js/core.js"></script>
+    <script src="/static/assets/plugins/chart-am4/js/charts.js"></script>
+    <script src="/static/assets/plugins/chart-am4/js/animated.js"></script>
+    <script src="/static/assets/plugins/chart-am4/js/maps.js"></script>
+    <script src="/static/assets/plugins/chart-am4/js/worldLow.js"></script>
+    <script src="/static/assets/plugins/chart-am4/js/continentsLow.js"></script>
+
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+
+        let current_flight_unique_reference = "{{ current_user.active_flight_unique_reference }}"
+        localStorage.setItem('current_flight_unique_reference', current_flight_unique_reference);
+        console.log (current_flight_unique_reference)
+
+    </script>
+
+    <script src="/static/customjs/notification_check.js"></script>
+    <script src="/static/customjs/livedata.js"></script>
+
     <!-- Specific Page JS goes HERE  -->
-    {% block javascripts %}{% endblock javascripts %}
+    {% block javascripts %} {% endblock javascripts %}
+
+
 
 
 <!--
