@@ -2,6 +2,8 @@ from flask_login import UserMixin
 from . import db
 from datetime import datetime, timedelta
 from project import equipment
+from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
+
 
 
 class User(UserMixin, db.Model):
@@ -225,12 +227,38 @@ class Seat(db.Model):
     occupied = db.Column(db.Boolean())
     occupied_by = db.Column(db.Integer)
 
-    status = db.Column(db.String(25), default="Waiting to Board")  # Waiting to Board, Boarding, Seated, Unseated, Deboarded
+    phase = db.Column(db.String(25), default="Pre Flight")
+
     activity = db.Column(db.String(50))
+
+    is_seated = db.Column(db.Boolean, default=False)
 
     status_bladder_need = db.Column(db.Integer)
     status_hunger = db.Column(db.Integer)
     status_thirst = db.Column(db.Integer)
+
+    # Times things happen at
+    time_start_boarding = db.Column(db.DateTime)
+    time_seated = db.Column(db.DateTime)
+
+    @property
+    def status(self):
+        waiting_to_board = "Waiting to Board"
+        boarding = "Boarding"
+        boarded = "Boarded"
+        deboarding = "Deboarding"
+        deboarded = "Deboarded"
+
+        if self.time_start_boarding == None: return waiting_to_board
+        if self.time_start_boarding <= datetime.utcnow(): return waiting_to_board
+
+        if self.phase == "Pre Flight":
+
+            if self.time_seated == None: return boarding
+            if self.time_seated <= datetime.utcnow(): return boarding
+
+            if self.time_seated >= datetime.utcnow(): return boarded
+
 
     @property
     def full_name(self):

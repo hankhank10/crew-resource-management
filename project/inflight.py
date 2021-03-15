@@ -88,13 +88,36 @@ def update_plane_data(unique_reference):
 
     # Perform application logic
 
+    passengers = Seat.query.filter_by(flight = flight.id).all()
+    waiting_to_board = 0
+    boarding = 0
+    on_board = 0
+    deboarding = 0
+    deboarded = 0
+    seated_count = 0
+    unseated_count = 0
+    for passenger in passengers:
+        if passenger.status == "Waiting to Board": waiting_to_board = waiting_to_board + 1
+        if passenger.status == "Boarding": boarding = boarding + 1
+        if passenger.status == "On Board": on_board = on_board + 1
+        if passenger.status == "Deboarding": deboarding = deboarding + 1
+        if passenger.status == "Deboarded": deboarded = deboarded + 1
+
+        if passenger.is_seated == True:
+            seated_count = seated_count + 1
+        else:
+            unseated_count = unseated_count + 1
+
+
     passenger_status = {
-        'waiting_to_board': Seat.query.filter_by(status = "Waiting to Board").count(),
-        'boarding': Seat.query.filter_by(status = "Boarding").count(),
-        'seated': Seat.query.filter_by(status="Seated").count(),
-        'unseated': Seat.query.filter_by(status="Unseated").count(),
-        'deboarded': Seat.query.filter_by(status="Deboarded").count(),
-        'total': Seat.query.count()
+        'waiting_to_board': waiting_to_board,
+        'boarding': boarding,
+        'on_board': on_board,
+        'deboarding': deboarding,
+        'deboarded': deboarded,
+        'total': Seat.query.count(),
+        'seated_false': seated_count,
+        'seated_true': unseated_count
     }
 
     # Return the info we want
