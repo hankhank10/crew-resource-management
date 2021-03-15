@@ -28,12 +28,16 @@ function get_live_data() {
 
             localStorage.setItem('last_updated_data', Date.now().toString());
 
-            localStorage.setItem('passenger_status_waiting_to_board', response.passenger_status.waiting_to_board);
-            localStorage.setItem('passenger_status_boarding', response.passenger_status.boarding);
-            localStorage.setItem('passenger_status_seated', response.passenger_status.seated);
-            localStorage.setItem('passenger_status_unseated', response.passenger_status.unseated);
-            localStorage.setItem('passenger_status_deboarded', response.passenger_status.deboarded);
-            localStorage.setItem('passenger_status_total', response.passenger_status.total);
+            localStorage.setItem('passenger_count_waiting_to_board', response.passenger_status.waiting_to_board);
+            localStorage.setItem('passenger_count_boarding', response.passenger_status.boarding);
+            localStorage.setItem('passenger_count_on_board', response.passenger_status.on_board);
+            localStorage.setItem('passenger_count_deboarding', response.passenger_status.deboarding);
+            localStorage.setItem('passenger_count_deboarded', response.passenger_status.deboarded);
+
+            localStorage.setItem('passenger_count_seated_true'), response.pass.seated_true;
+            localStorage.setItem('passenger_count_seated_false'), response.pass.seated_false;
+
+            localStorage.setItem('passenger_count_total', response.passenger_status.total);
 
 
             update_notifications(response.unread_flight_messages);

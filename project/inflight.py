@@ -116,8 +116,8 @@ def update_plane_data(unique_reference):
         'deboarding': deboarding,
         'deboarded': deboarded,
         'total': Seat.query.count(),
-        'seated_false': seated_count,
-        'seated_true': unseated_count
+        'seated_false': unseated_count,
+        'seated_true': seated_count
     }
 
     # Return the info we want

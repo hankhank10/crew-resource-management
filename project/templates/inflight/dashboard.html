@@ -180,23 +180,29 @@
 
 			<div class="col-md-12">
 				<div class="card">
-					<div class="card-body">
+					<div class="card-header">
 						<div class="row align-items-start">
 							<div class="col">
-								<h2>{{ flight.passengers_total }} passengers</h2>
+								<h3>{{ flight.passengers_total }} passengers</h3>
 							</div>
 							<div class="col-auto text-right">
 								<h6 class="text-muted">Passenger status</h6>
 							</div>
 						</div>
+					</div>
+					<div class="card-body">
+
 						<div class="row mt-3">
+							<div class="col-sm-12">
+								<h4>Boarding status</h4>
+							</div>
 							<div class="col-sm-6">
 								<span class="d-block"><i class="fas fa-circle text-c-yellow f-10 m-r-10"></i>Waiting to board</span>
 								<span class="d-block"><i class="fas fa-circle text-c-blue f-10 m-r-10"></i>Boarding</span>
 							</div>
 							<div class="col-sm-6">
-								<span class="d-block"><i class="fas fa-circle text-c-green f-10 m-r-10"></i>Seated</span>
-								<span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>Unseated</span>
+								<span class="d-block"><i class="fas fa-circle text-c-green f-10 m-r-10"></i>On board</span>
+								<span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>Deboarding</span>
 								<span class="d-block"><i class="fas fa-circle text-c-purple f-10 m-r-10"></i>Deboarded</span>
 							</div>
 
@@ -204,9 +210,27 @@
 						<div class="progress mt-3" style="height:30px;">
 							<div id="waiting_to_board_graphic" class="progress-bar bg-warning rounded" role="progressbar" style="width: 30%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"><span id="waiting_to_board_label">?</span></div>
 							<div id="boarding_graphic" class="progress-bar bg-primary rounded" role="progressbar" style="width: 25%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"><span id="boarding_label">?</span></div>
-							<div id="seated_graphic" class="progress-bar bg-success rounded" role="progressbar" style="width: 20%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"<span id="seated_label">?</span></div>
-							<div id="unseated_graphic" class="progress-bar bg-danger rounded" role="progressbar" style="width: 15%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"><span id="unseated_label">?</span></div>
+							<div id="on_board_graphic" class="progress-bar bg-success rounded" role="progressbar" style="width: 20%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"<span id="on_board_label">?</span></div>
+							<div id="deboarding_graphic" class="progress-bar bg-danger rounded" role="progressbar" style="width: 15%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"><span id="deboarding_label">?</span></div>
 							<div id="deboarded_graphic" class="progress-bar bg-purple rounded" role="progressbar" style="width: 25%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"><span id="deboarded_label">?</span></div>
+						</div>
+						<hr>
+						<div class="row mt-3">
+							<div class="col-sm-12">
+								<h4>Seated status</h4>
+							</div>
+							<div class="col-sm-6">
+								<span class="d-block"><i class="fas fa-circle text-c-green f-10 m-r-10"></i>Seated</span>
+							</div>
+							<div class="col-sm-6">
+								<span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>Unseated</span>
+							</div>
+
+						</div>
+						<div class="progress mt-3" style="height:30px;">
+							<div id="seated_true_graphic" class="progress-bar bg-success rounded" role="progressbar" style="width: 50%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"><span id="seated_true_label">?</span></div>
+							<div id="seated_false_graphic" class="progress-bar bg-danger rounded" role="progressbar" style="width: 50%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"><span id="seated_false_label">?</span></div>
+
 						</div>
 					</div>
 				</div>
@@ -387,30 +411,39 @@
 		link = "/static/assets/images/phase-icons/" + localStorage.getItem('phase_cabin_name') + ".png";
 		$('#cabin-phase-icon').attr("src",link);
 
-		// Set altitude
+		// Set altitude and speed
 		$('#altitude-label').text(localStorage.getItem('current_altitude'));
 		$('#speed-label').text(localStorage.getItem('current_speed'));
 
-		// Set passenger status
+		// Set passenger boarding status
+		$('#waiting_to_board_label').text(localStorage.getItem('passenger_count_waiting_to_board'));
+		$('#boarding_label').text(localStorage.getItem('passenger_count_boarding'));
+		$('#on_board_label').text(localStorage.getItem('passenger_count_on_board'));
+		$('#deboarding_label').text(localStorage.getItem('passenger_count_deboarding'));
+		$('#deboarded_label').text(localStorage.getItem('passenger_count_deboarded'));
 
-		$('#waiting_to_board_label').text(localStorage.getItem('passenger_status_waiting_to_board'));
-		$('#boarding_label').text(localStorage.getItem('passenger_status_boarding'));
-		$('#seated_label').text(localStorage.getItem('passenger_status_seated'));
-		$('#unseated_label').text(localStorage.getItem('passenger_status_unseated'));
-		$('#deboarded_label').text(localStorage.getItem('passenger_status_deboarded'));
-
-		waiting_to_board_pct = (localStorage.getItem('passenger_status_waiting_to_board') / localStorage.getItem('passenger_status_total'))*100
-		boarding_pct = (localStorage.getItem('passenger_status_boarding') / localStorage.getItem('passenger_status_total'))*100
-		seated_pct = (localStorage.getItem('passenger_status_seated') / localStorage.getItem('passenger_status_total'))*100
-		unseated_pct = (localStorage.getItem('passenger_status_unseated') / localStorage.getItem('passenger_status_total'))*100
-		deboarded_pct = (localStorage.getItem('passenger_status_deboarded') / localStorage.getItem('passenger_status_total'))*100
-
+		waiting_to_board_pct = (localStorage.getItem('passenger_count_waiting_to_board') / localStorage.getItem('passenger_count_total'))*100
+		boarding_pct = (localStorage.getItem('passenger_count_boarding') / localStorage.getItem('passenger_count_total'))*100
+		on_board_pct = (localStorage.getItem('passenger_count_on_board') / localStorage.getItem('passenger_count_total'))*100
+		deboarding_pct = (localStorage.getItem('passenger_count_deboarding') / localStorage.getItem('passenger_count_total'))*100
+		deboarded_pct = (localStorage.getItem('passenger_count_deboarded') / localStorage.getItem('passenger_count_total'))*100
 
 		$('#waiting_to_board_graphic').width(waiting_to_board_pct+'%')
 		$('#boarding_graphic').width(boarding_pct+'%')
-		$('#seated_graphic').width(seated_pct+'%')
-		$('#unseated_graphic').width(unseated_pct+'%')
+		$('#on_board_graphic').width(on_board_pct+'%')
+		$('#deboading_graphic').width(deboarding_pct+'%')
 		$('#deboarded_graphic').width(deboarded_pct+'%')
+
+
+		// Set passenger seated status
+		$('#seated_true_label').text(localStorage.getItem('passenger_count_seated_true'));
+		$('#seated_false_label').text(localStorage.getItem('passenger_count_seated_false'));
+
+		seated_true_pct = (localStorage.getItem('passenger_count_seated_true') / localStorage.getItem('passenger_count_total'))*100
+		seated_false_pct = (localStorage.getItem('passenger_count_seated_false') / localStorage.getItem('passenger_count_total'))*100
+
+		$('#seated_true_graphic').width(seated_true_pct+'%')
+		$('#seated_false_graphic').width(seated_false_pct+'%')
 
 	}
 
