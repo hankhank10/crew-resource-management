@@ -34,8 +34,8 @@ function get_live_data() {
             localStorage.setItem('passenger_count_deboarding', response.passenger_status.deboarding);
             localStorage.setItem('passenger_count_deboarded', response.passenger_status.deboarded);
 
-            localStorage.setItem('passenger_count_seated_true'), response.pass.seated_true;
-            localStorage.setItem('passenger_count_seated_false'), response.pass.seated_false;
+            localStorage.setItem('passenger_count_seated_true', response.passenger_status.seated_true);
+            localStorage.setItem('passenger_count_seated_false', response.passenger_status.seated_false);
 
             localStorage.setItem('passenger_count_total', response.passenger_status.total);
 

@@ -221,15 +221,19 @@
 							</div>
 							<div class="col-sm-6">
 								<span class="d-block"><i class="fas fa-circle text-c-green f-10 m-r-10"></i>Seated</span>
+								<span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>Unseated</span>
 							</div>
 							<div class="col-sm-6">
-								<span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>Unseated</span>
+								<span class="d-block"><i class="fas fa-circle text-c-yellow f-10 m-r-10"></i>Not on board</span>
 							</div>
 
 						</div>
 						<div class="progress mt-3" style="height:30px;">
+
+							<div id="seated_not_on_board_graphic" class="progress-bar bg-warning rounded" role="progressbar" style="width: 50%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"><span id="seated_not_on_board_label">?</span></div>
 							<div id="seated_true_graphic" class="progress-bar bg-success rounded" role="progressbar" style="width: 50%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"><span id="seated_true_label">?</span></div>
 							<div id="seated_false_graphic" class="progress-bar bg-danger rounded" role="progressbar" style="width: 50%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"><span id="seated_false_label">?</span></div>
+
 
 						</div>
 					</div>
@@ -431,19 +435,27 @@
 		$('#waiting_to_board_graphic').width(waiting_to_board_pct+'%')
 		$('#boarding_graphic').width(boarding_pct+'%')
 		$('#on_board_graphic').width(on_board_pct+'%')
-		$('#deboading_graphic').width(deboarding_pct+'%')
+		$('#deboarding_graphic').width(deboarding_pct+'%')
 		$('#deboarded_graphic').width(deboarded_pct+'%')
 
 
 		// Set passenger seated status
-		$('#seated_true_label').text(localStorage.getItem('passenger_count_seated_true'));
-		$('#seated_false_label').text(localStorage.getItem('passenger_count_seated_false'));
+		passenger_count_seated_true = localStorage.getItem('passenger_count_seated_true');
+		passenger_count_seated_false = localStorage.getItem('passenger_count_seated_false');
 
-		seated_true_pct = (localStorage.getItem('passenger_count_seated_true') / localStorage.getItem('passenger_count_total'))*100
-		seated_false_pct = (localStorage.getItem('passenger_count_seated_false') / localStorage.getItem('passenger_count_total'))*100
+		$('#seated_true_label').text(passenger_count_seated_true);
+		$('#seated_false_label').text(passenger_count_seated_false);
+		$('#seated_not_on_board_label').text(passenger_count_seated_false);
+
+
+		seated_true_pct = passenger_count_seated_true / localStorage.getItem('passenger_count_total')*100
+		seated_false_pct = passenger_count_seated_true / localStorage.getItem('passenger_count_total')*100
+		seated_not_on_board_pct = (localStorage.getItem('passenger_count_waiting_to_board') + localStorage.getItem('passenger_count_deboarded'))/ localStorage.getItem('passenger_count_total')*100
 
 		$('#seated_true_graphic').width(seated_true_pct+'%')
 		$('#seated_false_graphic').width(seated_false_pct+'%')
+		$('#seated_not_on_board_graphic').width(seated_not_on_board_pct+'%')
+
 
 	}
 

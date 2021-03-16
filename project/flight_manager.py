@@ -4,7 +4,7 @@ import secrets
 from datetime import datetime
 from . import db
 from . import app
-from project import equipment, inflight, passengers
+from project import equipment, inflight, passengers, seatmapper
 from .models import Flight, FlightPhase
 
 
@@ -96,5 +96,3 @@ def start_flight(unique_reference, ident):
     db.session.commit()
 
     return redirect(url_for('inflight.dashboard'))
-
-

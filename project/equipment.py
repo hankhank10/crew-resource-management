@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, Flask, current_app, jsonify, request, flash, redirect, url_for
 import json
 import os.path
+from project import seatmapper
 
 
 equipment = Blueprint('equipment', __name__)
@@ -39,6 +40,34 @@ def view_list():
     load_equipment_from_json()
 
     return render_template('equipment/equipment_list.html', equipment_list = equipment_list)
+
+
+@equipment.route('/equipment/seatmap_builder')
+def seatmap_builder():
+    return render_template('equipment/seatmap_builder.html')
+
+
+@equipment.route('/api/equipment/seatmap_parser')
+def api_seatmap_parser():
+
+    received_data = request.args.get('seatmap_text')
+    seatmap = seatmapper.load_seatmap(received_data)
+
+    number_of_seats_across, number_of_rows = seatmapper.get_size(seatmap)
+
+    return jsonify({
+        'status': 'ok',
+        'seat_count_total': seatmapper.count_seats(seatmap),
+        'seat_count_first_class': seatmapper.count_seats(seatmap, "F"),
+        'seat_count_business_class': seatmapper.count_seats(seatmap, "B"),
+        'seat_count_premium_class': seatmapper.count_seats(seatmap, "P"),
+        'seat_count_economy_class': seatmapper.count_seats(seatmap, "E"),
+        'number_of_seats_across': number_of_seats_across,
+        'number_of_rows': number_of_rows,
+        'seatmap_object': seatmap
+    })
+
+
 
 
 @equipment.route('/equipment/new', methods=['GET', 'POST'])

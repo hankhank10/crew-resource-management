@@ -1,0 +1,3 @@
+##{ABC DEF HJK}
+01{F    FF   F}
+06{BB  BBB  BB}

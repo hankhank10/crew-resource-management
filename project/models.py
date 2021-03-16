@@ -207,14 +207,16 @@ class EquipmentType(db.Model):
 class Seat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
-    flight = db.Column(db.Integer, db.ForeignKey('flight.id'), nullable=False)
+    flight = db.Column(db.Integer, db.ForeignKey('flight.id'), nullable=True)
+
+    seat_number = db.Column(db.String(4))
 
     manifest_number = db.Column(db.Integer)
 
-    row = db.Column(db.Integer)
-    col = db.Column(db.Integer)
+    y = db.Column(db.Integer)  # Row number
+    x = db.Column(db.Integer)  # Column number
 
-    seat_type = db.Column(db.String(1))  # F=First, B=Business, P=Premium, E=Economy, A=Aisle
+    seat_type = db.Column(db.String(1))  # F=First, B=Business, P=Premium, E=Economy, X=Blank, " "=Blank
 
     @property
     def seat_type_text(self):
@@ -223,6 +225,8 @@ class Seat(db.Model):
         if self.seat_type == "B": return "Business"
         if self.seat_type == "P": return "Premium"
         if self.seat_type == "E": return "Economy"
+        if self.seat_type == "X": return ""
+        if self.seat_tyoe == " ": return ""
 
     occupied = db.Column(db.Boolean())
     occupied_by = db.Column(db.Integer)
