@@ -37,8 +37,10 @@ function get_live_data() {
             localStorage.setItem('passenger_count_seated_true', response.passenger_status.seated_true);
             localStorage.setItem('passenger_count_seated_false', response.passenger_status.seated_false);
 
-            localStorage.setItem('passenger_count_total', response.passenger_status.total);
-
+            localStorage.setItem('passenger_count_total', response.passenger_status.occupied_seats);
+            localStorage.setItem('seat_count_occupied', response.passenger_status.occupied_seats);
+            localStorage.setItem('seat_count_empty', response.passenger_status.empty_seats);
+            localStorage.setItem('seat_count_total', response.passenger_status.total_seats);
 
             update_notifications(response.unread_flight_messages);
             update_display();

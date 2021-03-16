@@ -5,7 +5,7 @@ from datetime import datetime
 from . import db
 from . import app
 from project import equipment, inflight, passengers, seatmapper
-from .models import Flight, FlightPhase
+from .models import Flight, FlightPhase, EquipmentType
 
 
 flight_manager = Blueprint('flight_manager', __name__)
@@ -24,9 +24,15 @@ def view_list():
 def new():
 
     if request.method == "GET":
-        return render_template('flight/new_flight.html', equipment_list=equipment.equipment_list)
+        equipment_list = EquipmentType.query.all()
+        return render_template('flight/new_flight.html', equipment_list=equipment_list)
 
     if request.method == "POST":
+
+        relevant_equipment = EquipmentType.query.filter_by(full_name=request.form['equipment_selector']).first()
+        if not relevant_equipment:
+            flash("Error finding that equipment spec", "danger")
+            return render_template('flight/new_flight.html', equipment_list=equipment.equipment_list)
 
         try:
             unique_reference = datetime.today().strftime('%Y%m%d') + "-" + secrets.token_hex(10).upper()
@@ -46,7 +52,8 @@ def new():
                 passengers_business_class=int(request.form['business_class_actual']),
                 passengers_premium_class=int(request.form['premium_class_actual']),
                 passengers_economy_class=int(request.form['economy_class_actual']),
-                cabin_crew_count=int(request.form['cabin_crew_actual'])
+                cabin_crew_count=int(request.form['cabin_crew_actual']),
+                seatmap_text=relevant_equipment.seatmap_text
             )
 
             db.session.add(flight)

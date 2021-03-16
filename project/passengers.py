@@ -4,7 +4,7 @@ from . import db
 from . import app
 from .models import Flight, Seat, Passenger
 import random
-from project import name_generator
+from project import name_generator, seatmapper
 
 
 passengers = Blueprint('passengers', __name__)
@@ -66,17 +66,20 @@ def api_list(unique_reference):
             'error': 'flight not found'
         })
 
-    seat_list = Seat.query.filter_by(flight = flight.id).all()
+    occupied_seat_list = Seat.query.filter_by(flight = flight.id, occupied = True).all()
 
-    seat_output_list = []
+    occupied_seat_output_list = []
+    empty_seat_output_list = []
+
     occupied_seat_count = 0
-    unoccupied_seat_count = 0
+    empty_seat_count = 0
 
-    for seat in seat_list:
-        seat_dictionary = {
+    # Occupied seats
+    for seat in occupied_seat_list:
+        occupied_seat_dictionary = {
             'manifest_number': seat.manifest_number,
-            'row': seat.row,
-            'col': seat.col,
+            'x': seat.x,
+            'y': seat.y,
             'seat_type': seat.seat_type,
             'seat_type_text': seat.seat_type_text,
             'occupied': seat.occupied,
@@ -91,25 +94,37 @@ def api_list(unique_reference):
             'full_name': seat.full_name,
             'frequent_flyer_status': seat.frequent_flyer_status,
             'frequent_flyer_status_text': seat.frequent_flyer_status_text,
-            'seat_number': None
+            'seat_number': seat.seat_number
         }
-        seat_output_list.append(seat_dictionary)
-        if seat.occupied == True: occupied_seat_count = occupied_seat_count + 1
-        if seat.occupied == False: unoccupied_seat_count = unoccupied_seat_count + 1
+        occupied_seat_output_list.append(occupied_seat_dictionary)
+        occupied_seat_count = occupied_seat_count + 1
 
+    # Empty seats
+    empty_seat_list = Seat.query.filter_by(flight = flight.id, occupied = False).all()
+    for empty_seat in empty_seat_list:
+        empty_seat_dictionary = {
+            'x': empty_seat.x,
+            'y': empty_seat.y,
+            'seat_type': " ",
+            'seat_type_text': "Empty seat",
+            'occupied': False
+        }
+        empty_seat_output_list.append(empty_seat_dictionary)
+        empty_seat_count = empty_seat_count + 1
 
     output_dictionary = {
         'status': 'success',
-        'seat_count_unoccupied': unoccupied_seat_count,
+        'seat_count_empty': empty_seat_count,
         'seat_count_occupied': occupied_seat_count,
-        'seat_count_total': occupied_seat_count + unoccupied_seat_count,
-        'seats': seat_output_list
+        'seat_count_total': occupied_seat_count + empty_seat_count,
+        'occupied_seats': occupied_seat_output_list,
+#        'empty_seats': empty_seat_output_list
     }
 
     return jsonify(output_dictionary)
 
 
-def load_passengers(flight_id):
+def board_passengers(flight_id):
 
     passengers_to_load_per_minute = 20
     second_between_each_passengers = 60 / passengers_to_load_per_minute
@@ -133,11 +148,17 @@ def fill_flight_with_passengers(flight_id):
     # Delete any previous passengers
     Seat.query.filter_by(flight = flight_id).delete()
 
+    # Parse the seatmap for the flight
+    seatmap_object = seatmapper.load_seatmap(flight.seatmap_text)
 
+    # Work out how many potential passengers there are available to choose from
     how_many_passengers_exist = Passenger.query.count()
+
+    # Reset all the lists before we start the loop
     list_of_already_loaded_passengers = []
     manifest_number = 1
 
+    # Specify the list of classes we need to run through
     list_of_class_types = ['F', 'B', 'P', 'E']
 
     for class_code in list_of_class_types:
@@ -146,37 +167,63 @@ def fill_flight_with_passengers(flight_id):
         if class_code == "P": number_to_load = flight.passengers_premium_class
         if class_code == "E": number_to_load = flight.passengers_economy_class
 
+        seat_list_for_this_class = seatmapper.get_seats_by_type(seatmap_object, class_code, True)
+        seat_count_for_this_class = len(seat_list_for_this_class)
+
         # Populate each class
-        for a in range(0, number_to_load):
-            can_this_passenger_be_loaded = False
+        for a in range(0, seat_count_for_this_class):
 
-            while can_this_passenger_be_loaded == False:
-                selected_passenger_id = random.randint(1, how_many_passengers_exist)
+            # If
+            if a > number_to_load-1:
+                new_seat = Seat(
+                    flight = flight_id,
+                    x=seat_list_for_this_class[a]['x'],
+                    y=seat_list_for_this_class[a]['y'],
+                    seat_number=seat_list_for_this_class[a]['seat_number'],
+                    seat_type=seat_list_for_this_class[a]['seat_type'],
+                    phase="Empty seat",
+                    occupied=False
+                )
+                db.session.add(new_seat)
+                db.session.commit()
+            else:
+                can_this_passenger_be_loaded = False
 
-                if selected_passenger_id not in list_of_already_loaded_passengers:
-                    can_this_passenger_be_loaded = True
-                    list_of_already_loaded_passengers.append(selected_passenger_id)
-                    new_seat = Seat(
-                        flight = flight_id,
-                        manifest_number = manifest_number,
-                        seat_type=class_code,
-                        occupied=True,
-                        occupied_by=selected_passenger_id,
-                        phase="Pre Flight",
-                        is_seated=False,
-                        status_bladder_need=random.randint(20,80),
-                        status_hunger=random.randint(20,80),
-                        status_thirst=random.randint(20,80)
-                    )
-                    db.session.add(new_seat)
-                    db.session.commit()
-                    manifest_number = manifest_number + 1
+                while can_this_passenger_be_loaded == False:
+                    selected_passenger_id = random.randint(1, how_many_passengers_exist)
+
+                    if selected_passenger_id not in list_of_already_loaded_passengers:
+                        can_this_passenger_be_loaded = True
+                        list_of_already_loaded_passengers.append(selected_passenger_id)
+                        new_seat = Seat(
+                            flight = flight_id,
+                            x = seat_list_for_this_class[a]['x'],
+                            y = seat_list_for_this_class[a]['y'],
+                            manifest_number = manifest_number,
+                            seat_number=seat_list_for_this_class[a]['seat_number'],
+                            seat_type=class_code,
+                            occupied=True,
+                            occupied_by=selected_passenger_id,
+                            phase="Pre Flight",
+                            is_seated=False,
+                            status_bladder_need=random.randint(20,80),
+                            status_hunger=random.randint(20,80),
+                            status_thirst=random.randint(20,80)
+                        )
+                        db.session.add(new_seat)
+                        db.session.commit()
+                        manifest_number = manifest_number + 1
 
     return "ok"
 
-# DEBUG ONLY
-@passengers.route('/passengers/populate')
-def test_passengers_populate():
 
-    return fill_flight_with_passengers(current_user.active_flight_id)
+
+
+
+
+# DEBUG ONLY
+#@passengers.route('/passengers/populate')
+#def test_passengers_populate():
+#
+#    return fill_flight_with_passengers(current_user.active_flight_id)
 

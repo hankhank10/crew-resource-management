@@ -1,7 +1,7 @@
 from flask_login import UserMixin
 from . import db
 from datetime import datetime, timedelta
-from project import equipment
+from project import equipment_logos
 from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 
 
@@ -87,17 +87,19 @@ class Flight(db.Model):
     parking_brake = db.Column(db.Boolean)
     gear_handle_position = db.Column(db.Integer)
 
+    seatmap_text = db.Column(db.String(5000))
+
     @property
     def passengers_total(self):
         return self.passengers_first_class + self.passengers_business_class + self.passengers_premium_class + self.passengers_economy_class
 
     @property
     def operator_logo(self):
-        return equipment.lookup_logo(self.equipment_operator, "operator")
+        return equipment_logos.lookup_logo(self.equipment_operator, "operator")
 
     @property
     def manufacturer_logo(self):
-        return equipment.lookup_logo(self.equipment_manufacturer, "manufacturer")
+        return equipment_logos.lookup_logo(self.equipment_manufacturer, "manufacturer")
 
     @property
     def phase_flight_name(self):
@@ -189,19 +191,33 @@ class EquipmentType(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     manufacturer = db.Column(db.String(30))  # eg Boeing
-    model = db.Column(db.String(20))  # 747-800
+    model = db.Column(db.String(30))  # 747-800
+    variant = db.Column(db.String(20))
+    full_name = db.Column(db.String(100))
 
     operator = db.Column(db.String(100))  # British Airways
 
     first_class_seats = db.Column(db.Integer)
     business_class_seats = db.Column(db.Integer)
-    premium_seats = db.Column(db.Integer)
-    economy_seats = db.Column(db.Integer)
+    premium_class_seats = db.Column(db.Integer)
+    economy_class_seats = db.Column(db.Integer)
 
     maximum_cabin_crew = db.Column(db.Integer)
 
-    approved_for_general_use = db.Column(db.Boolean)
+    approved_for_general_use = db.Column(db.Boolean, default=True)
     created_by_user = db.Column(db.Integer)
+
+    seatmap_text = db.Column(db.String(5000))
+
+    @property
+    def operator_logo_url(self):
+        return equipment_logos.lookup_logo(self.operator, "operator")
+
+    @property
+    def manufacturer_logo_url(self):
+        return equipment_logos.lookup_logo(self.manufacturer, "manufacturer")
+
+
 
 
 class Seat(db.Model):
@@ -231,7 +247,7 @@ class Seat(db.Model):
     occupied = db.Column(db.Boolean())
     occupied_by = db.Column(db.Integer)
 
-    phase = db.Column(db.String(25), default="Pre Flight")
+    phase = db.Column(db.String(25))
 
     activity = db.Column(db.String(50))
 
@@ -252,6 +268,9 @@ class Seat(db.Model):
         boarded = "Boarded"
         deboarding = "Deboarding"
         deboarded = "Deboarded"
+
+        if self.seat_type == " " or self.phase == "Empty seat" or self.phase == None:
+            return "Empty seat"
 
         if self.time_start_boarding == None: return waiting_to_board
         if self.time_start_boarding <= datetime.utcnow(): return waiting_to_board

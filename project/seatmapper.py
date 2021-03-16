@@ -69,16 +69,16 @@ def load_seatmap(input_string):
 
 def get_seats_by_type(seatmap_object, desired_seat_type, random_order=False):
 
-    available_seat_list = []
+    relevant_seat_list = []
 
     for seat in seatmap_object:
         if seat["seat_type"] == desired_seat_type:
-            available_seat_list.append(seat)
+            relevant_seat_list.append(seat)
 
     if random_order:
-        random.shuffle(available_seat_list)
+        random.shuffle(relevant_seat_list)
 
-    return available_seat_list
+    return relevant_seat_list
 
 
 def count_seats (seatmap_object, desired_seat_type=None):

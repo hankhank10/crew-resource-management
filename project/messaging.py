@@ -15,6 +15,7 @@ messaging = Blueprint('messaging', __name__)
 
 @messaging.route('/inflight/messaging')
 @messaging.route('/inflight/messaging/<message_type>')
+@login_required
 def chat(message_type = "crew"):
 
     if message_type == "crew":
@@ -26,8 +27,9 @@ def chat(message_type = "crew"):
 
     return render_template('inflight/chat.html', existing_message_list=messages)
 
-@login_required
+
 @messaging.route('/api/inflight/messaging/check_messages', methods=['GET'])
+@login_required
 def check_message_count():
 
     return jsonify({
@@ -35,8 +37,9 @@ def check_message_count():
         'unread_flight_messages': current_user.unread_flight_messages
     })
 
-@login_required
+
 @messaging.route('/api/inflight/messaging/send_message', methods=['GET'])
+@login_required
 def send_message_from_pilot():
 
     if current_user.active_flight_id is None:

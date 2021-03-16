@@ -96,6 +96,8 @@ def update_plane_data(unique_reference):
     deboarded = 0
     seated_count = 0
     unseated_count = 0
+    occupied_count = 0
+    empty_count = 0
     for passenger in passengers:
         if passenger.status == "Waiting to Board": waiting_to_board = waiting_to_board + 1
         if passenger.status == "Boarding": boarding = boarding + 1
@@ -108,6 +110,11 @@ def update_plane_data(unique_reference):
         else:
             unseated_count = unseated_count + 1
 
+        if passenger.occupied == True:
+            occupied_count = occupied_count + 1
+        else:
+            empty_count = empty_count + 1
+
 
     passenger_status = {
         'waiting_to_board': waiting_to_board,
@@ -115,9 +122,11 @@ def update_plane_data(unique_reference):
         'on_board': on_board,
         'deboarding': deboarding,
         'deboarded': deboarded,
-        'total': Seat.query.count(),
+        'total_seats': Seat.query.count(),
         'seated_false': unseated_count,
-        'seated_true': seated_count
+        'seated_true': seated_count,
+        'occupied_seats': occupied_count,
+        'empty_seats': empty_count
     }
 
     # Return the info we want

@@ -1,53 +1,28 @@
 from flask import Blueprint, render_template, Flask, current_app, jsonify, request, flash, redirect, url_for
-import json
-import os.path
-from project import seatmapper
+from flask_login import login_required, current_user
+
+from . import db
+from . import app
+from project import seatmapper, equipment_logos
+from .models import EquipmentType
+
 
 
 equipment = Blueprint('equipment', __name__)
 
 
-def write_equipment_to_json():
-    with open(equipment_filename, "w") as write_file:
-        json.dump(equipment_list, write_file)
-
-
-def load_equipment_from_json():
-    global equipment_list
-
-    if not os.path.isfile(equipment_filename):
-        write_equipment_to_json()
-        return
-
-    with open(equipment_filename, "r") as read_file:
-        equipment_list = json.load(read_file)
-
-    for item in equipment_list:
-        item['manufacturer']
-
-
-def load_logos_from_json():
-    global logo_list
-
-    with open(logo_filename, "r") as read_file:
-        logo_list = json.load(read_file)
-
 
 @equipment.route('/equipment')
+@login_required
 def view_list():
 
-    add_logos_to_json()
-    load_equipment_from_json()
+    equipment_list = EquipmentType.query.all()
 
     return render_template('equipment/equipment_list.html', equipment_list = equipment_list)
 
 
-@equipment.route('/equipment/seatmap_builder')
-def seatmap_builder():
-    return render_template('equipment/seatmap_builder.html')
-
-
 @equipment.route('/api/equipment/seatmap_parser')
+@login_required
 def api_seatmap_parser():
 
     received_data = request.args.get('seatmap_text')
@@ -68,9 +43,8 @@ def api_seatmap_parser():
     })
 
 
-
-
 @equipment.route('/equipment/new', methods=['GET', 'POST'])
+@login_required
 def new():
 
     if request.method == "GET":
@@ -88,81 +62,52 @@ def new():
             return redirect(url_for('equipment.create_new'))
 
         try:
-            first_class_seats = int(request.form['first_class_seats'])
-        except:
-            first_class_seats = 0
-
-        try:
-            business_class_seats = int(request.form['business_class_seats'])
-        except:
-            business_class_seats = 0
-
-        try:
-            premium_class_seats = int(request.form['premium_class_seats'])
-        except:
-            premium_class_seats = 0
-
-        try:
-            economy_class_seats = int(request.form['economy_class_seats'])
-        except:
-            economy_class_seats = 0
-
-        try:
             maximum_cabin_crew = int(request.form['maximum_cabin_crew'])
         except:
             maximum_cabin_crew = 1
 
+        seatmap_text = request.form['seatmap_text_input']
+
+        seatmap_object = seatmapper.load_seatmap(seatmap_text)
+
+        first_class_seats = seatmapper.count_seats(seatmap_object, "F")
+        business_class_seats = seatmapper.count_seats(seatmap_object, "B")
+        premium_class_seats = seatmapper.count_seats(seatmap_object, "P")
+        economy_class_seats = seatmapper.count_seats(seatmap_object, "E")
+
         if maximum_cabin_crew < 0: maximum_cabin_crew = 1
 
-        new_equipment = {
-            'operator': request.form['operator'].rstrip(),
-            'manufacturer': request.form['manufacturer'].rstrip(),
-            'model': request.form['model'].rstrip(),
-            'variant': request.form['variant'].rstrip(),
-            'full_name': full_name.rstrip(),
-            'first_class_seats': first_class_seats,
-            'business_class_seats': business_class_seats,
-            'premium_class_seats': premium_class_seats,
-            'economy_class_seats': economy_class_seats,
-            'maximum_cabin_crew': maximum_cabin_crew
-        }
+        new_equipment = EquipmentType(
+            operator= request.form['operator'].rstrip(),
+            manufacturer= request.form['manufacturer'].rstrip(),
+            model= request.form['model'].rstrip(),
+            variant= request.form['variant'].rstrip(),
+            full_name= full_name.rstrip(),
+            first_class_seats= first_class_seats,
+            business_class_seats= business_class_seats,
+            premium_class_seats= premium_class_seats,
+            economy_class_seats= economy_class_seats,
+            maximum_cabin_crew= maximum_cabin_crew,
+            seatmap_text= seatmap_text,
+            created_by_user= current_user.id,
+        )
 
-        load_equipment_from_json()
-        global equipment_list
-        equipment_list.append(new_equipment)
-        write_equipment_to_json()
+        db.session.add(new_equipment)
+        db.session.commit()
+
+        #load_equipment_from_json()
+        #global equipment_list
+        #equipment_list.append(new_equipment)
+        #write_equipment_to_json()
 
         flash("New equipment created", "success")
 
         return redirect(url_for('equipment.view_list'))
 
 
-def lookup_logo(lookup_name, look_for):
-
-    relevant_list = logo_list
-
-    for logo in relevant_list:
-        if lookup_name.upper() == logo['name'].upper():
-            return logo['logo_url']
-
-    return ""
-
-
-def add_logos_to_json():
-    global equipment_list
-
-    load_logos_from_json()
-    load_equipment_from_json()
-
-    for item in equipment_list:
-        item['operator_logo_url'] = lookup_logo(item['operator'], "operator")
-        item['manufacturer_logo_url'] = lookup_logo(item['manufacturer'], "manufacturer")
-
-    write_equipment_to_json()
-
-
 @equipment.route('/api/equipment/operator_logo', endpoint="operator")
 @equipment.route('/api/equipment/manufacturer_logo', endpoint="manufacturer")
+@login_required
 def lookup_logo_endpoint():
 
     lookup_name = request.args.get('search_term')
@@ -172,9 +117,7 @@ def lookup_logo_endpoint():
         if request.endpoint == "equipment.operator": look_for = "operator"
         if request.endpoint == "equipment.manufacturer": look_for = "manufacturer"
 
-        relevant_list = logo_list
-
-        logo_url = lookup_logo (lookup_name, look_for)
+        logo_url = equipment_logos.lookup_logo (lookup_name, look_for)
         if logo_url == "":
             return jsonify({'status': 'error'})
 
@@ -189,10 +132,13 @@ def lookup_logo_endpoint():
 def api_suggest_name():
 
     equipment_name = request.args.get('query')
+
+    equipment_list = EquipmentType.query.all()
+
     result_list = []
 
     for item in equipment_list:
-        if equipment_name.upper() in item['full_name'].upper():
+        if equipment_name.upper() in item.full_name.upper():
             result_list.append({
                 'value': item['full_name'],
             })
@@ -211,21 +157,33 @@ def api_suggest_name():
 def api_details():
 
     equipment_name = request.args.get('search_term')
-    print(equipment_name)
 
-    for item in equipment_list:
-        if equipment_name.upper() == item['full_name'].upper():
-            return jsonify(item)
+    item = EquipmentType.query.filter_by(full_name = equipment_name).first_or_404()
+
+    return jsonify({
+        'manufacturer': item.manufacturer,
+        'variant': item.variant,
+        'full_name': item.full_name,
+        'operator': item.operator,
+        'first_class_seats': item.first_class_seats,
+        'business_class_seats': item.business_class_seats,
+        'premium_class_seats': item.premium_class_seats,
+        'economy_class_seats': item.economy_class_seats,
+        'maximum_cabin_crew': item.maximum_cabin_crew,
+        'approved_for_general_use': item.approved_for_general_use,
+        'created_by_user': item.created_by_user,
+        'seatmap_text': item.seatmap_text,
+        'operator_logo_url': item.operator_logo_url,
+        'manufacturer_logo_url': item.manufacturer_logo_url
+    })
 
 
 def check_if_already_exists(lookup_name):
-    load_equipment_from_json()
 
-    for item in equipment_list:
-        if item['full_name'].rstrip() == lookup_name.rstrip():
-            return True
+    item_count = EquipmentType.query.filter_by(full_name = lookup_name).count()
 
-    return False
+    if item_count > 0: return True
+    if item_count == 0: return False
 
 
 @equipment.route('/api/equipment/check_if_exists')
@@ -243,11 +201,6 @@ def check_if_exists_endpoint():
 
 
 
-equipment_filename = "equipment_list.json"
-equipment_list = []
+#equipment_filename = "equipment_list.json"
+#equipment_list = []
 
-logo_filename = "logos.json"
-logo_list = []
-
-load_equipment_from_json()
-load_logos_from_json()

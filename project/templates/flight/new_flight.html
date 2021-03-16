@@ -279,7 +279,7 @@
 
     let load_factors_ok = false;
 
-    $('#departure_airport_name').autocomplete({
+    $('#departure_airport_name').devbridgeAutocomplete({
         serviceUrl: '/api/airport_lookup/suggest_name',
         autoSelectFirst: true,
         onSelect: function (suggestion) {
@@ -287,7 +287,7 @@
         }
     })
 
-    $('#destination_airport_name').autocomplete({
+    $('#destination_airport_name').devbridgeAutocomplete({
         serviceUrl: '/api/airport_lookup/suggest_name',
         autoSelectFirst: true,
         onSelect: function (suggestion) {
