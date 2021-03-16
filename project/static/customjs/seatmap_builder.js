@@ -73,7 +73,5 @@ function draw_table(max_x, max_y, seatmap_object) {
             $(relevant_cell_id).html(html_for_cell)
         }
 
-
-
     })
 }

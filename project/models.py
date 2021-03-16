@@ -88,6 +88,8 @@ class Flight(db.Model):
     gear_handle_position = db.Column(db.Integer)
 
     seatmap_text = db.Column(db.String(5000))
+    number_of_seats_across = db.Column(db.Integer)
+    number_of_rows = db.Column(db.Integer)
 
     @property
     def passengers_total(self):
@@ -208,6 +210,9 @@ class EquipmentType(db.Model):
     created_by_user = db.Column(db.Integer)
 
     seatmap_text = db.Column(db.String(5000))
+
+    number_of_seats_across = db.Column(db.Integer)
+    number_of_rows = db.Column(db.Integer)
 
     @property
     def operator_logo_url(self):

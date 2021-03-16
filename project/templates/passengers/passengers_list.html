@@ -19,6 +19,8 @@
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url_for('main.dashboard') }}"><i class="feather icon-home"></i></a></li>
                         <li class="breadcrumb-item"><a href="#!">Passengers</a></li>
+                        <li class="breadcrumb-item"><a href="#!">Manifest</a></li>
+
                     </ul>
                 </div>
             </div>
@@ -96,6 +98,7 @@
                         if (data === 'Boarding') {return '<h5><span class="badge badge-primary">'+data+'</span></h5>'}
                         if (data === 'Seated') {return '<h5><span class="badge badge-success">'+data+'</span></h5>'}
                         if (data === 'Unseated') {return '<h5><span class="badge badge-danger">'+data+'</span></h5>'}
+                        if (data === 'Deboarding') {return '<h5><span class="badge badge-danger">'+data+'</span></h5>'}
                         if (data === 'Deboarded') {return '<h5><span class="badge badge-info">'+data+'</span></h5>'}
                     }
                 },

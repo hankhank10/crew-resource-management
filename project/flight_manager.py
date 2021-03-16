@@ -53,7 +53,9 @@ def new():
                 passengers_premium_class=int(request.form['premium_class_actual']),
                 passengers_economy_class=int(request.form['economy_class_actual']),
                 cabin_crew_count=int(request.form['cabin_crew_actual']),
-                seatmap_text=relevant_equipment.seatmap_text
+                seatmap_text=relevant_equipment.seatmap_text,
+                number_of_rows=relevant_equipment.number_of_rows,
+                number_of_seats_across=relevant_equipment.number_of_seats_across
             )
 
             db.session.add(flight)

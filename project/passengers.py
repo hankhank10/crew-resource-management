@@ -49,10 +49,16 @@ def create_new_passengers(how_many=1):
     return "Created " + str(how_many) + " new passengers"
 
 
-@passengers.route('/inflight/passengers')
+@passengers.route('/inflight/passengers/')
 def list():
 
     return render_template('/passengers/passengers_list.html')
+
+
+@passengers.route('/inflight/passengers/seatmap')
+def show_seatmap_page():
+
+    return render_template('/passengers/seatmap.html')
 
 
 @passengers.route('/api/passengers/list/<unique_reference>')
@@ -105,7 +111,8 @@ def api_list(unique_reference):
         empty_seat_dictionary = {
             'x': empty_seat.x,
             'y': empty_seat.y,
-            'seat_type': " ",
+            'seat_number': empty_seat.seat_number,
+            'seat_type': empty_seat.seat_type,
             'seat_type_text': "Empty seat",
             'occupied': False
         }
@@ -117,8 +124,10 @@ def api_list(unique_reference):
         'seat_count_empty': empty_seat_count,
         'seat_count_occupied': occupied_seat_count,
         'seat_count_total': occupied_seat_count + empty_seat_count,
+        'number_of_rows': flight.number_of_rows,
+        'number_of_seats_across': flight.number_of_seats_across,
         'occupied_seats': occupied_seat_output_list,
-#        'empty_seats': empty_seat_output_list
+        'empty_seats': empty_seat_output_list
     }
 
     return jsonify(output_dictionary)

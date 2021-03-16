@@ -55,6 +55,14 @@
 					</li>
 
 					<li data-username="" class="nav-item">
+						<a href="{{url_for('passengers.list')}}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-user-friends"></i></span><span class="pcoded-mtext">Passenger manifest <span class="pcoded-badge label label-success">Live</span></span></a>
+					</li>
+
+					<li data-username="" class="nav-item">
+						<a href="{{url_for('passengers.show_seatmap_page')}}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-chair"></i></span><span class="pcoded-mtext">Seat map <span class="pcoded-badge label label-success">Live</span></span></a>
+					</li>
+
+					<li data-username="" class="nav-item">
 						<a href="{{ url_for('messaging.chat', message_type='cabin') }}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-bullhorn"></i></span><span class="pcoded-mtext">Passenger Announcements </a>
 					</li>
 

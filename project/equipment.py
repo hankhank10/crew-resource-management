@@ -69,6 +69,7 @@ def new():
         seatmap_text = request.form['seatmap_text_input']
 
         seatmap_object = seatmapper.load_seatmap(seatmap_text)
+        number_of_seats_across, number_of_rows = seatmapper.get_size(seatmap_object)
 
         first_class_seats = seatmapper.count_seats(seatmap_object, "F")
         business_class_seats = seatmapper.count_seats(seatmap_object, "B")
@@ -89,16 +90,13 @@ def new():
             economy_class_seats= economy_class_seats,
             maximum_cabin_crew= maximum_cabin_crew,
             seatmap_text= seatmap_text,
-            created_by_user= current_user.id,
+            number_of_seats_across=number_of_seats_across,
+            number_of_rows=number_of_rows,
+            created_by_user= current_user.id
         )
 
         db.session.add(new_equipment)
         db.session.commit()
-
-        #load_equipment_from_json()
-        #global equipment_list
-        #equipment_list.append(new_equipment)
-        #write_equipment_to_json()
 
         flash("New equipment created", "success")
 
@@ -174,7 +172,9 @@ def api_details():
         'created_by_user': item.created_by_user,
         'seatmap_text': item.seatmap_text,
         'operator_logo_url': item.operator_logo_url,
-        'manufacturer_logo_url': item.manufacturer_logo_url
+        'manufacturer_logo_url': item.manufacturer_logo_url,
+        'number_of_rows': item.number_of_rows,
+        'number_of_seats_across': item.number_of_seats_across
     })
 
 
@@ -198,9 +198,4 @@ def check_if_exists_endpoint():
         'status': 'success',
         'already_exists': check_if_already_exists(lookup_name)
     })
-
-
-
-#equipment_filename = "equipment_list.json"
-#equipment_list = []
 

@@ -67,10 +67,3 @@ function set_card_status(card_name, card_color, card_data) {
     $(full_label_name).text(card_data)
 
 }
-
-function set_icon(icon_name, fontawesome_icon_code) {
-
-
-
-
-}
