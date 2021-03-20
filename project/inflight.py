@@ -51,22 +51,30 @@ def update_plane_data(unique_reference):
 
     # Log the location as an event
 
-    record_location_every_seconds = 60
+    record_location_every_seconds = 10
 
     next_record_due = flight.last_event_recorded + timedelta(seconds=record_location_every_seconds)
     if datetime.utcnow() > next_record_due:
         log_location(flight.id, r.json()['my_plane']['current_latitude'], r.json()['my_plane']['current_longitude'], r.json()['my_plane']['current_altitude'])
-        print ("Logging now")
-    else:
-        print ("Not logging until " + str(next_record_due))
+        #print ("Logging now")a
 
 
     # Check if anything has changed that needs logging
     if flight.number_of_updates_received != 0:
         if flight.door_status == 1 and r.json()['my_plane']['door_status'] != 1:
-            log_event(flight.id, "cabin_door_opened", "pilot")
-        if flight.door_status == 0 and r.json()['my_plane']['door_status'] != 0:
             log_event(flight.id, "cabin_door_closed", "pilot")
+        if flight.door_status == 0 and r.json()['my_plane']['door_status'] != 0:
+            log_event(flight.id, "cabin_door_opened", "pilot")
+
+        if flight.no_smoking_sign == True and r.json()['my_plane']['no_smoking_sign'] == False:
+            log_event(flight.id, "no_smoking_sign_turned_off", "pilot")
+        if flight.no_smoking_sign == False and r.json()['my_plane']['no_smoking_sign'] == True:
+            log_event(flight.id, "no_smoking_sign_turned_on", "pilot")
+
+        if flight.seatbelt_sign == True and r.json()['my_plane']['seatbelt_sign'] == False:
+            log_event(flight.id, "seatbelt_sign_turned_off", "pilot")
+        if flight.seatbelt_sign == False and r.json()['my_plane']['seatbelt_sign'] == True:
+            log_event(flight.id, "seatbelt_sign_turned_on", "pilot")
 
 
     # Update plane details
@@ -138,13 +146,20 @@ def update_plane_data(unique_reference):
             messaging.create_new_message_from_crew("Boarding complete, cabin secure")
             log_event(flight.id, "passenger_boarding_complete", "crew")
 
+    # Get the altitude chart
+    #chart_dictionary = chart_altitude()
+
     # Return the info we want
     return_dictionary = {
         'my_plane': r.json()['my_plane'],
         'unread_flight_messages': current_user.unread_flight_messages,
         'phase_flight_name': flight.phase_flight_name,
         'phase_cabin_name': flight.phase_cabin_name,
-        'passenger_status': passenger_status
+        'passenger_status': passenger_status,
+        #'events': {
+        #    'location_updates': chart_dictionary['location_updates'],
+        #    'other_events': chart_dictionary['other_events']
+        #}
     }
 
     return return_dictionary
@@ -157,15 +172,23 @@ def api_update_plane_data(unique_reference):
     return jsonify(return_dictionary)
 
 
+@inflight.route ('/debug/random_event')
+def random_event():
+    log_event(current_user.active_flight_id, "test_event", "pilot")
+    return "OK"
+
+
 def log_event(flight_id, event_name, event_initiated_by, current_latitude = None, current_longitude = None, current_altitude = None):
 
     if current_latitude == None or current_longitude == None or current_altitude == None:
-        previous_events = FlightEvent.query.filter_by(id=flight_id).all()
+        previous_event = FlightEvent.query.filter_by(flight=flight_id).order_by(FlightEvent.event_time.desc()).first()
 
-        if previous_events is None:
+        if previous_event is None:
             return "error"
 
-        last_event = previous_events[-1]
+        last_event = previous_event
+        #print (last_event.id)
+
         current_latitude = last_event.current_latitude
         current_longitude = last_event.current_longitude
         current_altitude = last_event.current_altitude
@@ -239,9 +262,63 @@ def flight_events(event_type = None):
     return jsonify({
         'status': 'success',
         'count': len(event_list),
-        #'last_event': event_list[-1],
         'events': event_list
     })
+
+
+@inflight.route('/inflight/chart')
+def chart():
+    return render_template('/inflight/chart.html')
+
+
+def chart_altitude():
+    flight_events = FlightEvent.query.filter_by(flight=current_user.active_flight_id).all()
+
+    location_update_list = []
+    other_event_list = []
+    for flight_event in flight_events:
+        x = datetime.timestamp(flight_event.event_time) * 1000
+        y = flight_event.current_altitude
+        location_update_list.append({
+            'x': x,
+            'y': y
+        })
+
+        if flight_event.event_type == "other":
+            other_event_dictionary = {
+                'x': x,
+                'y': y,
+                'event_name': flight_event.event_name,
+                'event_description': flight_event.event_description
+            }
+            other_event_list.append(other_event_dictionary)
+
+    return {
+        'location_updates': location_update_list,
+        'other_events': other_event_list
+    }
+
+
+@inflight.route('/api/chart/altitude')
+def api_chart_altitude():
+
+    chart_dictionary = chart_altitude()
+
+    return jsonify ({
+        'status': 'success',
+        'location_updates': chart_dictionary['location_updates'],
+        'other_events': chart_dictionary['other_events']
+    })
+
+
+@inflight.route('/helper/events/')
+@login_required
+def helper_events():
+
+    events = FlightEvent.query.filter_by(flight=current_user.active_flight_id, event_type="other").all()
+
+    return render_template('/inflight/events_helper.html', events = events)
+
 
 
 def set_phase(flight_id, phase_name, phase_category="flight"):

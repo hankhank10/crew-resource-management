@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 11]>
+    	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    	<![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="/static/assets/images/favicon.ico" type="image/x-icon">
+    <!-- fontawesome icon -->
+    <link rel="stylesheet" href="/static/assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <!-- animation css -->
+    <link rel="stylesheet" href="/static/assets/plugins/animation/css/animate.min.css">
+
+    <!-- vendor css -->
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+
+    <!-- page css -->
+    <link rel="stylesheet" href="/static/assets/css/pages/pages.css">
+
+</head>
+<body>
+
+<div class="card latest-update-card update-card">
+    <div class="card-header">
+        <h5>Recent events</h5>
+        <a onClick="window.location.reload();"><i class="fas fa-sync"></i></a>
+    </div>
+    <div class="overflow-auto new-scroll" style="height:370px;position:relative;">
+        <div class="card-body">
+            <div class="latest-update-box">
+
+                {% for row in events|reverse %}
+
+                {% if loop.index == 1 %}
+                <div class="row p-t-20 p-b-30">
+                {% else %}
+                <div class="row p-b-30">
+                {% endif %}
+                    <div class="col-auto text-right update-meta">
+                        <img style="background-color: white;" src="/static/assets/images/event-icons/{{ row.event_name }}.png" alt="user image" class="align-top update-icon">
+                    </div>
+                    <div class="col p-l-5">
+                        <a href="#!">
+                            <h6 class="m-0">{{ row.event_description }}</h6>
+                        </a>
+                        <p class="m-b-0">{{ row.event_initiated_by[0]|upper}}{{row.event_initiated_by[1:] }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Required Js -->
+    <script src="/static/assets/js/vendor-all.min.js"></script>
+    <script src="/static/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/static/assets/js/pcoded.min.js"></script>
+
+    <!-- am chart js -->
+    <script src="/static/assets/plugins/chart-am4/js/core.js"></script>
+    <script src="/static/assets/plugins/chart-am4/js/charts.js"></script>
+    <script src="/static/assets/plugins/chart-am4/js/animated.js"></script>
+    <script src="/static/assets/plugins/chart-am4/js/maps.js"></script>
+    <script src="/static/assets/plugins/chart-am4/js/worldLow.js"></script>
+    <script src="/static/assets/plugins/chart-am4/js/continentsLow.js"></script>
+
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+
+
+</body>
+</html>

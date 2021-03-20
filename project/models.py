@@ -149,6 +149,17 @@ class FlightEvent(db.Model):
         if self.event_name == "start_boarding_passengers": return "Passenger boarding started"
         if self.event_name == "passenger_boarding_complete": return "Passenger boarding complete"
 
+        if self.event_name == "no_smoking_sign_turned_off": return "No smoking sign turned off"
+        if self.event_name == "no_smoking_sign_turned_on": return "No smoking sign turned on"
+        if self.event_name == "seatbelt_sign_turned_on": return "Seatbelt sign turned on"
+        if self.event_name == "seatbelt_sign_turned_off": return "Seatbelt sign turned off"
+
+        if self.event_name == "cabin_door_opened": return "Cabin doors opened"
+        if self.event_name == "cabin_door_closed": return "Cabin doors closed"
+
+
+
+
 
 
 class FlightMessage(db.Model):

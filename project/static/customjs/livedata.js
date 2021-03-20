@@ -5,6 +5,8 @@ function get_live_data() {
     //console.log ("Updating data")
     let ident = localStorage.getItem('current_flight_unique_reference')
 
+    if (ident === null) { return }
+
     $.ajax({
         url: '/api/inflight/update_plane_data/'+ident,
         type: 'GET',

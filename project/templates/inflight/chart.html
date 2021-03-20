@@ -1,0 +1,136 @@
+{% extends "layouts/base.html" %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ breadcrumb ] start -->
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">Live charting</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="#!">In Flight</a></li>
+                        <li class="breadcrumb-item"><a href="#!">Live Charting</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ breadcrumb ] end -->
+
+    <!-- [ Main Content ] start -->
+    <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-md-8 col-sm-12">
+		<div class="card">
+			<div class="card-header">
+				<h5>Altitude chart</h5>
+				<div class="card-header-right">
+					<div class="btn-group card-option">
+						<button type="button" class="btn dropdown-toggle btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="feather icon-more-horizontal"></i>
+						</button>
+						<ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+							<li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div id="chart"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4 col-sm-12" style="height: 500px;">
+		<iframe style="width:100%; height:100%;" src="/helper/events" frameBorder="0">Browser not compatible.</iframe>
+	</div>
+        <!-- [ sample-page ] end -->
+    </div>
+    <!-- [ Main Content ] end -->
+
+
+{% endblock content %}
+
+{% block javascripts %}
+
+<script>
+
+    var options = {
+        chart: {
+            type: 'line'
+        },
+        xaxis: {
+            type: 'datetime',
+            labels: {
+                format: 'HH:mm',
+            },
+        },
+        animations: {
+            enabled: true,
+            easing: 'linear'
+        },
+        tooltip: {
+            x: {
+                format: "HH:mm"
+            }
+        },
+        stroke: {
+          curve: 'smooth',
+        },
+        series: [],
+        noData: {
+            text: 'Loading...'
+        }
+    }
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+
+    window.setInterval(update_graph,5000)
+
+    function update_graph() {
+        var url = '{{ url_for ('inflight.api_chart_altitude') }}';
+        $.getJSON(url, function (response) {
+            chart.updateSeries([{
+                name: 'Altitude',
+                data: response.location_updates
+            }]);
+
+            let other_events = response.other_events
+            other_events.forEach(function(other_event) {
+
+                chart.addXaxisAnnotation({
+                    x: other_event.x,
+                    strokeDashArray: 0,
+                    borderColor: '#775DD0',
+                    label: {
+                      borderColor: '#775DD0',
+                      style: {
+                        color: '#fff',
+                        background: '#775DD0',
+                      },
+                      text: other_event.event_description,
+                    }
+                })
+
+            });
+
+           //chart.addPointAnnotation()
+        });
+    }
+
+</script>
+
+<script src="/static/customjs/auto-update.js"></script>
+
+
+{% endblock javascripts %}
+

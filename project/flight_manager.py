@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from . import db
 from . import app
 from project import equipment, inflight, passengers, seatmapper
-from .models import Flight, FlightPhase, EquipmentType
+from .models import Flight, FlightPhase, EquipmentType, FlightEvent, FlightMessage
 
 
 flight_manager = Blueprint('flight_manager', __name__)
@@ -95,6 +95,11 @@ def start_flight(unique_reference, ident):
     flight.last_event_recorded = datetime.utcnow() - timedelta(seconds=120)
     flight.number_of_updates_received = 0
     db.session.commit()
+
+    # Delete previous events and phases
+    FlightEvent.query.filter_by(flight=flight.id).delete()
+    FlightPhase.query.filter_by(flight=flight.id).delete()
+    FlightMessage.query.filter_by(flight=flight.id).delete()
 
     # Create the phases
     inflight.set_phase(flight.id, "At Gate", "flight")
