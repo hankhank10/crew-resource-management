@@ -1,0 +1,65 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a onclick="get_seatmap_data_from_server('class')" class="nav-link active text-uppercase" id="home-tab" data-toggle="tab" href="#class_tab" role="tab" aria-controls="class_tab" aria-selected="true">Filter by class</a>
+    </li>
+    <li class="nav-item">
+        <a onclick="get_seatmap_data_from_server('seated')"class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#seated_tab" role="tab" aria-controls="seated_tab" aria-selected="false">Filter by seated</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="class_tab" role="tabpanel" aria-labelledby="home-tab">
+        <span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>First class (<span id="first_class_count"></span>)</span>
+        <span class="d-block"><i class="fas fa-circle text-c-blue f-10 m-r-10"></i>Business class (<span id="business_class_count"></span>)</span>
+        <span class="d-block"><i class="fas fa-circle text-c-info f-10 m-r-10"></i>Premium Economy class (<span id="premium_class_count"></span>)</span>
+        <span class="d-block"><i class="fas fa-circle text-c-green f-10 m-r-10"></i>Economy class (<span id="economy_class_count"></span>)</span><br>
+        <span class="d-block"><i class="fas fa-circle f-10 m-r-10"></i>Empty seat (<span id="empty_seat_count"></span>)</span>
+
+    </div>
+    <div class="tab-pane fade" id="seated_tab" role="tabpanel" aria-labelledby="profile-tab">
+
+        <span class="d-block"><i class="fas fa-circle text-c-green f-10 m-r-10"></i>Seated</span>
+        <span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>Not seated</span><br>
+        <span class="d-block"><i class="fas fa-circle text-c-yellow f-10 m-r-10"></i>Not on board</span><br>
+        <span class="d-block"><i class="fas fa-circle f-10 m-r-10"></i>Empty seat</span>
+
+    </div>
+</div>
+<br>
+<div>
+    <div id ="passenger_details_outer" style="display: none;">
+        <div id="passenger_details" class="card user-card user-card-1">
+
+            <div class="card-body pt-0">
+                <div class="user-about-block text-center">
+                    <div class="row align-items-end">
+
+                        <div class="col"><img id="passenger_detail_photo" class="mt-3 img-radius img-fluid wid-90" src="https://fakeface.rest/thumb/view?gender=male&minimum_age=25" alt="User image"></div>
+
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h6 id="passenger_detail_name" class="mb-1 mt-3">Lary Doe</h6>
+                    <p id="passenger_detail_status" class="mb-3 text-muted">Waiting to Board</p>
+                    <p id="passenger_detail_bladder" class="mb-1">?</p>
+                    <p id="passenger_detail_thirst" class="mb-0">?</p>
+                    <p id="passenger_detail_hunger" class="mb-0">?</p>
+                </div>
+                <hr class="wid-80 b-wid-3 my-4">
+                <div class="row text-center">
+                    <div class="col">
+                        <h6 id="passenger_detail_seat_number" class="mb-1">1A</h6>
+                        <p class="mb-0">Seat</p>
+                    </div>
+                    <div class="col">
+                        <h6 id="passenger_detail_class" class="mb-1">First Class</h6>
+                        <p class="mb-0">Class</p>
+                    </div>
+                    <div class="col">
+                        <h6 id="passenger_detail_frequent_flyer" class="mb-1">None</h6>
+                        <p class="mb-0">Elite</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

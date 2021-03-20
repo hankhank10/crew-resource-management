@@ -20,6 +20,7 @@ function get_live_data() {
             localStorage.setItem('gear_handle_position', response.my_plane.gear_handle_position);
             localStorage.setItem('parking_brake', response.my_plane.parking_brake);
             localStorage.setItem('no_smoking_sign', response.my_plane.no_smoking_sign);
+            console.log(localStorage.getItem('no_smoking_sign'))
             localStorage.setItem('seatbelt_sign', response.my_plane.seatbelt_sign);
             localStorage.setItem('on_ground', response.my_plane.on_ground);
 

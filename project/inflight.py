@@ -1,14 +1,13 @@
 from flask import Blueprint, render_template, Flask, current_app, request, jsonify, flash, redirect, url_for
 from flask_login import login_required, current_user
 import secrets
-from datetime import datetime
+from datetime import datetime, timedelta
 from . import db
 from . import app
-from project import equipment
+from project import equipment, messaging
 from .models import Flight, FlightEvent, FlightPhase, FlightMessage, Seat
 import requests
 import random
-
 
 inflight = Blueprint('inflight', __name__)
 
@@ -16,7 +15,6 @@ inflight = Blueprint('inflight', __name__)
 @inflight.route('/inflight/datadump')
 @login_required
 def datadump():
-
     flight = Flight.query.filter_by(id=current_user.active_flight_id).first()
 
     return render_template('inflight/datadump.html', flight=flight)
@@ -25,23 +23,10 @@ def datadump():
 @inflight.route('/inflight/dashboard')
 @login_required
 def dashboard():
-
     flight = Flight.query.filter_by(id=current_user.active_flight_id).first()
-    #flight_phase = FlightPhase.query.filter_by(flight.phase_flight).first()
+    # flight_phase = FlightPhase.query.filter_by(flight.phase_flight).first()
 
     return render_template('inflight/dashboard.html', flight=flight)
-
-
-@inflight.route('/inflight/events')
-@login_required
-def flight_events():
-    flight_events = FlightEvent.query.filter_by(flight=current_user.active_flight_id, event_type="other").all()
-    location_updates = FlightEvent.query.filter_by(flight=current_user.active_flight_id, event_type="location_update").all()
-    #location_updates = FlightEvent.query.all()
-
-    print (len(location_updates))
-
-    return render_template('inflight/events.html', flight_events=flight_events, location_updates=location_updates)
 
 
 def update_plane_data(unique_reference):
@@ -64,15 +49,25 @@ def update_plane_data(unique_reference):
             'error_message': 'Requests error'
         }
 
-    # Create new flight events
-    #flight_event = FlightEvent(
-    #    flight=flight.id,
-    #    event_time=datetime.utcnow(),
-    #    event_type="location_update",
-    #    current_latitude=r.json()['my_plane']['current_latitude'],
-    #    current_longitude=r.json()['my_plane']['current_longitude']
-    #)
-    #db.session.add(flight_event)
+    # Log the location as an event
+
+    record_location_every_seconds = 60
+
+    next_record_due = flight.last_event_recorded + timedelta(seconds=record_location_every_seconds)
+    if datetime.utcnow() > next_record_due:
+        log_location(flight.id, r.json()['my_plane']['current_latitude'], r.json()['my_plane']['current_longitude'], r.json()['my_plane']['current_altitude'])
+        print ("Logging now")
+    else:
+        print ("Not logging until " + str(next_record_due))
+
+
+    # Check if anything has changed that needs logging
+    if flight.number_of_updates_received != 0:
+        if flight.door_status == 1 and r.json()['my_plane']['door_status'] != 1:
+            log_event(flight.id, "cabin_door_opened", "pilot")
+        if flight.door_status == 0 and r.json()['my_plane']['door_status'] != 0:
+            log_event(flight.id, "cabin_door_closed", "pilot")
+
 
     # Update plane details
     flight.current_altitude = r.json()['my_plane']['current_altitude']
@@ -84,11 +79,14 @@ def update_plane_data(unique_reference):
     flight.parking_brake = r.json()['my_plane']['parking_brake']
     flight.gear_handle_position = r.json()['my_plane']['gear_handle_position']
 
+    flight.number_of_updates_received = flight.number_of_updates_received + 1
+
     db.session.commit()
 
     # Perform application logic
 
-    passengers = Seat.query.filter_by(flight = flight.id).all()
+    # Update all the passengers
+    passengers = Seat.query.filter_by(flight=flight.id).all()
     waiting_to_board = 0
     boarding = 0
     on_board = 0
@@ -99,22 +97,24 @@ def update_plane_data(unique_reference):
     occupied_count = 0
     empty_count = 0
     for passenger in passengers:
+        # print (passenger.status)
         if passenger.status == "Waiting to Board": waiting_to_board = waiting_to_board + 1
         if passenger.status == "Boarding": boarding = boarding + 1
-        if passenger.status == "On Board": on_board = on_board + 1
+        if passenger.status == "Boarded": on_board = on_board + 1
         if passenger.status == "Deboarding": deboarding = deboarding + 1
         if passenger.status == "Deboarded": deboarded = deboarded + 1
 
-        if passenger.is_seated == True:
-            seated_count = seated_count + 1
-        else:
-            unseated_count = unseated_count + 1
-
         if passenger.occupied == True:
             occupied_count = occupied_count + 1
+
+            if passenger.status != "Waiting to Board":
+                if passenger.is_seated == True:
+                    seated_count = seated_count + 1
+                else:
+                    unseated_count = unseated_count + 1
+
         else:
             empty_count = empty_count + 1
-
 
     passenger_status = {
         'waiting_to_board': waiting_to_board,
@@ -129,6 +129,15 @@ def update_plane_data(unique_reference):
         'empty_seats': empty_count
     }
 
+    # Check if anything needs to be changed
+    if flight.phase_cabin_name == "Boarding":
+
+        if boarding + waiting_to_board == 0:
+            # Boarding is now complete
+            set_phase(flight.id, "Cabin Secure", phase_category="cabin")
+            messaging.create_new_message_from_crew("Boarding complete, cabin secure")
+            log_event(flight.id, "passenger_boarding_complete", "crew")
+
     # Return the info we want
     return_dictionary = {
         'my_plane': r.json()['my_plane'],
@@ -140,45 +149,102 @@ def update_plane_data(unique_reference):
 
     return return_dictionary
 
+
 @inflight.route('/api/inflight/update_plane_data/<unique_reference>')
 @login_required
 def api_update_plane_data(unique_reference):
-
     return_dictionary = update_plane_data(unique_reference)
     return jsonify(return_dictionary)
 
 
+def log_event(flight_id, event_name, event_initiated_by, current_latitude = None, current_longitude = None, current_altitude = None):
 
-@inflight.route('/api/inflight/log_event/<unique_reference>', methods=['POST'])
-@login_required
-def api_log_event(unique_reference):
+    if current_latitude == None or current_longitude == None or current_altitude == None:
+        previous_events = FlightEvent.query.filter_by(id=flight_id).all()
 
-    relevant_flight = Flight.query.filter_by(unique_reference=unique_reference).first_or_404()
+        if previous_events is None:
+            return "error"
 
-    content_received = request.get_json()
+        last_event = previous_events[-1]
+        current_latitude = last_event.current_latitude
+        current_longitude = last_event.current_longitude
+        current_altitude = last_event.current_altitude
 
-    if content_received['event_code'] == "passenger_announcement":
-        event_name = "Announcement by pilot to the passengers"
-
-    if 'event_name' in content_received:
-        event_name = content_received['event_name']
-
-    new_event = FlightEvent (
-        flight=relevant_flight.id,
+    new_event = FlightEvent(
+        flight=flight_id,
+        event_time=datetime.utcnow(),
         event_type="other",
-        event_initiated_by=content_received['event_initiated_by'],
-        event_code=content_received['event_code'],
+        event_initiated_by=event_initiated_by,
         event_name=event_name,
-        event_description=content_received['event_description'],
+        current_latitude=current_latitude,
+        current_longitude=current_longitude,
+        current_altitude=current_altitude
     )
     db.session.add(new_event)
-    db.session.commit()
 
-    return jsonify({'status': 'success'})
+    flight = Flight.query.filter_by(id=flight_id).first()
+    flight.last_event_recorded = datetime.utcnow()
+
+    db.session.commit()
+    return
+
+
+def log_location(flight_id, current_latitude, current_longitude, current_altitude):
+    new_event = FlightEvent (
+        flight=flight_id,
+        event_time=datetime.utcnow(),
+        event_type="location_update",
+        event_initiated_by = "simulator",
+        event_name="location_update",
+        current_latitude=current_latitude,
+        current_longitude=current_longitude,
+        current_altitude=current_altitude
+    )
+    db.session.add(new_event)
+
+    flight = Flight.query.filter_by(id=flight_id).first()
+    flight.last_event_recorded = datetime.utcnow()
+
+    db.session.commit()
+    return
+
+
+@inflight.route('/api/events/')
+@inflight.route('/api/events/<event_type>')
+@login_required
+def flight_events(event_type = None):
+
+    if event_type is None:
+        events = FlightEvent.query.filter_by(flight=current_user.active_flight_id).all()
+    else:
+        events = FlightEvent.query.filter_by(flight=current_user.active_flight_id, event_type=event_type).all()
+
+    if events is None:
+        return jsonify({'status': 'error'})
+
+    event_list = []
+    for event in events:
+
+        event_dictionary = {
+            'event_time': event.event_time,
+            'event_type': event.event_type,
+            'current_latitude': event.current_latitude,
+            'current_longitude': event.current_longitude,
+            'current_altitude': event.current_altitude,
+            'event_initiated_by': event.event_initiated_by,
+            'event_name': event.event_name
+        }
+        event_list.append(event_dictionary)
+
+    return jsonify({
+        'status': 'success',
+        'count': len(event_list),
+        #'last_event': event_list[-1],
+        'events': event_list
+    })
 
 
 def set_phase(flight_id, phase_name, phase_category="flight"):
-
     # Get the flight
     flight = Flight.query.filter_by(id=flight_id).first()
 

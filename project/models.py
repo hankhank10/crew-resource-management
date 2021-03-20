@@ -91,6 +91,9 @@ class Flight(db.Model):
     number_of_seats_across = db.Column(db.Integer)
     number_of_rows = db.Column(db.Integer)
 
+    last_event_recorded = db.Column(db.DateTime, default=datetime.utcnow())
+    number_of_updates_received = db.Column(db.Integer, default=0)
+
     @property
     def passengers_total(self):
         return self.passengers_first_class + self.passengers_business_class + self.passengers_premium_class + self.passengers_economy_class
@@ -127,16 +130,25 @@ class FlightEvent(db.Model):
     # if event_type = location_update
     current_latitude = db.Column(db.Float)
     current_longitude = db.Column(db.Float)
+    current_altitude = db.Column(db.Integer)
 
     # if event_type != location_update
     event_initiated_by = db.Column(db.String(20))  # pilot, simulator, crew, passenger
-    event_code = db.Column(db.String(50))
     event_name = db.Column(db.String(100))
-    event_description = db.Column(db.String(500))
-    event_additional_detail = db.Column(db.String(500))
-    associated_message = db.Column(db.Integer)
 
     read = db.Column(db.Boolean, default=False)
+
+    @property
+    def event_description(self):
+
+        if self.event_type == None: return "error"
+        if self.event_type == "location_update": return "Location update"
+
+        if self.event_name == None: return None
+
+        if self.event_name == "start_boarding_passengers": return "Passenger boarding started"
+        if self.event_name == "passenger_boarding_complete": return "Passenger boarding complete"
+
 
 
 class FlightMessage(db.Model):
@@ -224,7 +236,6 @@ class EquipmentType(db.Model):
 
 
 
-
 class Seat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
@@ -258,9 +269,35 @@ class Seat(db.Model):
 
     is_seated = db.Column(db.Boolean, default=False)
 
-    status_bladder_need = db.Column(db.Integer)
-    status_hunger = db.Column(db.Integer)
-    status_thirst = db.Column(db.Integer)
+    status_bladder_need = db.Column(db.Integer)  # Lower is better
+    status_hunger = db.Column(db.Integer)   # Lower is better
+    status_thirst = db.Column(db.Integer)   # Lower is better
+
+    current_activity = db.Column(db.String)
+    current_activity_will_end_at = db.Column(db.DateTime)
+
+    @property
+    def status_bladder_need_text(self):
+        if self.status_bladder_need > 90: return "Desperate for toilet"
+        if self.status_bladder_need > 70: return "Really needs the toilet"
+        if self.status_bladder_need > 50: return "Needs the toilet soon"
+        return ""
+
+    @property
+    def status_hunger_text(self):
+        if self.status_bladder_need > 90: return "Starving"
+        if self.status_bladder_need > 70: return "Hungry"
+        if self.status_bladder_need > 60: return "A little hungry"
+        if self.status_bladder_need > 40: return "Peckish"
+        return ""
+
+    @property
+    def status_thirst_text(self):
+        if self.status_bladder_need > 90: return "Parched"
+        if self.status_bladder_need > 70: return "Thirsty"
+        if self.status_bladder_need > 50: return "A little thirsty"
+        return ""
+
 
     # Times things happen at
     time_start_boarding = db.Column(db.DateTime)
@@ -277,15 +314,32 @@ class Seat(db.Model):
         if self.seat_type == " " or self.phase == "Empty seat" or self.phase == None:
             return "Empty seat"
 
-        if self.time_start_boarding == None: return waiting_to_board
-        if self.time_start_boarding <= datetime.utcnow(): return waiting_to_board
+        has_started_boarding = False
+        has_sat = False
 
         if self.phase == "Pre Flight":
 
-            if self.time_seated == None: return boarding
-            if self.time_seated <= datetime.utcnow(): return boarding
+            if self.time_start_boarding == None: return waiting_to_board
+            if self.time_seated == None: return waiting_to_board
 
-            if self.time_seated >= datetime.utcnow(): return boarded
+            if self.time_start_boarding < datetime.utcnow():
+                has_started_boarding = True
+
+            if self.time_seated < datetime.utcnow():
+                self.is_seated = True
+                db.session.commit()
+                has_sat = True
+
+        if has_sat == True:
+            return boarded
+
+        if has_started_boarding == True and has_sat == False:
+            return boarding
+
+        if has_started_boarding == False: return waiting_to_board
+
+        return "weird error"
+
 
 
     @property

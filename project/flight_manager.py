@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, Flask, current_app, request, jsonify, flash, redirect, url_for
 from flask_login import login_required, current_user
 import secrets
-from datetime import datetime
+from datetime import datetime, timedelta
 from . import db
 from . import app
 from project import equipment, inflight, passengers, seatmapper
@@ -55,7 +55,8 @@ def new():
                 cabin_crew_count=int(request.form['cabin_crew_actual']),
                 seatmap_text=relevant_equipment.seatmap_text,
                 number_of_rows=relevant_equipment.number_of_rows,
-                number_of_seats_across=relevant_equipment.number_of_seats_across
+                number_of_seats_across=relevant_equipment.number_of_seats_across,
+                last_event_recorded=datetime.utcnow(),
             )
 
             db.session.add(flight)
@@ -91,6 +92,8 @@ def start_flight(unique_reference, ident):
     # Add the findmyplane_ident to that flight
     flight.source = "findmyplane"
     flight.source_ident = ident
+    flight.last_event_recorded = datetime.utcnow() - timedelta(seconds=120)
+    flight.number_of_updates_received = 0
     db.session.commit()
 
     # Create the phases
@@ -99,6 +102,8 @@ def start_flight(unique_reference, ident):
 
     # Fill the flight with passengers
     passengers.fill_flight_with_passengers(flight.id)
+
+    #
 
     # Set the current user's flight
     current_user.active_flight_id = flight.id

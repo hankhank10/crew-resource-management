@@ -4,7 +4,7 @@ import secrets
 from datetime import datetime
 from . import db
 from . import app
-from project import equipment, inflight
+from project import equipment, inflight, passengers
 from .models import Flight, FlightEvent, FlightPhase, FlightMessage
 import requests
 import random
@@ -159,6 +159,7 @@ def send_message_from_pilot():
 
             # Actually start boarding
             inflight.set_phase(current_flight.id, "Boarding", "cabin")
+            passengers.board_passengers(current_flight.id)
 
 
     # Store and send the message response

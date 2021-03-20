@@ -4,6 +4,8 @@
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css">
+
 {% endblock stylesheets %}
 
 {% block content %}
@@ -14,7 +16,7 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Passnenger seat map</h5>
+                        <h5 class="m-b-10">Passenger seat map</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url_for('main.dashboard') }}"><i class="feather icon-home"></i></a></li>
@@ -36,6 +38,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5>Current passenger seatmap</h5>
+                    <p>click to view passenger details</p>
                     <div class="card-header-right">
                     </div>
                 </div>
@@ -43,37 +46,17 @@
 
                     <div class="row">
 
-                        <div class="col-sm-6">
+                        <div class="col-md-8 col-sm-12">
                            <div class="table-responsive">
                                 <table class="table" id="seatmap_table"></table>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-md-4 col-sm-12">
 
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a onclick="get_seatmap_data_from_server('class')" class="nav-link active text-uppercase" id="home-tab" data-toggle="tab" href="#class_tab" role="tab" aria-controls="class_tab" aria-selected="true">Filter by class</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a onclick="get_seatmap_data_from_server('seated')"class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#seated_tab" role="tab" aria-controls="seated_tab" aria-selected="false">Filter by seated</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="class_tab" role="tabpanel" aria-labelledby="home-tab">
-                                    <h3><div class="badge badge-danger">First class</div></h3>
-                                    <h3><div class="badge badge-primary">Business class</div></h3>
-                                    <h3><div class="badge badge-info">Premium Economy class</div></h3>
-                                    <h3><div class="badge badge-success">Economy class</div></h3>
-                                </div>
-                                <div class="tab-pane fade" id="seated_tab" role="tabpanel" aria-labelledby="profile-tab">
-                                    <h3><div class="badge badge-success">Seated</div></h3>
-                                    <h3><div class="badge badge-danger">Not seated</div></h3>
-
-                                </div>
-                            </div>
-
+                            {% include 'includes/helper_seatmap.html' %}
 
                         </div>
+
 
                     </div>
 
