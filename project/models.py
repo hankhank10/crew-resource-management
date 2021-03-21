@@ -157,9 +157,7 @@ class FlightEvent(db.Model):
         if self.event_name == "cabin_door_opened": return "Cabin doors opened"
         if self.event_name == "cabin_door_closed": return "Cabin doors closed"
 
-
-
-
+        if self.event_name == "begin_taxi_for_takeoff": return "Start taxi for takeoff"
 
 
 class FlightMessage(db.Model):

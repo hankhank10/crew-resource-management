@@ -76,6 +76,11 @@ def update_plane_data(unique_reference):
         if flight.seatbelt_sign == False and r.json()['my_plane']['seatbelt_sign'] == True:
             log_event(flight.id, "seatbelt_sign_turned_on", "pilot")
 
+        if flight.phase_flight_name == "At gate":
+            if r.json()['my_plane']['speed'] > 3:
+                log_event(flight.id, "begin_taxi_for_takeoff", "pilot")
+                set_phase(flight.id, "Taxi for Takeoff", "flight")
+
 
     # Update plane details
     flight.current_altitude = r.json()['my_plane']['current_altitude']

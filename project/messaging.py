@@ -77,17 +77,19 @@ def send_message_from_pilot():
         if "commence boarding" in message_content: message_interpretation = "begin_boarding"
         if "commence the boarding" in message_content: message_interpretation = "begin_boarding"
         if "commence passenger boarding" in message_content: message_interpretation = "begin_boarding"
-
         if "begin boarding" in message_content: message_interpretation = "begin_boarding"
         if "begin the boarding" in message_content: message_interpretation = "begin_boarding"
         if "begin passenger boarding" in message_content: message_interpretation = "begin_boarding"
-
         if "start boarding" in message_content: message_interpretation = "begin_boarding"
         if "start the boarding" in message_content: message_interpretation = "begin_boarding"
         if "start passenger boarding" in message_content: message_interpretation = "begin_boarding"
-
         if "let passengers on" in message_content: message_interpretation = "begin_boarding"
         if "letting passengers on" in message_content: message_interpretation = "begin_boarding"
+
+        # Seats for takeoff
+        if "seats for takeoff" in message_content: message_interpretation = "ready_for_takeoff"
+        if "ready for takeoff" in message_content: message_interpretation = "ready_for_takeoff"
+        if "prepare for takeoff" in message_content: message_interpretation = "ready_for_takeoff"
 
         # Profanity
         if "fuck" in message_content: message_interpretation = "profanity"
@@ -125,6 +127,26 @@ def send_message_from_pilot():
             "Didn't catch that, sorry, come again please?",
             "Didn't get that, sorry, come again please?"
         ])[0]
+
+    if message_interpretation == "ready_for_takeoff":
+
+        # See if that makes sense
+        problem_detected = False
+
+        if current_flight.phase_flight_name != "Taxi for Takeoff" and current_flight.phase_flight_name != "At Gate":
+            problem_detected = True
+            message_response = "Bit late for that Captain!"
+
+        if problem_detected == False:
+            message_response = random_will_do
+            message_response = message_response + random.choices([
+                "crew seats for takeoff.",
+                "taking our seats.",
+            ])[0]
+
+            # Actually do it
+            inflight.set_phase(current_flight.id, "Takeoff and Climb", "flight")
+
 
     if message_interpretation == "pilot_wants_coffee":
         message_response = random.choices([
@@ -171,7 +193,6 @@ def send_message_from_pilot():
             'response': True,
             'message_response': message_response
         })
-
 
     return jsonify({
         'status': 'success',
