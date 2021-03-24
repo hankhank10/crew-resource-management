@@ -1,29 +1,69 @@
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-        <a onclick="get_seatmap_data_from_server('class')" class="nav-link active text-uppercase" id="home-tab" data-toggle="tab" href="#class_tab" role="tab" aria-controls="class_tab" aria-selected="true">Filter by class</a>
-    </li>
-    <li class="nav-item">
-        <a onclick="get_seatmap_data_from_server('seated')"class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#seated_tab" role="tab" aria-controls="seated_tab" aria-selected="false">Filter by seated</a>
-    </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="class_tab" role="tabpanel" aria-labelledby="home-tab">
-        <span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>First class (<span id="first_class_count"></span>)</span>
-        <span class="d-block"><i class="fas fa-circle text-c-blue f-10 m-r-10"></i>Business class (<span id="business_class_count"></span>)</span>
-        <span class="d-block"><i class="fas fa-circle text-c-info f-10 m-r-10"></i>Premium Economy class (<span id="premium_class_count"></span>)</span>
-        <span class="d-block"><i class="fas fa-circle text-c-green f-10 m-r-10"></i>Economy class (<span id="economy_class_count"></span>)</span><br>
-        <span class="d-block"><i class="fas fa-circle f-10 m-r-10"></i>Empty seat (<span id="empty_seat_count"></span>)</span>
+<div class="row">
+    <div class="col-md-3 col-sm-12">
+        <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <li><a onclick="get_seatmap_data_from_server('class')" class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#class_tab" role="tab" aria-controls="v-pills-home" aria-selected="true">Class</a></li>
+            <li><a onclick="get_seatmap_data_from_server('seated')" class="nav-link text-left" id="v-pills-home-tab" data-toggle="pill" href="#seated_tab" role="tab" aria-controls="v-pills-home" aria-selected="true">Seated</a></li>
+            <li><a onclick="get_seatmap_data_from_server('hunger')" class="nav-link text-left" id="v-pills-home-tab" data-toggle="pill" href="#hunger_tab" role="tab" aria-controls="v-pills-home" aria-selected="true">Hunger</a></li>
+            <li><a onclick="get_seatmap_data_from_server('thirst')" class="nav-link text-left" id="v-pills-home-tab" data-toggle="pill" href="#thirst_tab" role="tab" aria-controls="v-pills-home" aria-selected="true">Thirst</a></li>
+            <li><a onclick="get_seatmap_data_from_server('bathroom')" class="nav-link text-left" id="v-pills-home-tab" data-toggle="pill" href="#bathroom_tab" role="tab" aria-controls="v-pills-home" aria-selected="true">Bathroom</a></li>
 
+        </ul>
     </div>
-    <div class="tab-pane fade" id="seated_tab" role="tabpanel" aria-labelledby="profile-tab">
 
-        <span class="d-block"><i class="fas fa-circle text-c-green f-10 m-r-10"></i>Seated</span>
-        <span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>Not seated</span><br>
-        <span class="d-block"><i class="fas fa-circle text-c-yellow f-10 m-r-10"></i>Not on board</span><br>
-        <span class="d-block"><i class="fas fa-circle f-10 m-r-10"></i>Empty seat</span>
+    <div class="col-md-9 col-sm-12">
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="class_tab" role="tabpanel" aria-labelledby="home-tab">
+                <span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>First class (<span id="first_class_count"></span>)</span>
+                <span class="d-block"><i class="fas fa-circle text-c-blue f-10 m-r-10"></i>Business class (<span id="business_class_count"></span>)</span>
+                <span class="d-block"><i class="fas fa-circle text-c-info f-10 m-r-10"></i>Premium Economy class (<span id="premium_class_count"></span>)</span>
+                <span class="d-block"><i class="fas fa-circle text-c-green f-10 m-r-10"></i>Economy class (<span id="economy_class_count"></span>)</span><br>
+                <span class="d-block"><i class="fas fa-circle f-10 m-r-10"></i>Empty seat (<span id="empty_seat_count"></span>)</span>
+            </div>
+            <div class="tab-pane fade" id="seated_tab" role="tabpanel" aria-labelledby="profile-tab">
+                <span class="d-block"><i class="fas fa-circle text-c-green f-10 m-r-10"></i>Seated</span>
+                <span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>Not seated</span><br>
+                <span class="d-block"><i class="fas fa-circle text-c-yellow f-10 m-r-10"></i>Not on board</span><br>
+                <span class="d-block"><i class="fas fa-circle f-10 m-r-10"></i>Empty seat</span>
+            </div>
+
+            <div class="tab-pane fade" id="hunger_tab" role="tabpanel" aria-labelledby="profile-tab">
+                <div id="hunger_chart"></div>
+            </div>
+
+            <div class="tab-pane fade" id="thirst_tab" role="tabpanel" aria-labelledby="profile-tab">
+                <div id="thirst_chart"></div>
+
+            </div>
+
+            <div class="tab-pane fade" id="bathroom_tab" role="tabpanel" aria-labelledby="profile-tab">
+                <div id="bathroom_chart"></div>
+            </div>
+
+        </div>
 
     </div>
 </div>
+
+<!--
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a onclick="get_seatmap_data_from_server('class')" class="nav-link active text-uppercase" id="home-tab" data-toggle="tab" href="#class_tab" role="tab" aria-controls="class_tab" aria-selected="true">Class</a>
+    </li>
+    <li class="nav-item">
+        <a onclick="get_seatmap_data_from_server('seated')"class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#seated_tab" role="tab" aria-controls="seated_tab" aria-selected="false">Seated</a>
+    </li>
+    <li class="nav-item">
+        <a onclick="get_seatmap_data_from_server('hunger')"class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#hunger_tab" role="tab" aria-controls="hunger_tab" aria-selected="false">Hunger</a>
+    </li>
+    <li class="nav-item">
+        <a onclick="get_seatmap_data_from_server('thirst')"class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#thirst_tab" role="tab" aria-controls="thirst_tab" aria-selected="false">Thirst</a>
+    </li>
+    <li class="nav-item">
+        <a onclick="get_seatmap_data_from_server('bathroom')"class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#bathroom_tab" role="tab" aria-controls="bathroom_tab" aria-selected="false">Bathroom</a>
+    </li>
+</ul>-->
+
+
 <br>
 <div>
     <div id ="passenger_details_outer" style="display: none;">

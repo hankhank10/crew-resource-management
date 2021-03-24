@@ -25,7 +25,6 @@ function show_passenger_details (seat_number) {
             $('#passenger_detail_frequent_flyer').html('<h6><span class="badge badge-success">' + response.frequent_flyer_status_text + '</span></h6>')
             $('#passenger_detail_seat_number').html('<h6><span class="badge badge-light">' + response.seat_number + '</span></h6>')
 
-            console.log(response.status_hunger_text)
             if (response.status_hunger_text === "") {
                 $('#passenger_detail_hunger').hide()
             } else {
@@ -89,7 +88,6 @@ function get_seatmap_data_from_server(filter_by) {
             $('#economy_class_count').text(response.passengers_economy_class)
             $('#empty_seat_count').text(response.seat_count_empty)
 
-
         },
         contentType: 'application/json; charset=utf-8'
     });
@@ -107,17 +105,21 @@ function draw_table(filter_by, max_x, max_y, occupied_seatmap_object, empty_seat
     for (let y = 1; y <= max_y; y++) {
         let row = table.insertRow();
 
-        for (let x = 1; x <= max_x; x++) {
+        for (let x = 1; x <= max_x-1; x++) {
             let cell = row.insertCell();
             //let text = document.createTextNode('<button class="btn brn-primary">Seat</button>');
 
-            html_for_cell = ' ';
+            html_for_cell = '&nbsp&nbsp&nbsp';
 
             cell.innerHTML = html_for_cell;
             cell.classList.add('individual_seat');
             cell.id = "seat-" + x + "-" + y
         }
     }
+
+    let green_count = 0;
+    let orange_count = 0;
+    let red_count = 0;
 
     occupied_seatmap_object.forEach(function (seat) {
 
@@ -155,18 +157,99 @@ function draw_table(filter_by, max_x, max_y, occupied_seatmap_object, empty_seat
                 }
             }
 
+            if (filter_by === "hunger") {
+                badge_color = "success"
+                if (seat.status_hunger > 50) {
+                    badge_color = "warning"
+                }
+                if (seat.status_hunger > 80) {
+                    badge_color = "danger"
+                }
+            }
+
+            if (filter_by === "thirst") {
+                badge_color = "success"
+                if (seat.status_thirst > 50) {
+                    badge_color = "warning"
+                }
+                if (seat.status_thirst > 80) {
+                    badge_color = "danger"
+                }
+            }
+
+            if (filter_by === "bathroom") {
+                badge_color = "success"
+                if (seat.status_bladder_need > 50) {
+                    badge_color = "warning"
+                }
+                if (seat.status_bladder_need > 80) {
+                    badge_color = "danger"
+                }
+            }
+
+            if (badge_color === "success") { green_count = green_count + 1; }
+            if (badge_color === "warning") { orange_count = orange_count + 1; }
+            if (badge_color === "danger") { red_count = red_count + 1; }
+
+
             let onclick_html = "show_passenger_details('" + seat.seat_number + "')"
             html_for_cell = '<h6><span id="seat_badge_'+ seat.seat_number +'" onclick="' + onclick_html + '" data-tippy-seat="' + seat.seat_number + '" class="badge badge-' + badge_color + '">' + seat.seat_number + '</span></h6>'
             $(relevant_cell_id).html(html_for_cell)
         }
 
-        //$(".seat_badge").each(function() {
-        //    tippy($(this)[0], {
-        //        content: "Hi " + $(this).attr("data-tippy-seat"),
-        //    });
-        //});
 
     })
+
+    let pie_label_names = null
+
+    if (filter_by === "hunger") {
+        pie_label_names = ['OK', 'Hungry', 'Very Hungry']
+        selector_name = "#hunger_chart"
+    }
+    if (filter_by === "thirst") {
+        pie_label_names = ['OK', 'Thirsty', 'Very Thirsty']
+        selector_name = "#thirst_chart"
+    }
+    if (filter_by === "bathroom") {
+        pie_label_names = ['OK', 'Needs', 'Desperate']
+        selector_name = "#bathroom_chart"
+    }
+
+
+    if (pie_label_names !== null) {
+        var options = {
+            series: [
+                green_count,
+                orange_count,
+                red_count
+            ],
+            labels: pie_label_names,
+            colors: ['#2ba961', '#ffc007', '#e52d27'],
+            chart: {
+                type: 'donut',
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        show: false,
+                    }
+                }
+            }]
+        }
+
+        $(selector_name).html("")
+        var chart = new ApexCharts(document.querySelector(selector_name), options);
+        chart.render();
+
+    }
+
 
     empty_seatmap_object.forEach(function (seat) {
 

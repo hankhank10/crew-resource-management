@@ -244,7 +244,6 @@ class EquipmentType(db.Model):
         return equipment_logos.lookup_logo(self.manufacturer, "manufacturer")
 
 
-
 class Seat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
@@ -294,17 +293,17 @@ class Seat(db.Model):
 
     @property
     def status_hunger_text(self):
-        if self.status_bladder_need > 90: return "Starving"
-        if self.status_bladder_need > 70: return "Hungry"
-        if self.status_bladder_need > 60: return "A little hungry"
-        if self.status_bladder_need > 40: return "Peckish"
+        if self.status_hunger > 90: return "Starving"
+        if self.status_hunger > 70: return "Hungry"
+        if self.status_hunger > 60: return "A little hungry"
+        if self.status_hunger > 40: return "Peckish"
         return ""
 
     @property
     def status_thirst_text(self):
-        if self.status_bladder_need > 90: return "Parched"
-        if self.status_bladder_need > 70: return "Thirsty"
-        if self.status_bladder_need > 50: return "A little thirsty"
+        if self.status_thirst > 90: return "Parched"
+        if self.status_thirst > 70: return "Thirsty"
+        if self.status_thirst > 50: return "A little thirsty"
         return ""
 
 
