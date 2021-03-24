@@ -325,6 +325,17 @@ def helper_events():
     return render_template('/inflight/events_helper.html', events = events)
 
 
+@inflight.route('/api/inflight/set_flight_phase')
+@login_required
+def api_set_phase():
+
+    flight_id = current_user.active_flight_id
+    phase_setting = request.args.get('phase_to_set')
+
+    set_phase(flight_id, phase_setting, "flight")
+
+    return "ok"
+
 
 def set_phase(flight_id, phase_name, phase_category="flight"):
     # Get the flight

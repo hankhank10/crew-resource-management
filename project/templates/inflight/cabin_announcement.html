@@ -21,7 +21,7 @@
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url_for('main.dashboard') }}"><i class="feather icon-home"></i></a></li>
                     <li class="breadcrumb-item"><a href="{{ url_for('inflight.dashboard') }}">Live flight</a></li>
-                    <li class="breadcrumb-item"><a href="#!">Messaging</a></li>
+                    <li class="breadcrumb-item"><a href="#!">Cabin announcement</a></li>
                 </ul>
             </div>
         </div>
@@ -47,15 +47,15 @@
                                 <div class="h-list-body">
                                     <div class="msg-user-list scroll-div overflow-auto"">
                                         <div class="main-friend-list">
-                                            <div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe">
-                                                <a class="media-left" href="{{ url_for('messaging.chat', message_type='cabin') }}"><img class="img-fluid media-object" src="/static/assets/images/user/passenger.png" alt="Cabin">
+                                            <div class="media userlist-box active" data-id="1" data-status="online">
+                                                <a class="media-left" href="#!"><img class="img-fluid media-object" src="/static/assets/images/user/passenger.png" alt="Cabin">
                                                 </a>
                                                 <div class="media-body">
                                                     <h6 class="chat-header">Cabin announcement<small class="d-block text-c-green">available </small></h6>
                                                 </div>
                                             </div>
-                                            <div class="media userlist-box active" data-id="2" data-status="online" data-username="Lary Doe">
-                                                <a class="media-left" href="#!"><img class="img-fluid media-object" src="/static/assets/images/user/crew.png" alt="Crew">
+                                            <div class="media userlist-box" data-id="2" data-status="online">
+                                                <a class="media-left" href="{{ url_for('messaging.chat', message_type='crew') }}"><img class="img-fluid media-object" src="/static/assets/images/user/crew.png" alt="Crew">
 
                                                     {% if current_user.unread_flight_messages > 0 %}
                                                     <div class="live-status">{{ current_user.unread_flight_messages }}</div>
@@ -94,18 +94,6 @@
                                                 </div>
                                             </div>
 
-                                            {% else %}
-
-                                            <div class="media chat-messages">
-                                                <div class="media-body chat-menu-reply">
-                                                    <div class="">
-                                                        <p class="chat-cont">{{message.message_content}}</p>
-                                                    </div>
-                                                    <p class="chat-time"><span data-livestamp="{{message.seconds_since_epoch}}">{{message.seconds_since_epoch}}</span></p>
-                                                </div>
-                                                <a class="media-right photo-table" href="#!"><img class="media-object img-radius m-t-5" src="/static/assets/images/user/crew.png" alt="Generic placeholder image"></a>
-                                            </div>
-
                                             {% endif %}
 
                                         {% endfor %}
@@ -121,16 +109,6 @@
                                             </div>
                                         </div>
 
-                                        <div id="recent_reply_card" class="media chat-messages">
-                                            <div class="media-body chat-menu-reply">
-                                                <div class="">
-                                                    <p class="chat-cont"><i class="fas fa-spinner fa-spin"></i></p>
-                                                </div>
-                                                <p class="chat-time">Responding now...</p>
-                                            </div>
-                                            <a class="media-right photo-table" href="#!"><img class="media-object img-radius m-t-5" src="/static/assets/images/user/crew.png" alt="Generic placeholder image"></a>
-                                        </div>
-
 
                                     </div>
                                 </div>
@@ -143,7 +121,7 @@
                                         <button id="start_button" class="btn btn-secondary btn-icon" onclick="startButton(event)" type="button" data-toggle="tooltip" title="Speak live"><i class="fas fa-microphone"></i></button>
                                     </div>
                                     <div class="input-group-append">
-                                        <button id="send_button" onclick="sendMessage('crew')" class="btn btn-theme btn-icon btn-msg-send" type="button"><i class="feather icon-play"></i></button>
+                                        <button id="send_button" onclick="sendMessage('cabin')" class="btn btn-theme btn-icon btn-msg-send" type="button"><i class="feather icon-play"></i></button>
                                     </div>
                                     <br>
                                 </div>

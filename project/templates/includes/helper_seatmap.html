@@ -21,10 +21,7 @@
                 <span class="d-block"><i class="fas fa-circle f-10 m-r-10"></i>Empty seat (<span id="empty_seat_count"></span>)</span>
             </div>
             <div class="tab-pane fade" id="seated_tab" role="tabpanel" aria-labelledby="profile-tab">
-                <span class="d-block"><i class="fas fa-circle text-c-green f-10 m-r-10"></i>Seated</span>
-                <span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>Not seated</span><br>
-                <span class="d-block"><i class="fas fa-circle text-c-yellow f-10 m-r-10"></i>Not on board</span><br>
-                <span class="d-block"><i class="fas fa-circle f-10 m-r-10"></i>Empty seat</span>
+                <div id="seated_chart"></div>
             </div>
 
             <div class="tab-pane fade" id="hunger_tab" role="tabpanel" aria-labelledby="profile-tab">
@@ -82,8 +79,8 @@
                     <h6 id="passenger_detail_name" class="mb-1 mt-3">Lary Doe</h6>
                     <p id="passenger_detail_status" class="mb-3 text-muted">Waiting to Board</p>
                     <p id="passenger_detail_bladder" class="mb-1">?</p>
-                    <p id="passenger_detail_thirst" class="mb-0">?</p>
-                    <p id="passenger_detail_hunger" class="mb-0">?</p>
+                    <p id="passenger_detail_thirst" class="mb-1">?</p>
+                    <p id="passenger_detail_hunger" class="mb-1">?</p>
                 </div>
                 <hr class="wid-80 b-wid-3 my-4">
                 <div class="row text-center">

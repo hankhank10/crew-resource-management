@@ -159,6 +159,10 @@ class FlightEvent(db.Model):
 
         if self.event_name == "begin_taxi_for_takeoff": return "Start taxi for takeoff"
 
+        if self.event_name == "cabin_announcement": return "Cabin announcement by pilot"
+        if self.event_name == "crew_seats_for_takeoff": return "Crew seats for takeoff"
+
+
 
 class FlightMessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)

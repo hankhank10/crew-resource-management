@@ -80,10 +80,24 @@
 				<div id="flight-phase-status-card" class="card table-card widget-primary-card bg-c-blue">
 					<div class="row-table">
 						<div class="col-sm-4 card-body-big">
+							<a href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<img id="flight-phase-icon" height="50px" style="filter: invert(100%);" src="/static/assets/images/phase-icons/Question.png">
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a id="set_flight_phase_at_gate" class="dropdown-item set_flight_phase" href="#">At Gate</a>
+								<a id="set_flight_phase_taxi_for_takeoff" class="dropdown-item set_flight_phase" href="#">Taxi for Takeoff</a>
+								<a id="set_flight_phase_takeoff_and_climb" class="dropdown-item set_flight_phase" href="#">Takeoff and Climb</a>
+								<a id="set_flight_phase_cruise" class="dropdown-item set_flight_phase" href="#">Cruise</a>
+								<a id="set_flight_phase_descent_and_landing" class="dropdown-item set_flight_phase" href="#">Descent and landing</a>
+								<a id="set_flight_phase_taxi_to_gate" class="dropdown-item set_flight_phase" href="#">Taxi to gate</a>
+								<a id="set_flight_phase_shutdown" class="dropdown-item set_flight_phase" href="#">Shutdown</a>
+
+
+							</div>
 						</div>
 						<div class="col-sm-8">
 							<h6>Flight phase</h6>
+
 							<h4 id="flight-phase-status-label">?</h4>
 						</div>
 					</div>
@@ -276,9 +290,24 @@
 
 <script>
 
-	function update_display() {
+	$('.set_flight_phase').click( function(event) {
 
-		console.log("Updating display!")
+		let selected_phase = $(event.target).text()
+		//window.alert(selected_phase)
+
+		$.getJSON({
+			url: '/api/inflight/set_flight_phase',
+			type: 'GET',
+			data: {
+				phase_to_set: selected_phase
+			},
+			contentType: 'application/json; charset=utf-8'
+		});
+
+	});
+
+
+	function update_display() {
 
 		if (localStorage.getItem('door_status') === '0') {
 			set_card_status('door','green','Secured')
@@ -316,6 +345,17 @@
 		set_card_status('flight-phase', 'blue', localStorage.getItem('phase_flight_name'));
 		let link = "/static/assets/images/phase-icons/" + localStorage.getItem('phase_flight_name') + ".png";
 		$('#flight-phase-icon').attr("src",link);
+
+		$('.set_flight_phase').removeClass('active')
+		if (localStorage.getItem('phase_flight_name') === "At Gate") { $('#set_flight_phase_at_gate').addClass('active') }
+		if (localStorage.getItem('phase_flight_name') === "Taxi for Takeoff") { $('#set_flight_phase_taxi_for_takeoff').addClass('active') }
+		if (localStorage.getItem('phase_flight_name') === "Takeoff and Climb") { $('#set_flight_phase_takeoff_and_climb').addClass('active') }
+		if (localStorage.getItem('phase_flight_name') === "Cruise") { $('#set_flight_phase_cruise').addClass('active') }
+		if (localStorage.getItem('phase_flight_name') === "Descent and landing") { $('#set_flight_phase_descent_and_landing').addClass('active') }
+		if (localStorage.getItem('phase_flight_name') === "Taxi to gate") { $('#set_flight_phase_taxi_to_gate').addClass('active') }
+		if (localStorage.getItem('phase_flight_name') === "Shutdown") { $('#set_flight_phase_shutdown').addClass('active') }
+
+
 
 		// Set cabin phase
 		set_card_status('cabin-phase', 'blue', localStorage.getItem('phase_cabin_name'));

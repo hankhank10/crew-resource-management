@@ -147,7 +147,7 @@ function draw_table(filter_by, max_x, max_y, occupied_seatmap_object, empty_seat
 
             if (filter_by === "seated") {
                 if (seat.is_seated === true) {
-                    badge_color = "success"
+                    badge_color = "success";
                 }
                 if (seat.is_seated === false) {
                     badge_color = "danger"
@@ -193,7 +193,7 @@ function draw_table(filter_by, max_x, max_y, occupied_seatmap_object, empty_seat
 
 
             let onclick_html = "show_passenger_details('" + seat.seat_number + "')"
-            html_for_cell = '<h6><span id="seat_badge_'+ seat.seat_number +'" onclick="' + onclick_html + '" data-tippy-seat="' + seat.seat_number + '" class="badge badge-' + badge_color + '">' + seat.seat_number + '</span></h6>'
+            html_for_cell = '<h6><span id="seat_badge_'+ seat.seat_number +'" onmouseover="' + onclick_html + '" data-tippy-seat="' + seat.seat_number + '" class="badge badge-' + badge_color + '">' + seat.seat_number + '</span></h6>'
             $(relevant_cell_id).html(html_for_cell)
         }
 
@@ -201,6 +201,9 @@ function draw_table(filter_by, max_x, max_y, occupied_seatmap_object, empty_seat
     })
 
     let pie_label_names = null
+    let selector_name;
+    let series_list = [green_count, orange_count, red_count];
+    let color_list = ['#2ba961', '#ffc007', '#e52d27'];
 
     if (filter_by === "hunger") {
         pie_label_names = ['OK', 'Hungry', 'Very Hungry']
@@ -215,16 +218,18 @@ function draw_table(filter_by, max_x, max_y, occupied_seatmap_object, empty_seat
         selector_name = "#bathroom_chart"
     }
 
+    if (filter_by == "seated") {
+        pie_label_names = ['Seated', 'Standing', 'Not Boarded'];
+        selector_name = "#seated_chart";
+        series_list = [green_count, red_count, orange_count];
+        color_list = ['#2ba961', '#e52d27', '#ffc007'];
+    }
 
     if (pie_label_names !== null) {
         var options = {
-            series: [
-                green_count,
-                orange_count,
-                red_count
-            ],
+            series: series_list,
             labels: pie_label_names,
-            colors: ['#2ba961', '#ffc007', '#e52d27'],
+            colors: color_list,
             chart: {
                 type: 'donut',
             },
@@ -235,11 +240,8 @@ function draw_table(filter_by, max_x, max_y, occupied_seatmap_object, empty_seat
                 breakpoint: 480,
                 options: {
                     chart: {
-                        width: 200
+                        width: 200,
                     },
-                    legend: {
-                        show: false,
-                    }
                 }
             }]
         }

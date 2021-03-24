@@ -75,25 +75,26 @@ function startButton(event) {
     }
 }
 
-function sendMessage() {
+function sendMessage(who_to) {
 
     $.getJSON({
         url: '/api/inflight/messaging/send_message',
         type: 'GET',
         data : {
-            message_to: 'crew',
+            message_to: who_to,
             message_content: $('#chat_input').val()
         },
 
         success: function (response) {
 
             $('#recent_message_card').show();
-            $('#recent_message_text').html($('#chat_input').val())
-            $('#chat_input').val('')
+            $('#recent_message_text').html($('#chat_input').val());
+            $('#chat_input').val('');
 
-            setTimeout(() => {$('#recent_reply_card').show();}, 1000);
-            setTimeout(() => { location.reload()}, 4000)
-
+            if (who_to === "crew") {
+                setTimeout(() => {$('#recent_reply_card').show();}, 1000);
+                setTimeout(() => { location.reload()}, 4000)
+            }
         },
         contentType: 'application/json; charset=utf-8'
     });
