@@ -46,9 +46,6 @@
 
 								</div>
 								<ul class="noti-body">
-									<li class="n-title">
-										<p class="m-b-0">NEW</p>
-									</li>
 									<li id="navbar_new_crew_message_notification_card" class="notification">
 										<div class="media">
 											<a href="{{ url_for('messaging.chat', message_type='crew') }}">
@@ -70,7 +67,7 @@
 							</div>
 						</div>
 					</li>
-					<li><a href="#!" class="displayChatbox"><i class="icon feather icon-mail"></i></a></li>
+					<li><a href="#!" class="displayChatbox"><i class="far fa-id-badge"></i></a></li>
 					<li>
 						<div class="dropdown drp-user">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -79,7 +76,7 @@
 							<div class="dropdown-menu dropdown-menu-right profile-notification">
 								<div class="pro-head">
 									<img src="/static/assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
-									<span>John Doe</span>
+									<span>{{current_user.email}}</span>
 									<a href="auth-signin.html" class="dud-logout" title="Logout">
 										<i class="feather icon-log-out"></i>
 									</a>
@@ -87,8 +84,6 @@
 								<ul class="pro-body">
 									<li><a href="#!" class="dropdown-item"><i class="feather icon-settings"></i> Settings</a></li>
 									<li><a href="#!" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
-									<li><a href="message.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
-									<li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>
 								</ul>
 							</div>
 						</div>

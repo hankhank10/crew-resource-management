@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-3 col-sm-12">
         <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <li><a class="nav-link text-left" role="tab" aria-controls="v-pills-home" aria-selected="true">Filter by:</a></li>
             <li><a onclick="get_seatmap_data_from_server('class')" class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#class_tab" role="tab" aria-controls="v-pills-home" aria-selected="true">Class</a></li>
             <li><a onclick="get_seatmap_data_from_server('seated')" class="nav-link text-left" id="v-pills-home-tab" data-toggle="pill" href="#seated_tab" role="tab" aria-controls="v-pills-home" aria-selected="true">Seated</a></li>
             <li><a onclick="get_seatmap_data_from_server('hunger')" class="nav-link text-left" id="v-pills-home-tab" data-toggle="pill" href="#hunger_tab" role="tab" aria-controls="v-pills-home" aria-selected="true">Hunger</a></li>
@@ -11,7 +12,7 @@
     </div>
 
     <div class="col-md-9 col-sm-12">
-        <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-content" id="v-pills-tabContent" style="height: 250px">
             <div class="tab-pane fade show active" id="class_tab" role="tabpanel" aria-labelledby="home-tab">
                 <span class="d-block"><i class="fas fa-circle text-c-red f-10 m-r-10"></i>First class (<span id="first_class_count"></span>)</span>
                 <span class="d-block"><i class="fas fa-circle text-c-blue f-10 m-r-10"></i>Business class (<span id="business_class_count"></span>)</span>
