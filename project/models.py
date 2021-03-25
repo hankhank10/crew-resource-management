@@ -423,7 +423,7 @@ class CrewMember(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     flight = db.Column(db.Integer, db.ForeignKey('flight.id'), nullable=True)
 
-    identity = db.Column(db.Integer, db.ForeignKey('crewpopulation.id'))
+    identity = db.Column(db.Integer, db.ForeignKey('crew_population.id'))
     energy = db.Column(db.Integer, default=100)
     efficiency = db.Column(db.Integer, default=100)
 

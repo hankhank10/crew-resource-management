@@ -385,7 +385,9 @@ def set_phase(flight_id, phase_name, phase_category="flight"):
 
     if phase_category == "seatbelt_sign":
         flight.phase_seatbelt_sign = new_phase.id
-
     db.session.commit()
+
+    # Create an event
+    log_event(flight_id, phase_category + "_phase_" + phase_name, "pilot")
 
     return new_phase

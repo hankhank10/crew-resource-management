@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 crew = Blueprint('crew', __name__)
 
 
-def create_new_crew():
+def create_new_crew_member():
     gender = random.choices([
         "Male",
         "Female"
@@ -41,10 +41,10 @@ def create_new_crew():
 
 
 @crew.route('/backend/create_new_crew/<how_many>')
-def create_new_crew_endpoint(how_many=1):
+def create_new_crew_members(how_many=1):
 
     for a in range(1, int(how_many)):
-        create_new_crew()
+        create_new_crew_member()
         print (str(a))
 
     return "Created " + str(how_many) + " new crew"
@@ -70,7 +70,7 @@ def fill_flight_with_crew(flight_id):
         can_this_crew_be_loaded = False
         while can_this_crew_be_loaded == False:
             selected_crew_id = random.randint(1, how_many_crew_exist)
-            selected_crew = CrewPopulation.query.filter_by(id = selected_crew_id)
+            selected_crew = CrewPopulation.query.filter_by(id = selected_crew_id).first()
 
             if selected_crew is not None:
 

@@ -4,6 +4,11 @@
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+
+<style>
+    
+</style>
+
 {% endblock stylesheets %}
 
 {% block content %}
@@ -49,6 +54,9 @@
                                 <th>Full Name</th>
                                 <th>Frequent Flyer</th>
                                 <th>Status</th>
+                                <th>Hunger</th>
+                                <th>Thirst</th>
+                                <th>Bathroom need</th>
                             </tr>
                         </thead>
                     </table>
@@ -96,12 +104,35 @@
                     "render": function(data) {
                         if (data === 'Waiting to Board') {return '<h5><span class="badge badge-warning">'+data+'</span></h5>'}
                         if (data === 'Boarding') {return '<h5><span class="badge badge-primary">'+data+'</span></h5>'}
-                        if (data === 'Seated') {return '<h5><span class="badge badge-success">'+data+'</span></h5>'}
-                        if (data === 'Unseated') {return '<h5><span class="badge badge-danger">'+data+'</span></h5>'}
+                        if (data === 'Boarded') {return '<h5><span class="badge badge-success">'+data+'</span></h5>'}
                         if (data === 'Deboarding') {return '<h5><span class="badge badge-danger">'+data+'</span></h5>'}
                         if (data === 'Deboarded') {return '<h5><span class="badge badge-info">'+data+'</span></h5>'}
                     }
                 },
+                {
+                    "data": "status_hunger",
+                    "render": function(data, type, row, meta) {
+                        return type === 'display' ?
+                            '<meter value="' + data + '" min="0" max="100" low="50" optimum="10" high="80"></meter>' :
+                            data;
+                    }
+                },
+                {
+                    "data": "status_thirst",
+                    "render": function(data, type, row, meta) {
+                        return type === 'display' ?
+                            '<meter value="' + data + '" min="0" max="100" low="50" optimum="10" high="80"></meter>' :
+                            data;
+                    }
+                },
+                {
+                    "data": "status_bladder_need",
+                    "render": function(data, type, row, meta) {
+                        return type === 'display' ?
+                            '<meter value="' + data + '" min="0" max="100" low="50" optimum="10" high="80"></meter>' :
+                            data;
+                    }
+                }
             ],
             "paging": false,
             "colReorder": true
