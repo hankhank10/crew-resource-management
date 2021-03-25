@@ -425,6 +425,7 @@ class CrewMember(db.Model):
 
     identity = db.Column(db.Integer, db.ForeignKey('crewpopulation.id'))
     energy = db.Column(db.Integer, default=100)
+    efficiency = db.Column(db.Integer, default=100)
 
     gender = db.Column(db.String(6))
     full_name = db.Column(db.String(100))

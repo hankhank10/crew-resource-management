@@ -4,7 +4,7 @@ import secrets
 from datetime import datetime, timedelta
 from . import db
 from . import app
-from project import equipment, inflight, passengers, seatmapper
+from project import equipment, inflight, passengers, seatmapper, crew
 from .models import Flight, FlightPhase, EquipmentType, FlightEvent, FlightMessage
 
 
@@ -105,10 +105,9 @@ def start_flight(unique_reference, ident):
     inflight.set_phase(flight.id, "At Gate", "flight")
     inflight.set_phase(flight.id, "Pre-Boarding", "cabin")
 
-    # Fill the flight with passengers
+    # Fill the flight with passengers and crew
     passengers.fill_flight_with_passengers(flight.id)
-
-    #
+    crew.fill_flight_with_crew(flight.id)
 
     # Set the current user's flight
     current_user.active_flight_id = flight.id
