@@ -54,6 +54,9 @@ app.register_blueprint(messaging_blueprint)
 from .passengers import passengers as passengers_blueprint
 app.register_blueprint(passengers_blueprint)
 
+from .crew import crew as crew_blueprint
+app.register_blueprint(crew_blueprint)
+
 ###  ADMIN 
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView

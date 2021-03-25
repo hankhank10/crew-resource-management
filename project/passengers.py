@@ -15,6 +15,11 @@ def create_new_passenger():
 
     age = random.randint(18, 65)
 
+    gender = random.choices([
+        "Male",
+        "Female"
+    ])[0]
+
     frequent_flyer_status = random.choices([
         0,  #None
         1,  #Blue
@@ -32,10 +37,11 @@ def create_new_passenger():
     ])[0]
 
     new_passenger = Passenger(
-        first_name = name_generator.first_name(),
+        first_name = name_generator.first_name(gender),
         second_name = name_generator.second_name(),
         age = age,
-        frequent_flyer_status = frequent_flyer_status
+        frequent_flyer_status = frequent_flyer_status,
+        gender = gender
     )
     db.session.add(new_passenger)
     db.session.commit()
@@ -89,7 +95,8 @@ def api_passenger_details(unique_reference, seat_number):
         'full_name': seat.full_name,
         'frequent_flyer_status': seat.frequent_flyer_status,
         'frequent_flyer_status_text': seat.frequent_flyer_status_text,
-        'seat_number': seat.seat_number
+        'seat_number': seat.seat_number,
+        'gender': seat.gender
     }
     return jsonify(seat_dictionary)
 

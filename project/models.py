@@ -162,6 +162,8 @@ class FlightEvent(db.Model):
         if self.event_name == "cabin_announcement": return "Cabin announcement by pilot"
         if self.event_name == "crew_seats_for_takeoff": return "Crew seats for takeoff"
 
+        if self.event_name == "takeoff": return "Takeoff"
+
 
 
 class FlightMessage(db.Model):
@@ -291,23 +293,23 @@ class Seat(db.Model):
     @property
     def status_bladder_need_text(self):
         if self.status_bladder_need > 90: return "Desperate for toilet"
-        if self.status_bladder_need > 70: return "Really needs the toilet"
+        if self.status_bladder_need > 80: return "Desperate for the toilet"
         if self.status_bladder_need > 50: return "Needs the toilet soon"
         return ""
 
     @property
     def status_hunger_text(self):
         if self.status_hunger > 90: return "Starving"
-        if self.status_hunger > 70: return "Hungry"
-        if self.status_hunger > 60: return "A little hungry"
+        if self.status_hunger > 80: return "Very Hungry"
+        if self.status_hunger > 50: return "Hungry"
         if self.status_hunger > 40: return "Peckish"
         return ""
 
     @property
     def status_thirst_text(self):
         if self.status_thirst > 90: return "Parched"
-        if self.status_thirst > 70: return "Thirsty"
-        if self.status_thirst > 50: return "A little thirsty"
+        if self.status_thirst > 80: return "Very Thirsty"
+        if self.status_thirst > 50: return "Thirsty"
         return ""
 
 
@@ -361,6 +363,12 @@ class Seat(db.Model):
         return passenger.full_name
 
     @property
+    def gender(self):
+        if self.occupied_by is None: return None
+        passenger = Passenger.query.filter_by(id=self.occupied_by).first()
+        return passenger.gender
+
+    @property
     def frequent_flyer_status(self):
         if self.occupied_by is None: return None
         passenger = Passenger.query.filter_by(id=self.occupied_by).first()
@@ -368,7 +376,6 @@ class Seat(db.Model):
 
     @property
     def frequent_flyer_status_text(self):
-
         if self.frequent_flyer_status == 0: return "None"
         if self.frequent_flyer_status == 1: return "Blue"
         if self.frequent_flyer_status == 2: return "Bronze"
@@ -388,3 +395,38 @@ class Passenger(db.Model):
 
     age = db.Column(db.Integer)
     frequent_flyer_status = db.Column(db.Integer)
+
+    gender = db.Column(db.String(6))
+
+
+class CrewPopulation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(50))
+    second_name = db.Column(db.String(50))
+
+    @property
+    def full_name(self):
+        return self.first_name + " " + self.second_name
+
+    seniority = db.Column(db.Integer, default=0)
+    gender = db.Column(db.String(6))
+    efficiency = db.Column(db.Integer, default=100)
+
+    @property
+    def seniority_text(self):
+        if self.seniority == 0: "Crew Member"
+        if self.seniority == 1: "Senior Crew Member"
+        if self.seniority == 2: "Cabin Service Director"
+
+
+class CrewMember(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    flight = db.Column(db.Integer, db.ForeignKey('flight.id'), nullable=True)
+
+    identity = db.Column(db.Integer, db.ForeignKey('crewpopulation.id'))
+    energy = db.Column(db.Integer, default=100)
+
+    gender = db.Column(db.String(6))
+    full_name = db.Column(db.String(100))
+    seniority = db.Column(db.Integer)
+    seniority_text = db.Column(db.String(50))

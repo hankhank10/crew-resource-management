@@ -46,7 +46,7 @@ function show_passenger_details (seat_number) {
                 $('#passenger_detail_thirst').show()
             }
 
-            random_photo = "https://fakeface.rest/thumb/view?gender=male&minimum_age=26&random_nonsense=" + Math.random();
+            random_photo = "https://fakeface.rest/thumb/view?gender" + response.gender + "&minimum_age=26&random_nonsense=" + Math.random();
             $('#passenger_detail_photo').attr("src", random_photo);
 
             passenger_details_box = document.getElementById('passenger_details_outer');
