@@ -85,6 +85,9 @@
 						<label>User</label>
 					</li>
 					<li data-username="" class="nav-item">
+						<a href="{{ url_for('auth.change_password') }}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-key"></i></span><span class="pcoded-mtext">Change password</span></a>
+					</li>
+					<li data-username="" class="nav-item">
 						<a href="{{ url_for('auth.logout') }}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-sign-out-alt"></i></span><span class="pcoded-mtext">Logout</span></a>
 					</li>
 
