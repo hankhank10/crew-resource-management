@@ -94,6 +94,8 @@ class Flight(db.Model):
     last_event_recorded = db.Column(db.DateTime, default=datetime.utcnow())
     number_of_updates_received = db.Column(db.Integer, default=0)
 
+    new_event = db.Column(db.String(100))
+
     @property
     def passengers_total(self):
         return self.passengers_first_class + self.passengers_business_class + self.passengers_premium_class + self.passengers_economy_class
@@ -163,6 +165,12 @@ class FlightEvent(db.Model):
         if self.event_name == "crew_seats_for_takeoff": return "Crew seats for takeoff"
 
         if self.event_name == "takeoff": return "Takeoff"
+
+        if self.event_name == "flight_phase_taxi for takeoff": return "Begin taxi for takeoff"
+        if self.event_name == "flight_phase_takeoff and climb": return "Begin takeoff"
+        if self.event_name == "flight_phase_cruise": return "Begin cruise"
+
+        return self.event_name
 
 
 

@@ -1,42 +1,21 @@
-let current_notifications = 0;
+function update_notifications(number_of_crew_messages) {
 
-//This will be deprecated
-function notification_check() {
+    let number_of_notifications = number_of_crew_messages;
 
-    $.getJSON({
-        url: '/api/inflight/messaging/check_messages',
-        type: 'GET',
-
-        success: function (response) {
-
-            if (response.unread_flight_messages !== current_notifications) {
-                update_notifications(response.unread_flight_messages);
-            }
-
-        },
-        contentType: 'application/json; charset=utf-8'
-    });
-
-}
-
-function update_notifications(number_of_notifications) {
-
-    current_notifications = number_of_notifications;
-
-    if (current_notifications === 0) {
+    if (number_of_crew_messages === 0) {
         $('#navbar_new_crew_message_notification_card').hide()
-        $('#navbar_notification_bell').html('<i class="far fa-bell"></i>')
-
         $('#sidebar_unread_crew_messages').hide()
 
     } else {
         $('#navbar_new_crew_message_notification_card').show()
-        $('#navbar_notification_bell').html('<i style="color: red" class="fas fa-bell"></i>')
-        $("#navbar_notification_bell").effect("pulsate");
-
-        $('#sidebar_unread_crew_messages').text(current_notifications)
+        $('#sidebar_unread_crew_messages').text(number_of_crew_messages)
         $('#sidebar_unread_crew_messages').show()
+    }
 
+    if (number_of_notifications === 0) {
+        $('#navbar_notification_bell').html('<i class="far fa-bell"></i>')
+    } else {
+        $('#navbar_notification_bell').html('<i style="color: red" class="fas fa-bell"></i>')
     }
 
 }

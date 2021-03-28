@@ -8,6 +8,7 @@ import secrets
 from .models import User
 from sqlalchemy import desc
 from datetime import datetime
+from project import inflight
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -79,6 +80,35 @@ def logout():
     logout_user()
     flash ("Logged out", "danger")
     return redirect(url_for('auth.login'))
+
+
+@auth.route('/user/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    if request.method == "GET":
+        return render_template('/auth/change_password.html', error_message=None)
+
+    if request.method == "POST":
+        # check passwords match
+        if request.form['new_password1'] != request.form['new_password2']:
+            return render_template('/auth/change_password.html', error_message="Passwords must match")
+
+        if len(request.form['new_password1']) < 5:
+            return render_template('/auth/change_password.html', error_message="Password too short")
+
+        # check current password
+        if check_password_hash(current_user.password, request.form['old_password']):
+
+            current_user.password = generate_password_hash(request.form['new_password1'])
+            db.session.commit()
+
+            flash("Password updated successfully", "success")
+            return redirect(url_for('inflight.dashboard'))
+
+        else:
+            return render_template('/auth/change_password.html', error_message="Existing password incorrect")
+
+
 
 
 @auth.route('/forgot_password')

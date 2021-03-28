@@ -52,24 +52,10 @@
 		</div>
 
 
-		<div class="card">
-			<div class="card-body p-0">
-				<div class="row d-flex align-items-center m-0">
-					<div class="col-6 text-center bg-primary p-0">
-						<div style="padding:20px 25px; color: white">
-							<i class="fas fa-plane-departure fa-3x"></i>
-							<h6 class="mt-2 mb-0 text-white f-w-400">{{flight.departure_name}}</h6>
-						</div>
-					</div>
-					<div class="col-6 text-center p-0">
-						<div style="padding:20px 25px;">
-							<i class="fas fa-plane-arrival fa-3x"></i>
-							<h6 class="mt-2 mb-0 f-w-400">{{flight.destination_name}}</h6>
-						</div>
-					</div>
 
-				</div>
-			</div>
+
+		<div style="height: 500px;">
+			<iframe id="recent_events_iframe" style="width:100%; height:100%;" src="/helper/events" frameBorder="0">Browser not compatible.</iframe>
 		</div>
 
 	</div>
@@ -96,7 +82,7 @@
 							</div>
 						</div>
 						<div class="col-sm-8">
-							<h6>Flight phase</h6>
+							<h6>Flight phase <span ><a style="font-size: 1em" class="help" data-toggle="popover" data-content="Click on the icon to change the flight phase"><i style="font-size: 1rem" class="feather icon-help-circle f-16"></i></a></span></h6>
 
 							<h4 id="flight-phase-status-label">?</h4>
 						</div>
@@ -235,7 +221,30 @@
 
 						</div>
 					</div>
+
+
 				</div>
+
+				<div class="card">
+					<div class="card-body p-0">
+						<div class="row d-flex align-items-center m-0">
+							<div class="col-6 text-center bg-primary p-0">
+								<div style="padding:20px 25px; color: white">
+									<i class="fas fa-plane-departure fa-3x"></i>
+									<h6 class="mt-2 mb-0 text-white f-w-400">{{flight.departure_name}}</h6>
+								</div>
+							</div>
+							<div class="col-6 text-center p-0">
+								<div style="padding:20px 25px;">
+									<i class="fas fa-plane-arrival fa-3x"></i>
+									<h6 class="mt-2 mb-0 f-w-400">{{flight.destination_name}}</h6>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
 			</div>
 
 		</div>

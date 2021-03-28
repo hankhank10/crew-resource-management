@@ -22,7 +22,6 @@ function get_live_data() {
             localStorage.setItem('gear_handle_position', response.my_plane.gear_handle_position);
             localStorage.setItem('parking_brake', response.my_plane.parking_brake);
             localStorage.setItem('no_smoking_sign', response.my_plane.no_smoking_sign);
-            console.log(localStorage.getItem('no_smoking_sign'))
             localStorage.setItem('seatbelt_sign', response.my_plane.seatbelt_sign);
             localStorage.setItem('on_ground', response.my_plane.on_ground);
 
@@ -45,7 +44,28 @@ function get_live_data() {
             localStorage.setItem('seat_count_empty', response.passenger_status.empty_seats);
             localStorage.setItem('seat_count_total', response.passenger_status.total_seats);
 
-            update_notifications(response.unread_flight_messages);
+            // Check if new notifications
+            if (localStorage.getItem('notification_count') != response.unread_flight_messages) {
+                new PNotify({
+                    title: 'New crew message',
+                    text: 'New message received from crew',
+                    type: 'default'
+                });
+
+                localStorage.setItem('notification_count', response.unread_flight_messages);
+
+                update_notifications(response.unread_flight_messages);
+            }
+
+            if (response.new_event !== null) {
+                new PNotify({
+                    title: 'New flight event',
+                    text: 'New event: '+response.new_event,
+                    type: 'default'
+                });
+                document.getElementById('recent_events_iframe').src = document.getElementById('recent_events_iframe').src
+            }
+
             update_display();
 
         },

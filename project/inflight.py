@@ -98,6 +98,11 @@ def update_plane_data(unique_reference):
 
     flight.number_of_updates_received = flight.number_of_updates_received + 1
 
+    new_event_to_report = None
+    if flight.new_event != None:
+        new_event_to_report = flight.new_event
+        #flight.new_event = None
+
     db.session.commit()
 
     # Perform application logic
@@ -165,6 +170,7 @@ def update_plane_data(unique_reference):
         'phase_flight_name': flight.phase_flight_name,
         'phase_cabin_name': flight.phase_cabin_name,
         'passenger_status': passenger_status,
+        'new_event': new_event_to_report,
         #'events': {
         #    'location_updates': chart_dictionary['location_updates'],
         #    'other_events': chart_dictionary['other_events']
@@ -213,11 +219,16 @@ def log_event(flight_id, event_name, event_initiated_by, current_latitude = None
         current_altitude=current_altitude
     )
     db.session.add(new_event)
+    db.session.flush()
 
+    # Update the flight record
     flight = Flight.query.filter_by(id=flight_id).first()
+
     flight.last_event_recorded = datetime.utcnow()
+    flight.new_event = new_event.event_description
 
     db.session.commit()
+
     return
 
 
@@ -388,6 +399,7 @@ def set_phase(flight_id, phase_name, phase_category="flight"):
     db.session.commit()
 
     # Create an event
-    log_event(flight_id, phase_category + "_phase_" + phase_name, "pilot")
+    if phase_category == "flight":
+        log_event(flight_id, "flight_phase_" + phase_name.lower(), "pilot")
 
     return new_phase

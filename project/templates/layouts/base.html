@@ -27,6 +27,10 @@
     <!-- page css -->
     <link rel="stylesheet" href="/static/assets/css/pages/pages.css">
 
+    <!-- pnotify css -->
+	<link rel="stylesheet" href="/static/assets/plugins/pnotify/css/pnotify.custom.min.css">
+	<!-- pnotify-custom css -->
+	<link rel="stylesheet" href="/static/assets/css/pages/pnotify.css">
 
     <!-- Specific CSS goes HERE -->
     {% block stylesheets %}{% endblock stylesheets %}
@@ -139,6 +143,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
+    <!-- pnotify Js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.js" integrity="sha512-dDguQu7KUV0H745sT2li8mTXz2K8mh3mkySZHb1Ukgee3cNqWdCFMFsDjYo9vRdFRzwBmny9RrylAkAmZf0ZtQ==" crossorigin="anonymous"></script>
+
+
     <script>
 
         let current_flight_unique_reference = "{{ current_user.active_flight_unique_reference }}"
@@ -149,6 +157,7 @@
 
     <script src="/static/customjs/notification_check.js"></script>
     <script src="/static/customjs/livedata.js"></script>
+
 
     <!-- Specific Page JS goes HERE  -->
     {% block javascripts %} {% endblock javascripts %}
