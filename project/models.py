@@ -166,6 +166,7 @@ class FlightEvent(db.Model):
 
         if self.event_name == "takeoff": return "Takeoff"
 
+        if self.event_name == "flight_phase_at gate": return "Phase set to at gate"
         if self.event_name == "flight_phase_taxi for takeoff": return "Begin taxi for takeoff"
         if self.event_name == "flight_phase_takeoff and climb": return "Begin takeoff"
         if self.event_name == "flight_phase_cruise": return "Begin cruise"

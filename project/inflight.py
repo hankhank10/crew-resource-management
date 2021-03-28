@@ -101,7 +101,7 @@ def update_plane_data(unique_reference):
     new_event_to_report = None
     if flight.new_event != None:
         new_event_to_report = flight.new_event
-        #flight.new_event = None
+        flight.new_event = None
 
     db.session.commit()
 
