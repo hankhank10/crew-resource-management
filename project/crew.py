@@ -114,7 +114,7 @@ def assign_crew_task(flight_id, task_name):
     db.session.commit()
 
 
-def clear_crew_task(flight_id, task_name, task_length_minutes):
+def clear_crew_task(flight_id):
 
     flight = Flight.query.filter_by(id = flight_id).first()
 
@@ -153,6 +153,7 @@ def do_crew_task(flight_id):
     if flight.current_crew_task == "Drinks service":
         things_done_this_time = drinks_served_per_minute * minutes_since_last_cron
 
+    things_done_this_time = int(things_done_this_time)
 
     for a in range(completed_as_far_as + 1, completed_as_far_as + 1 + things_done_this_time):
         seat = Seat.query.filter_by(flight = flight_id, manifest_number = a).first()
@@ -163,7 +164,7 @@ def do_crew_task(flight_id):
         
         db.session.commit()
     
-    flight.completed_as_far_as = flight.completed_as_far_as + things_done_this_time
+    flight.current_crew_task_completed_as_far_as = flight.current_crew_task_completed_as_far_as + things_done_this_time
     db.session.commit()
 
     return
