@@ -4,7 +4,7 @@ import secrets
 from datetime import datetime
 from . import db
 from . import app
-from project import equipment, inflight, passengers
+from project import equipment, inflight, passengers, crew
 from .models import Flight, FlightEvent, FlightPhase, FlightMessage
 import requests
 import random
@@ -96,6 +96,9 @@ def send_message_from_pilot():
         if "seats for takeoff" in message_content: message_interpretation = "ready_for_takeoff"
         if "ready for takeoff" in message_content: message_interpretation = "ready_for_takeoff"
         if "prepare for takeoff" in message_content: message_interpretation = "ready_for_takeoff"
+
+        # Start drinks service
+        if "drinks service" in message_content: message_interpretation = "start_drinks_service"
 
         # Profanity
         if "fuck" in message_content: message_interpretation = "profanity"
@@ -189,6 +192,10 @@ def send_message_from_pilot():
                 # Actually start boarding
                 inflight.set_phase(current_flight.id, "Boarding", "cabin")
                 passengers.board_passengers(current_flight.id)
+
+        if message_interpretation == "start_drinks_service":
+            crew.assign_crew_task(current_flight.id, "Drinks service")
+            message_response = random_will_do + "starting drinks service now"
 
 
         # Store and send the message response

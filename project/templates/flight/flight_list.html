@@ -36,7 +36,7 @@
                     <h5>Your current flight plans</h5>
                     <div class="card-header-right">
                         <div class="btn-group card-option">
-                            <a href="{{ url_for('flight_manager.new') }}" class="btn btn-small btn-primary text-white"><i class="fas fa-plus-square"></i>New</a>
+                            <a href="{{ url_for('flight_manager.new') }}" class="btn btn-small btn-primary text-white"><i class="fas fa-plus-square"></i>New flight plan</a>
                         </div>
                     </div>
                 </div>
@@ -50,6 +50,7 @@
                                 <th>Departure</th>
                                 <th>Destination</th>
                                 <th>Pax / crew</th>
+                                <th>Status</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -83,7 +84,27 @@
                                     {{row.passengers_total}} / {{row.cabin_crew_count}}
                                 </td>
                                 <td>
-                                    <a href="{{ url_for('flight_manager.pre_flight', unique_reference = row.unique_reference) }}">Fly</a>
+                                    {% if row.status == "Not yet flown" %}
+                                    <span class="badge badge-success">Available</span>
+                                    {% else %}
+                                    <span class="badge badge-danger">Already flown</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-bars"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            {% if row.status == "Not yet flown" %}
+                                            <a class="dropdown-item" href="{{ url_for('flight_manager.pre_flight', unique_reference = row.unique_reference) }}"><i class="far fa-paper-plane"></i> Fly Now</a>
+                                            {% else %}
+                                            <a class="dropdown-item disabled" href=""><<i class="fas fa-exclamation-triangle"></i> Already flown</a>
+                                            {% endif %}
+                                            <a class="dropdown-item" href="{{ url_for('flight_manager.duplicate', unique_reference = row.unique_reference) }}"><i class="far fa-copy"></i> Duplicate</a>
+                                            <a class="dropdown-item" href="{{ url_for('flight_manager.delete', unique_reference = row.unique_reference) }}"><i class="far fa-trash-alt"></i> Delete</a>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         {% endfor %}

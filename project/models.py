@@ -97,6 +97,10 @@ class Flight(db.Model):
 
     new_event = db.Column(db.String(100))
 
+    # Crew tasks
+    current_crew_task = db.Column(db.String(100))
+    current_crew_task_completed_as_far_as = db.Column(db.Integer)  # Manifest number
+
     @property
     def passengers_total(self):
         return self.passengers_first_class + self.passengers_business_class + self.passengers_premium_class + self.passengers_economy_class
@@ -120,6 +124,13 @@ class Flight(db.Model):
         phase = FlightPhase.query.filter_by(id=self.phase_cabin).first()
         if phase is None: return None
         return phase.phase_name
+
+    @property
+    def status(self):
+        if self.started == False:
+            return "Not yet flown"
+        else:
+            return "Flown"
 
 
 class FlightEvent(db.Model):

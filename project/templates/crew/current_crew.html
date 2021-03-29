@@ -1,0 +1,112 @@
+{% extends "layouts/base.html" %}
+
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- [ breadcrumb ] start -->
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Current Crew</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('main.dashboard') }}"><i class="feather icon-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="#!">Current Crew</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- [ breadcrumb ] end -->
+
+
+<div class="col-sm-12">
+    <div class="card user-list table-card">
+        <div class="card-header">
+            <h5>Active crew list</h5>
+            <div class="card-header-right">
+                <div class="btn-group card-option">
+                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="feather icon-more-horizontal"></i>
+                    </button>
+                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                        <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card-body pb-0">
+            <div class="table-responsive">
+                <div class="user-scroll" style="height:430px;position:relative;">
+                    <table class="table table-hover m-0">
+                        <thead>
+                            <tr>
+                                <th width="7%">Name</th>
+                                <th></th>
+                                <th>Role</th>
+                                <th>Current task</th>
+                                <th>Energy</th>
+                                <th>Action</th>
+                        </thead>
+                        <tbody>
+
+                            {% for row in current_crew %}
+
+                            <tr>
+                                <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/steward_{{row.gender}}.png" alt="activity-user"></td>
+                                <td>
+                                    <h6 class="mb-1">{{row.full_name}}</h6>
+                                    <p class="m-0"><span class="text-c-green">Active</span></p>
+                                </td>
+                                <td>{{row.seniority_text}}</td>
+                                <td>Resting</td>
+                                <td>
+                                    <div class="progress mt-1" style="height:4px;">
+                                        <div class="progress-bar bg-success rounded" role="progressbar" style="width: {{row.energy}}%;" aria-valuenow="{{row.energy}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-bars"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#"><i class="far fa-copy"></i> Do something</a>
+                                        </div>
+                                    </div>
+                                </tr>
+                            </tr>
+                            
+
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+
+
+{% endblock javascripts %}

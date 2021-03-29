@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, Flask, current_app, request, jsoni
 from flask_login import login_required, current_user
 import secrets
 from datetime import datetime, timedelta
+
+from sqlalchemy.orm import query
 from . import db
 from . import app
 from project import equipment, inflight, passengers, seatmapper, crew
@@ -70,6 +72,61 @@ def new():
         return redirect(url_for('flight_manager.view_list'))
 
 
+@flight_manager.route('/flight/delete/<unique_reference>')
+@login_required
+def delete(unique_reference):
+
+    flight = Flight.query.filter_by(unique_reference=unique_reference).first_or_404()
+    
+    if flight.user != current_user.id:
+        flash("Not authorised to delete that flight plan", "danger")
+        return redirect(url_for('flight_manager.view_list'))
+
+    db.session.delete(flight)
+    db.session.commit()
+
+    flash("Flight plan successfully deleted", "success")
+    return redirect(url_for('flight_manager.view_list'))
+
+
+@flight_manager.route('/flight/duplicate/<unique_reference>')
+@login_required
+def duplicate(unique_reference):
+
+    old_flight = Flight.query.filter_by(unique_reference=unique_reference).first_or_404()
+
+    new_unique_reference = datetime.today().strftime('%Y%m%d') + "-" + secrets.token_hex(10).upper()
+
+    new_flight = Flight (
+        user=current_user.id,
+        unique_reference=new_unique_reference,
+        departure_code=old_flight.departure_code,
+        departure_name=old_flight.departure_name,
+        destination_code=old_flight.destination_code,
+        destination_name=old_flight.destination_name,
+        equipment_full_name=old_flight.equipment_full_name,
+        equipment_manufacturer=old_flight.equipment_manufacturer,
+        equipment_operator=old_flight.equipment_operator,
+        equipment_model=old_flight.equipment_model,
+        passengers_first_class=old_flight.passengers_first_class,
+        passengers_business_class=old_flight.passengers_business_class,
+        passengers_premium_class=old_flight.passengers_premium_class,
+        passengers_economy_class=old_flight.passengers_economy_class,
+        cabin_crew_count=old_flight.cabin_crew_count,
+        seatmap_text=old_flight.seatmap_text,
+        number_of_rows=old_flight.number_of_rows,
+        number_of_seats_across=old_flight.number_of_seats_across,
+        last_event_recorded=datetime.utcnow()
+    )
+
+    db.session.add(new_flight)
+    db.session.commit()
+
+    flash("Flight plan duplicated", "success")
+
+    return redirect(url_for('flight_manager.view_list'))
+
+
 @flight_manager.route('/pre-flight/<unique_reference>')
 @login_required
 def pre_flight(unique_reference):
@@ -95,6 +152,7 @@ def start_flight(unique_reference, ident):
     flight.last_event_recorded = datetime.utcnow() - timedelta(seconds=120)
     flight.is_active = True
     flight.number_of_updates_received = 0
+    flight.current_crew_task = "Resting"
     db.session.commit()
 
     # Delete previous events and phases

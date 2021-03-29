@@ -3,11 +3,10 @@
 		<div class="navbar-wrapper ">
 			<div class="navbar-brand header-logo">
 				<a href="index.html" class="b-brand">
-					<!-- <div class="b-bg">
-						<i class="fas fa-bolt"></i>
+					<div class="b-bg">
+						<img width="30px" src="/static/assets/images/user/redplane.png">
 					</div>
-					<span class="b-title">CRM</span> -->
-					<span class="text-white">CRM</span>
+					<span class="b-title">Crew Manager</span> 
 				</a>
 				<a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
 			</div>
@@ -60,6 +59,10 @@
 
 					<li data-username="" class="nav-item">
 						<a href="{{url_for('passengers.show_seatmap_page')}}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-chair"></i></span><span class="pcoded-mtext">Seat map <span class="pcoded-badge label label-success">Live</span></span></a>
+					</li>
+
+					<li data-username="" class="nav-item">
+						<a href="{{url_for('crew.current_crew')}}" class="nav-link"><span class="pcoded-micon"><i class="far fa-id-badge"></i></span><span class="pcoded-mtext">Crew Roster<span class="pcoded-badge label label-success">Live</span></span></a>
 					</li>
 
 					<li data-username="" class="nav-item">
