@@ -19,7 +19,7 @@ def lookup_logo(lookup_name, look_for):
 
     return ""
 
-logo_filename = "logos.json"
+logo_filename = "data_sources/logos.json"
 logo_list = []
 
 load_logos_from_json()

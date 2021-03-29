@@ -8,7 +8,7 @@ airport_list = []
 
 def load_airports_from_csv():
     global airport_list
-    with open('airports.csv', newline='') as csvfile:
+    with open('data_sources/airports.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             if row['type'] == "large_airport" or row['type'] == "medium_airport" or row['type'] == "small airport":
