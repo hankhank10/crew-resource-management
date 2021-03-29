@@ -193,7 +193,7 @@ function draw_table(filter_by, max_x, max_y, occupied_seatmap_object, empty_seat
 
 
             let onclick_html = "show_passenger_details('" + seat.seat_number + "')"
-            html_for_cell = '<h6><span id="seat_badge_'+ seat.seat_number +'" onmouseover="' + onclick_html + '" data-tippy-seat="' + seat.seat_number + '" class="badge badge-' + badge_color + '">' + seat.seat_number + '</span></h6>'
+            html_for_cell = '<h6><span id="seat_badge_'+ seat.seat_number +'" onclick="' + onclick_html + '" data-tippy-seat="' + seat.seat_number + '" class="badge badge-' + badge_color + '">' + seat.seat_number + '</span></h6>'
             $(relevant_cell_id).html(html_for_cell)
         }
 

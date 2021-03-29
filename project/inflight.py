@@ -4,7 +4,7 @@ import secrets
 from datetime import datetime, timedelta
 from . import db
 from . import app
-from project import equipment, messaging
+from project import equipment, messaging, crew
 from .models import Flight, FlightEvent, FlightPhase, FlightMessage, Seat
 import requests
 import random
@@ -159,9 +159,11 @@ def update_plane_data(unique_reference):
             set_phase(flight.id, "Cabin Secure", phase_category="cabin")
             messaging.create_new_message_from_crew("Boarding complete, cabin secure")
             log_event(flight.id, "passenger_boarding_complete", "crew")
+            crew.clear_crew_task(flight.id)
 
-    # Get the altitude chart
-    #chart_dictionary = chart_altitude()
+
+    # Get crew tasking details
+    current_crew_task, percent_done_with_task = crew.crew_status(flight.id)
 
     # Return the info we want
     return_dictionary = {
@@ -171,10 +173,10 @@ def update_plane_data(unique_reference):
         'phase_cabin_name': flight.phase_cabin_name,
         'passenger_status': passenger_status,
         'new_event': new_event_to_report,
-        #'events': {
-        #    'location_updates': chart_dictionary['location_updates'],
-        #    'other_events': chart_dictionary['other_events']
-        #}
+        'crew_task': {
+            'current_crew_task': current_crew_task,
+            'percent_done_with_task': percent_done_with_task
+        }
     }
 
     return return_dictionary

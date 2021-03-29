@@ -44,6 +44,9 @@ function get_live_data() {
             localStorage.setItem('seat_count_empty', response.passenger_status.empty_seats);
             localStorage.setItem('seat_count_total', response.passenger_status.total_seats);
 
+            localStorage.setItem('current_crew_task', response.crew_task.current_crew_task)
+            localStorage.setItem('percent_done_with_task', response.crew_task.percent_done_with_task)
+
             // Check if new notifications
             if (localStorage.getItem('notification_count') != response.unread_flight_messages) {
                 new PNotify({

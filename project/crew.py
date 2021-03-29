@@ -4,7 +4,7 @@ from . import db
 from . import app
 from .models import Flight, CrewMember, CrewPopulation, Seat
 import random
-from project import name_generator, seatmapper, inflight
+from project import name_generator, seatmapper, inflight, messaging
 from datetime import date, datetime, timedelta
 
 crew = Blueprint('crew', __name__)
@@ -65,7 +65,7 @@ def fill_flight_with_crew(flight_id):
 
     list_of_already_loaded_crew = []
 
-    for a in range(1, flight.cabin_crew_count):
+    for a in range(0, flight.cabin_crew_count):
 
         can_this_crew_be_loaded = False
         while can_this_crew_be_loaded == False:
@@ -99,9 +99,7 @@ def fill_flight_with_crew(flight_id):
 @crew.route('/crew/current')
 def current_crew():
 
-    current_crew = CrewMember.query.filter_by(flight = current_user.active_flight_id).all()
-
-    return render_template('crew/current_crew.html', current_crew = current_crew)
+    return render_template('crew/current_crew.html')
 
 
 def assign_crew_task(flight_id, task_name):
@@ -117,6 +115,13 @@ def assign_crew_task(flight_id, task_name):
 def clear_crew_task(flight_id):
 
     flight = Flight.query.filter_by(id = flight_id).first()
+
+    if flight.current_crew_task == "Drinks service":
+        messaging.create_new_message_from_crew("Drinks service complete")
+
+    if flight.current_crew_task == "Meal service":
+        messaging.create_new_message_from_crew("Meal service complete")
+
 
     flight.current_crew_task = "Resting"
     flight.current_crew_task_completed_as_far_as = 0
@@ -148,10 +153,15 @@ def do_crew_task(flight_id):
     minutes_since_last_cron = seconds_since_last_cron / 60
 
     drinks_served_per_minute = 4 * how_many_crew
-    meals_served_per_minute_per_crew = 2 * how_many_crew
+    meals_served_per_minute = 2 * how_many_crew
+
 
     if flight.current_crew_task == "Drinks service":
         things_done_this_time = drinks_served_per_minute * minutes_since_last_cron
+
+    if flight.current_crew_task == "Meal service":
+        things_done_this_time = meals_served_per_minute * minutes_since_last_cron
+
 
     things_done_this_time = int(things_done_this_time)
 
@@ -159,8 +169,10 @@ def do_crew_task(flight_id):
         seat = Seat.query.filter_by(flight = flight_id, manifest_number = a).first()
 
         if flight.current_crew_task == "Drinks service": 
-            print ("Serving drinks to seat " + seat.seat_number)
             seat.status_thirst = 0
+
+        if flight.current_crew_task == "Meal service":
+            seat.status_hunger = 0
         
         db.session.commit()
     
@@ -170,5 +182,45 @@ def do_crew_task(flight_id):
     return
 
 
+@login_required
+@crew.route('/helper/crew')
+def helper():
 
+    current_crew = CrewMember.query.filter_by(flight = current_user.active_flight_id).all()
+
+    current_crew_task, percent_done_with_task = crew_status(current_user.active_flight_id)
+
+    return render_template('/crew/crew_helper.html', current_crew = current_crew, current_crew_task = current_crew_task, percent_done_with_task = percent_done_with_task)
+
+
+def crew_status(flight_id):
+
+    current_flight = Flight.query.filter_by(id = flight_id).first()
+
+    current_crew_task = current_flight.current_crew_task
+    
+    percent_done_with_task = None
+
+    if current_crew_task == "Resting":
+        percent_done_with_task = 500
+
+    if current_crew_task == "Welcoming passengers":
+        percent_done_with_task = 500
+
+    if percent_done_with_task == None:
+        percent_done_with_task = (current_flight.current_crew_task_completed_as_far_as / current_flight.passengers_total) * 100
+        percent_done_with_task = int(percent_done_with_task)
+
+        current_crew_task = current_crew_task + " (" + str(percent_done_with_task) + "% complete)"
+
+    return current_crew_task, percent_done_with_task
+
+
+
+@login_required
+@crew.route('/api/crew/check')
+def api_crew_status():
+    current_flight = Flight.query.filter_by(id = current_user.active_flight_id).first()
+
+    
 

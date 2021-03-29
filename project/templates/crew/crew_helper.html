@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 11]>
+    	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    	<![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="/static/assets/images/favicon.ico" type="image/x-icon">
+    <!-- fontawesome icon -->
+    <link rel="stylesheet" href="/static/assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <!-- animation css -->
+    <link rel="stylesheet" href="/static/assets/plugins/animation/css/animate.min.css">
+
+    <!-- vendor css -->
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+
+    <!-- page css -->
+    <link rel="stylesheet" href="/static/assets/css/pages/pages.css">
+
+</head>
+<body>
+
+
+<div class="card user-list table-card">
+    <div class="card-header">
+        <h5>Active crew list</h5>
+    </div>
+    <div class="card-body pb-0">
+        <div class="table-responsive">
+            <div class="user-scroll" style="height:430px;position:relative;">
+                <table class="table table-hover m-0">
+                    <thead>
+                        <tr>
+                            <th width="7%">Name</th>
+                            <th></th>
+                            <th>Role</th>
+                            <th>Current task</th>
+                            <th>Energy</th>
+                            <th>Action</th>
+                    </thead>
+                    <tbody>
+
+                        {% for row in current_crew %}
+
+                        <tr>
+                            <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/steward_{{row.gender}}.png" alt="activity-user"></td>
+                            <td>
+                                <h6 class="mb-1">{{row.full_name}}</h6>
+                                <p class="m-0"><span class="text-c-green">Active</span></p>
+                            </td>
+                            <td>{{row.seniority_text}}</td>
+                            <td>
+                                <div class="progress mt-1" style="height:4px;">
+                                    <div class="progress-bar bg-success rounded current_crew_task_bar" role="progressbar" style="width: {{percent_done_with_task}}%;" aria-valuenow="{{percent_done_with_task}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="current_crew_task_span">
+                                    {{current_crew_task}}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="progress mt-1" style="height:4px;">
+                                    <div class="progress-bar bg-success rounded" role="progressbar" style="width: {{row.energy}}%;" aria-valuenow="{{row.energy}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-bars"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="#"><i class="far fa-copy"></i> Do something</a>
+                                    </div>
+                                </div>
+                            </tr>
+                        </tr>
+                        
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Required Js -->
+<script src="/static/assets/js/vendor-all.min.js"></script>
+<script src="/static/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="/static/assets/js/pcoded.min.js"></script>
+
+<!-- am chart js -->
+<script src="/static/assets/plugins/chart-am4/js/core.js"></script>
+<script src="/static/assets/plugins/chart-am4/js/charts.js"></script>
+<script src="/static/assets/plugins/chart-am4/js/animated.js"></script>
+<script src="/static/assets/plugins/chart-am4/js/maps.js"></script>
+<script src="/static/assets/plugins/chart-am4/js/worldLow.js"></script>
+<script src="/static/assets/plugins/chart-am4/js/continentsLow.js"></script>
+
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+
+<script>
+
+    var intervalID = window.setInterval(update_crew_tasks, 5000);
+
+    function update_crew_tasks() {
+
+        if (localStorage.getItem('percent_done_with_task') == 500) {
+            $('.current_crew_task_bar').hide()
+        } else {
+            $('.current_crew_task_bar').show()
+            $('.current_crew_task_span').text(localStorage.getItem('current_crew_task'))
+            $('.current_crew_task_bar').css("width",localStorage.getItem('percent_done_with_task')+"%");
+        }
+        
+
+    }
+
+</script>
+
+</body>
+</html>

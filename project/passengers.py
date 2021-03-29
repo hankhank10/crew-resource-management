@@ -4,7 +4,7 @@ from . import db
 from . import app
 from .models import Flight, Seat, Passenger
 import random
-from project import name_generator, seatmapper, inflight
+from project import name_generator, seatmapper, inflight, crew
 from datetime import datetime, timedelta
 
 
@@ -206,6 +206,9 @@ def board_passengers(flight_id):
 
     # Log event
     inflight.log_event(flight_id, "start_boarding_passengers", "pilot")
+
+    # Set crew status
+    crew.assign_crew_task(flight_id, "Welcoming passengers")
 
 
 def fill_flight_with_passengers(flight_id):

@@ -99,6 +99,12 @@ def send_message_from_pilot():
 
         # Start drinks service
         if "drinks service" in message_content: message_interpretation = "start_drinks_service"
+        if "serve drinks" in message_content: message_interpretation = "start_drinks_service"
+
+        if "meal service" in message_content: message_interpretation = "start_meal_service"
+        if "food service" in message_content: message_interpretation = "start_meal_service"
+        if "serve meal" in message_content: message_interpretation = "start_meal_service"
+        if "serve food" in message_content: message_interpretation = "start_meal_service"
 
         # Profanity
         if "fuck" in message_content: message_interpretation = "profanity"
@@ -197,6 +203,9 @@ def send_message_from_pilot():
             crew.assign_crew_task(current_flight.id, "Drinks service")
             message_response = random_will_do + "starting drinks service now"
 
+        if message_interpretation == "start_meal_service":
+            crew.assign_crew_task(current_flight.id, "Meal service")
+            message_response = random_will_do + "starting meal service now"
 
         # Store and send the message response
         if message_response is not None:
