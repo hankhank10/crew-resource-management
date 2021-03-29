@@ -57,6 +57,9 @@ app.register_blueprint(passengers_blueprint)
 from .crew import crew as crew_blueprint
 app.register_blueprint(crew_blueprint)
 
+from .cron import cron as cron_blueprint
+app.register_blueprint(cron_blueprint)
+
 ###  ADMIN 
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView

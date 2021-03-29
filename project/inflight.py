@@ -187,10 +187,10 @@ def api_update_plane_data(unique_reference):
     return jsonify(return_dictionary)
 
 
-@inflight.route ('/debug/random_event')
-def random_event():
-    log_event(current_user.active_flight_id, "test_event", "pilot")
-    return "OK"
+#@inflight.route ('/debug/random_event')
+#def random_event():
+#    log_event(current_user.active_flight_id, "test_event", "pilot")
+#    return "OK"
 
 
 def log_event(flight_id, event_name, event_initiated_by, current_latitude = None, current_longitude = None, current_altitude = None):
@@ -225,6 +225,7 @@ def log_event(flight_id, event_name, event_initiated_by, current_latitude = None
     flight = Flight.query.filter_by(id=flight_id).first()
 
     flight.last_event_recorded = datetime.utcnow()
+    flight.is_active = True
     flight.new_event = new_event.event_description
 
     db.session.commit()
@@ -247,6 +248,7 @@ def log_location(flight_id, current_latitude, current_longitude, current_altitud
 
     flight = Flight.query.filter_by(id=flight_id).first()
     flight.last_event_recorded = datetime.utcnow()
+    flight.is_active = True
 
     db.session.commit()
     return

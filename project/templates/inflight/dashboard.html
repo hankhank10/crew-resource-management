@@ -26,7 +26,7 @@
 			</div>
 			<div class="card-body">
 				<div class="embed-responsive embed-responsive-4by3">
-  					<iframe class="embed-responsive-item" src="https://findmyplane.live/view/DUMMY/just_map"></iframe>
+  					<iframe class="embed-responsive-item" src="https://findmyplane.live/view/{{ flight.source_ident }}/just_map"></iframe>
 				</div>
 				<!--<div id="sales-analytics-chart" style="height:345px"></div>-->
 			</div>
@@ -91,7 +91,7 @@
 							<img id="cabin-phase-icon" height="50px" style="filter: invert(100%);" src="/static/assets/images/phase-icons/Question.png">
 						</div>
 						<div class="col-sm-8">
-							<h6>Cabin phase</h6>
+							<h6>Cabin phase <span ><a style="font-size: 1em" class="help" data-toggle="popover" data-content="Change cabin phase by giving instructions to the crew via the messenger"><i style="font-size: 1rem" class="feather icon-help-circle f-16"></i></a></span></h6>
 							<h4 id="cabin-phase-status-label">?</h4>
 						</div>
 					</div>
@@ -250,8 +250,7 @@
 
 		<div class="card">
 			<div class="card-header">
-					<h5>Current passenger seatmap</h5>
-					<p>click to view passenger details</p>
+					<h5>Current passenger seatmap</h5> <span ><a style="font-size: 1em" class="help" data-toggle="popover" data-content="Hover over seat number to view passenger details"><i style="font-size: 1rem" class="feather icon-help-circle f-16"></i></a></span>
 					<div class="card-header-right">
 
 					</div>

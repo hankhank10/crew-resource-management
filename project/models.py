@@ -72,6 +72,7 @@ class Flight(db.Model):
 
     started = db.Column(db.Boolean, default=False)
     completed = db.Column(db.Boolean, default=False)
+    is_active = db.Column(db.Boolean)
 
     phase_flight = db.Column(db.Integer)
     phase_cabin = db.Column(db.Integer)
@@ -298,6 +299,8 @@ class Seat(db.Model):
 
     current_activity = db.Column(db.String)
     current_activity_will_end_at = db.Column(db.DateTime)
+
+    next_increment_due = db.Column(db.DateTime, default = datetime.utcnow())
 
     @property
     def status_bladder_need_text(self):

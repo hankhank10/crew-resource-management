@@ -285,3 +285,28 @@ def fill_flight_with_passengers(flight_id):
 
     return "ok"
 
+
+def increment_passenger_needs():
+
+    increment_passenger_needs_every = 5  #minutes
+
+    bladder_need_time = 120  #minutes to go from 0 to 100
+    hunger_need_time = 360  #minutes
+    thirst_need_time = 120  #minutes
+
+    passengers_needing_increment = Seat.query.filter(Seat.next_increment_due < datetime.utcnow()).all()
+
+    for passenger in passengers_needing_increment:
+
+        bladder_need_increment = (increment_passenger_needs_every / bladder_need_time) * 100
+        hunger_need_increment = (increment_passenger_needs_every / hunger_need_time) * 100
+        thirst_need_increment = (increment_passenger_needs_every / thirst_need_time) * 100
+
+        passenger.status_bladder_need = min(passenger.status_bladder_need + bladder_need_increment, 100)
+        passenger.status_hunger = min(passenger.status_hunger + hunger_need_increment, 100)
+        passenger.status_thirst = min(passenger.status_thirst + thirst_need_increment, 100)
+
+        passenger.next_increment_due = datetime.utcnow() + timedelta(minutes=increment_passenger_needs_every)
+
+    print ("Updated " + str(len(passengers_needing_increment)) + " passenger records")
+    db.session.commit()

@@ -93,6 +93,7 @@ def start_flight(unique_reference, ident):
     flight.source = "findmyplane"
     flight.source_ident = ident
     flight.last_event_recorded = datetime.utcnow() - timedelta(seconds=120)
+    flight.is_active = True
     flight.number_of_updates_received = 0
     db.session.commit()
 
@@ -114,3 +115,17 @@ def start_flight(unique_reference, ident):
     db.session.commit()
 
     return redirect(url_for('inflight.dashboard'))
+
+
+def cron_retire_old_flights():
+
+    active_flights = Flight.query.filter_by(is_active=True).all()
+
+    cutoff_time = datetime.utcnow() - timedelta(minutes=10)
+
+    for flight in active_flights:
+        if flight.last_event_recorded < cutoff_time:
+            flight.is_active = False
+
+    db.session.commit()
+    return
