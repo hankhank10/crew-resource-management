@@ -28,6 +28,7 @@ def backend_setup():
         name='Admin',
         password=generate_password_hash('password'),
         join_date=datetime.utcnow(),
+        verified=True,
         approved=True,
         unique_setup_key='not necessary'
     )

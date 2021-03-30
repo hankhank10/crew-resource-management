@@ -31,10 +31,14 @@ def login():
             flash('Please check your login details and try again.', 'danger')
             return render_template('auth/login.html')
 
-        if user.approved == False:
+        if user.verified == False:
             flash('Email address not verified - another authorisation code sent to your email', 'danger')
             user.unique_setup_key = email.send_verification_code(user.email)
             db.session.commit()
+            return render_template('auth/login.html')
+
+        if user.approved == False:
+            flash('Beta is closed at present - we will notify you when your account is available', 'danger')
             return render_template('auth/login.html')
 
         login_user(user, remember=True)
@@ -70,6 +74,7 @@ def register():
         password=generate_password_hash(request.form['password1']),
         join_date=datetime.utcnow(),
         approved=False,
+        verified=False,
         unique_setup_key=unique_setup_key
     )
 
@@ -84,7 +89,7 @@ def register():
 def verify(unique_setup_key):
     existing_user = User.query.filter_by(unique_setup_key=unique_setup_key).first_or_404()
 
-    existing_user.approved = True
+    existing_user.verified = True
     existing_user.unique_setup_key = None
     db.session.commit()
 
