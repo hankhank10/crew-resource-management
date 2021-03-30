@@ -8,7 +8,7 @@ import secrets
 from .models import User
 from sqlalchemy import desc
 from datetime import datetime
-from project import inflight
+from project import inflight, email
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -16,7 +16,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 auth = Blueprint('auth', __name__)
 
 
-@auth.route('/login', methods=['GET', 'POST'])
+@auth.route('/user/login', methods=['GET', 'POST'])
 def login():
 
     if request.method == "GET":
@@ -31,12 +31,18 @@ def login():
             flash('Please check your login details and try again.', 'danger')
             return render_template('auth/login.html')
 
+        if user.approved == False:
+            flash('Email address not verified - another authorisation code sent to your email', 'danger')
+            user.unique_setup_key = email.send_verification_code(user.email)
+            db.session.commit()
+            return render_template('auth/login.html')
+
         login_user(user, remember=True)
 
         return redirect(url_for('main.dashboard'))
 
 
-@auth.route('/register', methods=['GET', 'POST'])
+@auth.route('/user/register', methods=['GET', 'POST'])
 def register():
 
     if request.method == "GET":
@@ -55,7 +61,7 @@ def register():
         return render_template('auth/register.html')
 
     # Create unique setup key
-    unique_setup_key = secrets.token_urlsafe(25)
+    unique_setup_key = email.send_verification_code(request.form['email'])
 
     # If all ok then create the user
     new_user = User(
@@ -63,18 +69,30 @@ def register():
         name=request.form['name'],
         password=generate_password_hash(request.form['password1']),
         join_date=datetime.utcnow(),
-        approved=True,
+        approved=False,
         unique_setup_key=unique_setup_key
     )
 
     db.session.add(new_user)
     db.session.commit()
 
-    flash ("User created, please login", "success")
+    flash ("Account created - please visit your email to verify your account", "success")
     return redirect(url_for('auth.login'))
 
 
-@auth.route('/logout')
+@auth.route('/user/verify/<unique_setup_key>',)
+def verify(unique_setup_key):
+    existing_user = User.query.filter_by(unique_setup_key=unique_setup_key).first_or_404()
+
+    existing_user.approved = True
+    existing_user.unique_setup_key = None
+    db.session.commit()
+
+    flash ("Email address verified - please login", "success")
+    return redirect(url_for('auth.login'))
+
+
+@auth.route('/user/logout')
 @login_required
 def logout():
     logout_user()
@@ -110,7 +128,6 @@ def change_password():
 
 
 
-
-@auth.route('/forgot_password')
+@auth.route('/user/forgot_password')
 def forgot():
     return "Not yet implemented"

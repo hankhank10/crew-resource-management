@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from . import db
 from . import app
 from project import flight_manager, passengers, crew
+from project import email
 from .models import Flight, FlightPhase, EquipmentType, FlightEvent, FlightMessage
 
 
@@ -25,4 +26,10 @@ def every_30_seconds():
     for flight in flights:
         crew.do_crew_task(flight.id)
 
+    return "OK"
+
+
+@cron.route('/cron/test_email')
+def test_email():
+    email.send_verification_code("m.a.hankinson@gmail.com")
     return "OK"
