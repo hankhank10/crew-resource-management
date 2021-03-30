@@ -10,7 +10,9 @@ Discord: https://discord.gg/NqPEKnWCF8
 
 ## Key
 ✅ Done
+
 😓 Working on it
+
 🎯 To do before release
 🤷‍♂️ Rethinking this
 🗑 Deleted feature
