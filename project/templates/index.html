@@ -57,41 +57,70 @@
                         <a data-toggle="collapse" data-target="#collapseOne"><h5 class="card-title text-white"><i class="far fa-square"></i>  &nbsp To do: Review equipment types</h5></a>
                 </div>
                 <div id="collapseOne" class="card-body collapse show">
-                {% endif %}
+            {% endif %}
                     <p class="card-text">An "Equipment Type" is the type aircraft that you fly - each different aircraft type (eg a Boeing 747) counts as a different type of equipment, but each airline may have unique seat layouts and capacities, all of which can be modelled in Crew Manager.</p>
                     <p class="card-text">Crew Manager offers a number of built in equipment types, and also offers you offers you unlimited flexibility to create bespoke equipment types.</p>
+                    
                     {% if current_user.tutorial_viewed_equipment == True %}
                     <p><i class="fas fa-check-square"></i> &nbsp Done: Get started by viewing the current list of equipment types from the navbar on the left</p>
                     {% else %}
                     <p><i class="far fa-square"></i> &nbsp Task: Get started by viewing the current list of equipment types from the navbar on the left</p>
+                    {% endif %}
 
+                </div>
+            </div>
+
+            {% if current_user.tutorial_created_flight_plan == True %}
+            <div class="card text-white bg-success">
+                <div class="card-header">
+                        <a data-toggle="collapse" data-target="#collapseTwo"><h5 class="card-title text-white"><i class="fas fa-check-square"></i>  &nbsp Done: Create a Flight Plan</h5></a>
+                </div>
+                <div id="collapseTwo" class="card-body collapse">
+            {% else %}
+            <div class="card text-white bg-secondary">
+                <div class="card-header">
+                        <a data-toggle="collapse" data-target="#collapseTwo"><h5 class="card-title text-white"><i class="far fa-square"></i>  &nbsp To do: Create a Flight Plan</h5></a>
+                </div>
+                <div id="collapseTwo" class="card-body collapse show">
+            {% endif %}
+                    <p class="card-text">A "Flight Plan" is a plan for a particular flight.</p>
+                    <p class="card-text">It will have a departure and destination airport, a particular equipment type and a passenger manifest.</p>
+                    <p class="card-text">Each time you fly a particular route you will create a new flight plan for that particular flight.</p>
+                    {% if current_user.tutorial_created_flight_plan == True %}
+                    <p><i class="fas fa-check-square"></i> &nbsp Done: Create a new flight plan using the link on the left</p>
+                    {% else %}
+                    <p><i class="far fa-square"></i> &nbsp Task: Create a new flight plan using the link on the left</p>
                     {% endif %}
                 </div>
             </div>
 
-            <div class="card text-white bg-secondary ">
+            {% if current_user.tutorial_started_flight == True %}
+            <div class="card text-white bg-success">
                 <div class="card-header">
-                    <a data-toggle="collapse" data-target="#collapseTwo"><h5 class="card-title text-white"><i class="far fa-square"></i>  &nbsp To do: Create a new flight plan</h5></a>
+                        <a data-toggle="collapse" data-target="#collapseThree"><h5 class="card-title text-white"><i class="fas fa-check-square"></i>  &nbsp Done: Fly your first flight</h5></a>
                 </div>
-                <div id="collapseTwo" class="card-body collapse show">
-                    <p class="card-text">A "Flight Plan" is a plan for a particular flight.</p>
-                    <p class="card-text">It will have a departure and destination airport, a particular equipment type and a passenger manifest.</p>
-                    <p class="card-text">Each time you fly a particular route you will create a new flight plan for that particular flight.</p>
-                    <p><i class="far fa-square"></i> &nbsp Task: Create a new flight plan using the link on the left</p>
-
-                </div>
-            </div>
-
-            <div class="card text-white bg-secondary ">
+                <div id="collapseThree" class="card-body collapse">
+            {% else %}
+            <div class="card text-white bg-secondary">
                 <div class="card-header">
-                    <a data-toggle="collapse" data-target="#collapseThree"><h5 class="card-title text-white"><i class="far fa-square"></i>  &nbsp To do: Start your first flight</h5></a>
+                        <a data-toggle="collapse" data-target="#collapseTwo"><h5 class="card-title text-white"><i class="far fa-square"></i>  &nbsp To do: Fly your first flight</h5></a>
                 </div>
-                <div id="collapseThreee" class="card-body collapse show">
+                <div id="collapseThree" class="card-body collapse show">
+            {% endif %}
                     <p class="card-text">Once you have created a flight plan you can fly the route.</p>
-                    <p class="card-text">In order to do this you need to download the <a href="https://findmyplane.live/download/findmyplane-setup.zip">Find My Plane client</a> and run it on the local machine which is running Microsoft Flight Simulator.</p>
+                    <p class="card-text">In order to do this you need to download the <b><u><a class="text-white" href="{{url_for('main.download_client')}}">Find My Plane client</a></u></b> and run it on the local machine which is running Microsoft Flight Simulator.</p>
                     <p class="card-text">Once you download the client you will be provided with a 6-digit IDENT code such as ABCDEF which you can then use to start the flight by choosing the Flight Plan and pressing connect.</p>
-                    <p><i class="far fa-square"></i> &nbsp Task: Download the <a href="https://findmyplane.live/download/findmyplane-setup.zip">Find My Plane client</a></p>
-                    <p><i class="far fa-square"></i> &nbsp Task: Select a previously created flight plan and choose FLY</a></p>
+                    {% if current_user.tutorial_downloaded_client == True %}
+                    <p><i class="fas fa-check-square"></i>&nbsp Done: Download the <b><u><a class="text-white" href="{{url_for('main.download_client')}}">Find My Plane client</a></u></b></p>
+                    {% else %}
+                    <p><i class="far fa-square"></i> &nbsp Task: Download the <b><u><a class="text-white" href="{{url_for('main.download_client')}}">Find My Plane client</a></u></b></p>
+                    {% endif %}
+                    
+                    {% if current_user.tutorial_started_flight == True %}
+                    <p><i class="fas fa-check-square"></i>&nbsp Done: Select a previously created flight plan and choose FLY</p>
+                    {% else %}
+                    <p><i class="far fa-square"></i> &nbsp Task: Select a previously created flight plan and choose FLY</p>
+                    {% endif %}
 
                 </div>
             </div>

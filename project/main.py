@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, Flask, current_app
+from flask import Blueprint, render_template, Flask, current_app, redirect
 from flask_login import login_required, current_user
 from . import db
 from . import app
@@ -36,3 +36,12 @@ def backend_setup():
     db.session.commit()
 
     return "OK!"
+
+@login_required
+@main.route('/download/client')
+def download_client():
+
+    current_user.tutorial_downloaded_client = True
+    db.session.commit()
+
+    return redirect("https://findmyplane.live/download/findmyplane-setup.zip")

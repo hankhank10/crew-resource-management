@@ -62,6 +62,8 @@ def new():
             )
 
             db.session.add(flight)
+
+            current_user.tutorial_created_flight_plan = True
             db.session.commit()
         except:
             flash ("Error creating new flight plan", "danger")
@@ -170,6 +172,7 @@ def start_flight(unique_reference, ident):
 
     # Set the current user's flight
     current_user.active_flight_id = flight.id
+    current_user.tutorial_started_flight = True
     db.session.commit()
 
     return redirect(url_for('inflight.dashboard'))

@@ -39,6 +39,7 @@ class User(UserMixin, db.Model):
     tutorial_viewed_equipment = db.Column(db.Boolean, default=False)
     tutorial_created_equipment = db.Column(db.Boolean, default=False)
     tutorial_created_flight_plan = db.Column(db.Boolean, default=False)
+    tutorial_downloaded_client = db.Column(db.Boolean, default=False)
     tutorial_started_flight = db.Column(db.Boolean, default=False)
 
 

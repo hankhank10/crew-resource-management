@@ -232,6 +232,10 @@ function draw_table(filter_by, max_x, max_y, occupied_seatmap_object, empty_seat
             colors: color_list,
             chart: {
                 type: 'donut',
+                animations: {
+                    enabled: false,
+                    speed: 100
+                }
             },
             dataLabels: {
                 enabled: false,
