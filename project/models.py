@@ -36,6 +36,12 @@ class User(UserMixin, db.Model):
         active_flight = Flight.query.filter_by(id=self.active_flight_id).first()
         return active_flight.unique_reference
 
+    tutorial_viewed_equipment = db.Column(db.Boolean, default=False)
+    tutorial_created_equipment = db.Column(db.Boolean, default=False)
+    tutorial_created_flight_plan = db.Column(db.Boolean, default=False)
+    tutorial_started_flight = db.Column(db.Boolean, default=False)
+
+
 
 class Flight(db.Model):
     id = db.Column(db.Integer, primary_key=True)

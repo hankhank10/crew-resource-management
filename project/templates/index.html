@@ -1,57 +1,113 @@
 {% extends "layouts/base.html" %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+
+<link href="https://cdn.jsdelivr.net/npm/enjoyhint@1.0.1/enjoyhint.min.css" rel="stylesheet">
+
+
+{% endblock stylesheets %}
 
 {% block content %}
 
-    <!-- [ breadcrumb ] start -->
-    <div class="page-header">
-        <div class="page-block">
-            <div class="row align-items-center">
-                <div class="col-md-12">
-                    <div class="page-header-title">
-                        <h5 class="m-b-10">Sample!</h5>
-                    </div>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="#!">Sample</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- [ breadcrumb ] end -->
 
     <!-- [ Main Content ] start -->
     <div class="row">
-        <!-- [ sample-page ] start -->
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Hello card</h5>
-                    <div class="card-header-right">
-                        <div class="btn-group card-option">
-                            <button type="button" class="btn dropdown-toggle btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="feather icon-more-horizontal"></i>
-                            </button>
-                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-                                <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-md-12 col-xl-4">
+            <h5 class="mt-4">Welcome to Crew Manager BETA</h5>
+            <hr>
+            <div class="card mb-3">
+                <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+                    <source src="/static/assets/videos/airport3.mp4" type="video/mp4">
+                </video>
                 <div class="card-body">
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                        officia deserunt mollit anim id est laborum."
-                    </p>
+                    <h5 class="card-title">Welcome to Crew Manager <span style="color: red;">BETA</span></h5>
+                    <p class="card-text">Thank you for volunteering to test Crew Manager. This is unfinished software and you may experience bugs, errors, problems, data loss, etc.</p>
+                    <p class="card-text">The great news is that you can help squash those bugs:</p>
+                    <ul>
+                        <li>The easiest way to report an issue is to click the "Feedback" button at the bottom right of each page - this will allow you to include a screenshot and a description of what went wrong</li>
+                        <li>You can also <a href="https://github.com/hankhank10/crew-resource-management/issues">raise an issue on Github</a></li>
+                    </ul>
+                    
+                    <p class="card-text">If you have feature requests rather than bug reports please raise these</p>
+                    <ul>
+                        <li>On <a href="https://forum.crewmanager.live/">the forum ...</a></li>
+                        <li>... or on <a href="https://discord.gg/jBangvRv">Discord</a></li>
+
+                    </ul>
+
+                    <p class="card-text">Crew Manager is open source so if you have the ability then I would also encourage you to dive into the codebase on Github and make your own amendments via a Pull Request.</p>
                 </div>
             </div>
         </div>
-        <!-- [ sample-page ] end -->
+
+        <div class="col-xl-8 col-md-12">
+            <h5 class="mt-4">Getting started guide</h5>
+            <hr>
+
+            {% if current_user.tutorial_viewed_equipment == True %}
+            <div class="card text-white bg-success">
+                <div class="card-header">
+                        <a data-toggle="collapse" data-target="#collapseOne"><h5 class="card-title text-white"><i class="fas fa-check-square"></i>  &nbsp Done: Review equipment types</h5></a>
+                </div>
+                <div id="collapseOne" class="card-body collapse">
+            {% else %}
+            <div class="card text-white bg-secondary">
+                <div class="card-header">
+                        <a data-toggle="collapse" data-target="#collapseOne"><h5 class="card-title text-white"><i class="far fa-square"></i>  &nbsp To do: Review equipment types</h5></a>
+                </div>
+                <div id="collapseOne" class="card-body collapse show">
+                {% endif %}
+                    <p class="card-text">An "Equipment Type" is the type aircraft that you fly - each different aircraft type (eg a Boeing 747) counts as a different type of equipment, but each airline may have unique seat layouts and capacities, all of which can be modelled in Crew Manager.</p>
+                    <p class="card-text">Crew Manager offers a number of built in equipment types, and also offers you offers you unlimited flexibility to create bespoke equipment types.</p>
+                    {% if current_user.tutorial_viewed_equipment == True %}
+                    <p><i class="fas fa-check-square"></i> &nbsp Done: Get started by viewing the current list of equipment types from the navbar on the left</p>
+                    {% else %}
+                    <p><i class="far fa-square"></i> &nbsp Task: Get started by viewing the current list of equipment types from the navbar on the left</p>
+
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card text-white bg-secondary ">
+                <div class="card-header">
+                    <a data-toggle="collapse" data-target="#collapseTwo"><h5 class="card-title text-white"><i class="far fa-square"></i>  &nbsp To do: Create a new flight plan</h5></a>
+                </div>
+                <div id="collapseTwo" class="card-body collapse show">
+                    <p class="card-text">A "Flight Plan" is a plan for a particular flight.</p>
+                    <p class="card-text">It will have a departure and destination airport, a particular equipment type and a passenger manifest.</p>
+                    <p class="card-text">Each time you fly a particular route you will create a new flight plan for that particular flight.</p>
+                    <p><i class="far fa-square"></i> &nbsp Task: Create a new flight plan using the link on the left</p>
+
+                </div>
+            </div>
+
+            <div class="card text-white bg-secondary ">
+                <div class="card-header">
+                    <a data-toggle="collapse" data-target="#collapseThree"><h5 class="card-title text-white"><i class="far fa-square"></i>  &nbsp To do: Start your first flight</h5></a>
+                </div>
+                <div id="collapseThreee" class="card-body collapse show">
+                    <p class="card-text">Once you have created a flight plan you can fly the route.</p>
+                    <p class="card-text">In order to do this you need to download the <a href="https://findmyplane.live/download/findmyplane-setup.zip">Find My Plane client</a> and run it on the local machine which is running Microsoft Flight Simulator.</p>
+                    <p class="card-text">Once you download the client you will be provided with a 6-digit IDENT code such as ABCDEF which you can then use to start the flight by choosing the Flight Plan and pressing connect.</p>
+                    <p><i class="far fa-square"></i> &nbsp Task: Download the <a href="https://findmyplane.live/download/findmyplane-setup.zip">Find My Plane client</a></p>
+                    <p><i class="far fa-square"></i> &nbsp Task: Select a previously created flight plan and choose FLY</a></p>
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+
     </div>
     <!-- [ Main Content ] end -->
 
 {% endblock content %}
 
+{% block javascripts %}
+
+
+
+{% endblock javascripts %}

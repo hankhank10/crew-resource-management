@@ -18,6 +18,9 @@ def view_list():
 
     equipment_list = EquipmentType.query.all()
 
+    current_user.tutorial_viewed_equipment = True
+    db.session.commit()
+
     return render_template('equipment/equipment_list.html', equipment_list = equipment_list)
 
 

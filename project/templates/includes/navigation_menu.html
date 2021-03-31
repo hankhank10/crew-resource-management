@@ -2,7 +2,7 @@
 	<nav class="pcoded-navbar menupos-fixed menu-light brand-blue ">
 		<div class="navbar-wrapper ">
 			<div class="navbar-brand header-logo">
-				<a href="index.html" class="b-brand">
+				<a href="{{ url_for('main.dashboard') }}" class="b-brand">
 					<div class="b-bg">
 						<img width="30px" src="/static/assets/images/user/redplane.png">
 					</div>
@@ -17,7 +17,7 @@
 						<label>Management</label>
 					</li>
 					<li data-username="" class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link"><span class="pcoded-micon"><i class="fas fa-plane"></i></span><span class="pcoded-mtext">Equipment</span></a>
+						<a id="menu_item_equipment" href="#!" class="nav-link"><span class="pcoded-micon"><i class="fas fa-plane"></i></span><span class="pcoded-mtext">Equipment</span></a>
 						<ul class="pcoded-submenu">
 							<li class=""><a href="{{ url_for('equipment.view_list') }}" class="">Equipment list</a></li>
 							<li class=""><a href="{{ url_for('equipment.new') }}" class="">Create new</a></li>
