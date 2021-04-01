@@ -144,6 +144,7 @@ def do_crew_task(flight_id):
 
     if completed_as_far_as >= how_many_passengers:
         clear_crew_task(flight_id)
+        return
 
     # Actually do the tasks
 
@@ -155,26 +156,32 @@ def do_crew_task(flight_id):
     drinks_served_per_minute = 4 * how_many_crew
     meals_served_per_minute = 2 * how_many_crew
 
-
+    things_done_this_time = None
     if flight.current_crew_task == "Drinks service":
         things_done_this_time = drinks_served_per_minute * minutes_since_last_cron
 
     if flight.current_crew_task == "Meal service":
         things_done_this_time = meals_served_per_minute * minutes_since_last_cron
 
+    if things_done_this_time == None:
+        return
 
     things_done_this_time = int(things_done_this_time)
+    starting_seat = completed_as_far_as + 1
+    ending_seat = starting_seat + things_done_this_time
 
-    for a in range(completed_as_far_as + 1, completed_as_far_as + 1 + things_done_this_time):
+    for a in range(starting_seat, ending_seat):
         seat = Seat.query.filter_by(flight = flight_id, manifest_number = a).first()
 
-        if flight.current_crew_task == "Drinks service": 
-            seat.status_thirst = 0
+        if seat:
 
-        if flight.current_crew_task == "Meal service":
-            seat.status_hunger = 0
-        
-        db.session.commit()
+            if flight.current_crew_task == "Drinks service": 
+                seat.status_thirst = 0
+
+            if flight.current_crew_task == "Meal service":
+                seat.status_hunger = 0
+            
+            db.session.commit()
     
     flight.current_crew_task_completed_as_far_as = flight.current_crew_task_completed_as_far_as + things_done_this_time
     db.session.commit()
