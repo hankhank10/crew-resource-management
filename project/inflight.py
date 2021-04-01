@@ -77,7 +77,7 @@ def update_plane_data(unique_reference):
             log_event(flight.id, "seatbelt_sign_turned_on", "pilot")
 
         if flight.phase_flight_name == "At gate":
-            if r.json()['my_plane']['speed'] > 3:
+            if r.json()['my_plane']['speed'] > 5:
                 log_event(flight.id, "begin_taxi_for_takeoff", "pilot")
                 set_phase(flight.id, "Taxi for Takeoff", "flight")
 
