@@ -30,7 +30,7 @@ def dashboard():
 
 
 def update_plane_data(unique_reference):
-    # Get the flight and work out the ident
+    # Get the flight and work out the source ident to query Find My Plane
     flight = Flight.query.filter_by(unique_reference=unique_reference).first_or_404()
     ident = flight.source_ident
 
@@ -60,9 +60,10 @@ def update_plane_data(unique_reference):
 
     # Check if anything has changed that needs logging
     if flight.number_of_updates_received != 0:
-        if flight.door_status == 1 and r.json()['my_plane']['door_status'] != 1:
+
+        if flight.door_status == 1 and r.json()['my_plane']['door_status'] == 0:
             log_event(flight.id, "cabin_door_closed", "pilot")
-        if flight.door_status == 0 and r.json()['my_plane']['door_status'] != 0:
+        if flight.door_status == 0 and r.json()['my_plane']['door_status'] == 1:
             log_event(flight.id, "cabin_door_opened", "pilot")
 
         if flight.no_smoking_sign == True and r.json()['my_plane']['no_smoking_sign'] == False:
