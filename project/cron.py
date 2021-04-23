@@ -31,5 +31,5 @@ def every_30_seconds():
 
 @cron.route('/cron/test_email')
 def test_email():
-    email.send_verification_code("m.a.hankinson@gmail.com")
+    email.send_verification_code("test@test.com")
     return "OK"
