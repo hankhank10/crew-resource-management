@@ -178,6 +178,28 @@ def start_flight(unique_reference, ident):
     return redirect(url_for('inflight.dashboard'))
 
 
+@flight_manager.route('/inflight/end')
+@login_required
+def end_flight():
+
+    if current_user.active_flight_id == None:
+        flash ("No active flight", "danger")
+        return redirect(url_for('main.dashboard'))
+
+
+    current_flight = Flight.query.filter_by(id = current_user.active_flight_id).first_or_404()
+
+    current_flight.completed = True
+    current_flight.is_active = False
+
+    current_user.active_flight_id = None
+
+    db.session.commit()
+
+    flash ("Flight ended", "success")
+    return redirect(url_for('main.dashboard'))
+    
+
 def cron_retire_old_flights():
 
     active_flights = Flight.query.filter_by(is_active=True).all()

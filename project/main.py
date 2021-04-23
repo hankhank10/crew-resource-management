@@ -37,6 +37,7 @@ def backend_setup():
 
     return "OK!"
 
+
 @login_required
 @main.route('/download/client')
 def download_client():
