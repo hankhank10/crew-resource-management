@@ -49,14 +49,13 @@ def update_plane_data(unique_reference):
             'error_message': 'Requests error'
         }
 
-    # Log the location as an event
 
+    # Log the location
     record_location_every_seconds = 10
 
     next_record_due = flight.last_event_recorded + timedelta(seconds=record_location_every_seconds)
     if datetime.utcnow() > next_record_due:
         log_location(flight.id, r.json()['my_plane']['current_latitude'], r.json()['my_plane']['current_longitude'], r.json()['my_plane']['current_altitude'])
-        #print ("Logging now")a
 
 
     # Check if anything has changed that needs logging
@@ -95,7 +94,6 @@ def update_plane_data(unique_reference):
     flight.door_status = r.json()['my_plane']['door_status']
     flight.parking_brake = r.json()['my_plane']['parking_brake']
     flight.gear_handle_position = r.json()['my_plane']['gear_handle_position']
-
     flight.number_of_updates_received = flight.number_of_updates_received + 1
 
     new_event_to_report = None
@@ -119,7 +117,6 @@ def update_plane_data(unique_reference):
     occupied_count = 0
     empty_count = 0
     for passenger in passengers:
-        # print (passenger.status)
         if passenger.status == "Waiting to Board": waiting_to_board = waiting_to_board + 1
         if passenger.status == "Boarding": boarding = boarding + 1
         if passenger.status == "Boarded": on_board = on_board + 1
@@ -128,13 +125,11 @@ def update_plane_data(unique_reference):
 
         if passenger.occupied == True:
             occupied_count = occupied_count + 1
-
             if passenger.status != "Waiting to Board":
                 if passenger.is_seated == True:
                     seated_count = seated_count + 1
                 else:
                     unseated_count = unseated_count + 1
-
         else:
             empty_count = empty_count + 1
 
@@ -151,7 +146,7 @@ def update_plane_data(unique_reference):
         'empty_seats': empty_count
     }
 
-    # Check if anything needs to be changed
+    # Check if anything needs to be changed based on boarding status
     if flight.phase_cabin_name == "Boarding":
 
         if boarding + waiting_to_board == 0:
