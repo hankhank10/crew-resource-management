@@ -2,6 +2,7 @@
 /.idea
 /migrations
 /__pycache__/
+/project/__pycache__/
 *.pyc
 /.vscode/
 /project/secretstuff.py
