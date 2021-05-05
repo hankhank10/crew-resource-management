@@ -69,6 +69,11 @@ def new():
         except:
             maximum_cabin_crew = 1
 
+        try:
+            number_of_toilets = int(request.form['number_of_toilets'])
+        except:
+            number_of_toilets = 6
+
         seatmap_text = request.form['seatmap_text_input']
 
         seatmap_object = seatmapper.load_seatmap(seatmap_text)
@@ -95,6 +100,7 @@ def new():
             seatmap_text= seatmap_text,
             number_of_seats_across=number_of_seats_across,
             number_of_rows=number_of_rows,
+            number_of_toilets=number_of_toilets,
             created_by_user= current_user.id
         )
 

@@ -73,6 +73,7 @@ class Flight(db.Model):
     passengers_economy_class = db.Column(db.Integer)
 
     cabin_crew_count = db.Column(db.Integer)
+    number_of_toilets = db.Column(db.Integer)
 
     expected_duration_minutes = db.Column(db.Integer)
 
@@ -268,6 +269,8 @@ class EquipmentType(db.Model):
 
     number_of_seats_across = db.Column(db.Integer)
     number_of_rows = db.Column(db.Integer)
+
+    number_of_toilets = db.Column(db.Integer)
 
     @property
     def operator_logo_url(self):

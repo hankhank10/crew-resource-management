@@ -177,18 +177,27 @@ XX{           }
 
             <div class="card">
                 <div class="card-header">
-                    <h5>Crew details</h5>
+                    <h5>Other details</h5>
                     <div class="card-header-right"></div>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-6 mb-3">
                             <div>
                                 <label for="model">Maximum number of cabin crew</label>
                                 <input class="form-control" name="maximum_cabin_crew" id="maximum_cabin_crew" type="text" value="4">
                                 <span class="text-danger" id="cabin_crew_warning_label"></span>
                             </div>
                         </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="model">Toilets on board</label>
+                                <input class="form-control" name="number_of_toilets" id="number_of_toilets" type="text" value="6">
+                                <span class="text-danger" id="toilets_warning_label"></span>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>

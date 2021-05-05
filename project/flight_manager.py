@@ -58,6 +58,7 @@ def new():
                 seatmap_text=relevant_equipment.seatmap_text,
                 number_of_rows=relevant_equipment.number_of_rows,
                 number_of_seats_across=relevant_equipment.number_of_seats_across,
+                number_of_toilets=relevant_equipment.number_of_toilets,
                 last_event_recorded=datetime.utcnow(),
             )
 
