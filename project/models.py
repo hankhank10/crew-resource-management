@@ -58,7 +58,6 @@ class Flight(db.Model):
 
     departure_code = db.Column(db.String(10))
     departure_name = db.Column(db.String(50))
-    departure_scheduled_time = db.Column(db.DateTime)
 
     equipment_full_name = db.Column(db.String(100))
     equipment_manufacturer = db.Column(db.String(50))
@@ -67,7 +66,6 @@ class Flight(db.Model):
 
     destination_code = db.Column(db.String(10))
     destination_name = db.Column(db.String(10))
-    departure_arrival_time = db.Column(db.DateTime)
 
     passengers_first_class = db.Column(db.Integer)
     passengers_business_class = db.Column(db.Integer)
@@ -138,8 +136,9 @@ class Flight(db.Model):
         if self.started == False:
             return "Not yet flown"
         else:
+            if self.is_active == True:
+                return "Active flight"
             return "Flown"
-
 
 class FlightEvent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
