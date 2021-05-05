@@ -49,6 +49,7 @@
                                 <th>Type</th>
                                 <th>Passengers</th>
                                 <th>Cabin Crew</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,6 +71,17 @@
                                 <td>{{row.model}} {{row.variant}}</td>
                                 <td>{{row.first_class_seats + row.business_class_seats + row.premium_class_seats + row.economy_class_seats}}</td>
                                 <td>{{row.maximum_cabin_crew}}</td>
+                                <td>
+                                    
+                                    {% if row.created_by_user = current_user.id %}
+                                    <div class="btn-group">
+                                        <button class="btn btn-danger btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a href="{{ url_for('equipment.delete', id = row.id) }}"><i class="far fa-trash-alt"></i></a>
+                                        </button>
+                                    </div>
+                                    {% endif %}
+                                    
+                                </td>
 
                             </tr>
                         {% endfor %}

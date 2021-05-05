@@ -112,6 +112,28 @@ def new():
         return redirect(url_for('equipment.view_list'))
 
 
+@equipment.route('/equipment/<equipment_id>/delete', methods=['GET'])
+@login_required
+def delete(equipment_id):
+
+    equipment = EquipmentType.query.filter_by(id=equipment_id).first()
+
+    if not equipment:
+        flash ("Equipment ID error", "danger")
+        return redirect(url_for('equipment.view_list'))
+
+    if equipment.created_by_user != current_user.id:
+        flash ("Not authorised to delete that equipment", "danger")
+        return redirect(url_for('equipment.view_list'))
+
+    db.session.delete(flight)
+    db.session.commit()
+
+    flash ("Equipment deleted", "success")
+    return redirect(url_for('equipment.view_list'))
+
+
+
 @equipment.route('/api/equipment/operator_logo', endpoint="operator")
 @equipment.route('/api/equipment/manufacturer_logo', endpoint="manufacturer")
 @login_required
