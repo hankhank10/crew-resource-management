@@ -227,6 +227,3 @@ def crew_status(flight_id):
 @crew.route('/api/crew/check')
 def api_crew_status():
     current_flight = Flight.query.filter_by(id = current_user.active_flight_id).first()
-
-    
-

@@ -47,4 +47,3 @@ def download_client():
     db.session.commit()
 
     return redirect("https://findmyplane.live/download/findmyplane-setup.zip")
-

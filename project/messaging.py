@@ -244,5 +244,3 @@ def create_new_message_from_crew(message_content, read = False):
     db.session.commit()
 
     return
-
-

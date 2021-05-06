@@ -17,7 +17,6 @@ def load_airports_from_csv():
                     'ident': row['ident']
                 }
                 airport_list.append(new_airport)
-        print ("Loaded!")
 
 
 @api_airport_lookup.route('/api/airport_lookup/code/<airport_code>')
@@ -43,7 +42,6 @@ def api_airport_lookup_by_code(airport_code):
 def api_airport_lookup_by_name():
 
     airport_name = request.args.get('query')
-    print (airport_name)
     result_list = []
 
     for airport in airport_list:

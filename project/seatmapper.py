@@ -108,21 +108,3 @@ def get_size (seatmap_object):
             highest_y = seat['y']
 
     return highest_x, highest_y
-
-
-#with open("seatmap.txt", "r") as file:
-#    string_object = file.read()
-
-
-#seatmap_object = load_seatmap(string_object)
-
-#pp = pprint.PrettyPrinter(indent=4)
-#pp.pprint(seatmap_object)
-
-
-#print(count_seats(seatmap_object, "B"))
-
-
-#first_class_seats = get_available_seats(seatmap_object, "E", True)
-#pp.pprint(first_class_seats)
-

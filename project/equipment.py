@@ -229,4 +229,3 @@ def check_if_exists_endpoint():
         'status': 'success',
         'already_exists': check_if_already_exists(lookup_name)
     })
-
