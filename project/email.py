@@ -35,7 +35,7 @@ def compose_and_send_message(to_address, subject, messages, call_to_action_text 
 
 def send_verification_code(to_address):
 
-    secret_code = secrets.token_hex(25)
+    secret_code = secrets.token_hex(15)
 
     body_of_message = []
     body_of_message.append("Thank you for creating an account with <a href='"+ website_url + "'>Crew Manager</a>.")
