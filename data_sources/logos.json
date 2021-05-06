@@ -1,1 +1,37 @@
-[{"name": "British Airways", "logo_url": "https://upload.wikimedia.org/wikipedia/en/4/42/British_Airways_Logo.svg", "type": "operator"}, {"name": "American Airlines", "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/23/American_Airlines_logo_2013.svg/2880px-American_Airlines_logo_2013.svg.png", "type": "operator"}, {"name": "Aer Lingus", "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1c/Aer_Lingus_logo_2019.svg/2880px-Aer_Lingus_logo_2019.svg.png", "type": "operator"}, {"name": "Easyjet", "logo_url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Easyjet_orange.png", "type": "operator"}, {"name": "Ryanair", "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Ryanair.svg/2880px-Ryanair.svg.png", "type": "operator"}, {"name": "Boeing", "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Boeing_full_logo.svg/2880px-Boeing_full_logo.svg.png", "type": "manufacturer"}, {"name": "Airbus", "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Airbus_Logo_2017.svg/2880px-Airbus_Logo_2017.svg.png", "type": "manufacturer"}]
+[
+  {
+	"name": "British Airways",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/en/4/42/British_Airways_Logo.svg",
+	"type": "operator"
+  },
+  {
+	"name": "American Airlines",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/23/American_Airlines_logo_2013.svg/2880px-American_Airlines_logo_2013.svg.png",
+	"type": "operator"
+  },
+  {
+	"name": "Aer Lingus",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1c/Aer_Lingus_logo_2019.svg/2880px-Aer_Lingus_logo_2019.svg.png",
+	"type": "operator"
+  },
+  {
+	"name": "Easyjet",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Easyjet_orange.png",
+	"type": "operator"
+  },
+  {
+	"name": "Ryanair",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Ryanair.svg/2880px-Ryanair.svg.png",
+	"type": "operator"
+  },
+  {
+	"name": "Boeing",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Boeing_full_logo.svg/2880px-Boeing_full_logo.svg.png",
+	"type": "manufacturer"
+  },
+  {
+	"name": "Airbus",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Airbus_Logo_2017.svg/2880px-Airbus_Logo_2017.svg.png",
+	"type": "manufacturer"
+  }
+]
