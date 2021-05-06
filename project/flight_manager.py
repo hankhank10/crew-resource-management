@@ -100,7 +100,7 @@ def duplicate(unique_reference):
 
     new_unique_reference = datetime.today().strftime('%Y%m%d') + "-" + secrets.token_hex(10).upper()
 
-    new_flight = Flight (
+    new_flight = Flight(
         user=current_user.id,
         unique_reference=new_unique_reference,
         departure_code=old_flight.departure_code,
@@ -183,10 +183,9 @@ def start_flight(unique_reference, ident):
 @login_required
 def end_flight():
 
-    if current_user.active_flight_id == None:
-        flash ("No active flight", "danger")
+    if current_user.active_flight_id is None:
+        flash("No active flight", "danger")
         return redirect(url_for('main.dashboard'))
-
 
     current_flight = Flight.query.filter_by(id = current_user.active_flight_id).first_or_404()
 
