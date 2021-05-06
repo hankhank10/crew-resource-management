@@ -30,7 +30,8 @@ def backend_setup():
         join_date=datetime.utcnow(),
         verified=True,
         approved=True,
-        unique_setup_key='not necessary'
+        unique_setup_key='not necessary',
+        is_superuser=True
     )
     db.session.add(new_user)
     db.session.commit()

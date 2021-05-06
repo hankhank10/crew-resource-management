@@ -42,6 +42,8 @@ class User(UserMixin, db.Model):
     tutorial_downloaded_client = db.Column(db.Boolean, default=False)
     tutorial_started_flight = db.Column(db.Boolean, default=False)
 
+    is_superuser = db.Column(db.Boolean, default=False)
+
 
 
 class Flight(db.Model):

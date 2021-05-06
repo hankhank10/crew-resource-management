@@ -18,6 +18,9 @@ admin = Blueprint('admin', __name__)
 @admin.route('/admin/create_beta_code', methods=['GET', 'POST'])
 def create_beta_code():
 
+    if not current_user.is_superuser:
+        return "Not authorised"
+
     if request.method == "POST":
 
         secret_key = secrets.token_hex(2) + "-" + secrets.token_hex(2) + "-" + secrets.token_hex(2)
@@ -33,7 +36,7 @@ def create_beta_code():
         messages = []
         messages.append("Thank you for signing up for the <a href='https://crewmanager.live'>Crew Manager</a> Beta.")
         messages.append("Your signup has now been approved and you can now create an account using the beta code below.")
-        messages.append("<h1>" + secret_key + "</h1>")
+        messages.append("<h2>" + secret_key + "</h2>")
         messages.append("We look forward to seeing you in game")
 
         email.compose_and_send_message(
