@@ -66,15 +66,6 @@ app.register_blueprint(crew_blueprint)
 from .cron import cron as cron_blueprint
 app.register_blueprint(cron_blueprint)
 
-###  ADMIN 
-from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
-#from .admin import AdminView
-
-#app.config['FLASK_ADMIN_SWATCH'] = 'cosmo'
-
-#admin = Admin(app, name='Admin', index_view=AdminView(User, db.session, url='/admin', endpoint='admin'))
-#admin.add_view(AdminView(Message, db.session))
 
 
 
