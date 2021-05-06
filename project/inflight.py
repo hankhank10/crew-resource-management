@@ -66,6 +66,11 @@ def update_plane_data(unique_reference):
         if flight.door_status == 0 and r.json()['my_plane']['door_status'] == 1:
             log_event(flight.id, "cabin_door_opened", "pilot")
 
+            if flight.phase_flight == "Taxi to Gate":
+                log_event(flight.id, "arrived_at_gate", "pilot")
+                set_phase(flight.id, "At gate", "flight")
+                set_phase(flight.id, "Deboarding", "cabin")
+
         if flight.no_smoking_sign == True and r.json()['my_plane']['no_smoking_sign'] == False:
             log_event(flight.id, "no_smoking_sign_turned_off", "pilot")
         if flight.no_smoking_sign == False and r.json()['my_plane']['no_smoking_sign'] == True:
@@ -85,7 +90,7 @@ def update_plane_data(unique_reference):
             log_event(flight.id, "takeoff", "pilot")
             set_phase(flight.id, "Takeoff and Climb", "flight")
 
-        if flight.on_ground == False and r.json()['my_plane']['on_ground'] == True and r.json()['my_plane']['speed'] < 100:
+        if flight.on_ground == False and r.json()['my_plane']['on_ground'] == True and r.json()['my_plane']['current_speed'] < 100:
             log_event(flight.id, "landing", "pilot")
             set_phase(flight.id, "Taxi to Gate", "flight")
 

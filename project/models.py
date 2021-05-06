@@ -195,6 +195,8 @@ class FlightEvent(db.Model):
 
         if self.event_name == "landing": return "Landing"
 
+        if self.event_name == "arrived_at_gate": return "Arrived at gate"
+
         return self.event_name
 
 
@@ -239,6 +241,7 @@ class FlightPhase(db.Model):
         # Cruise
         # Descent and landing
         # Taxi to gate
+        # At Gate
         # Shutdown
 
         # CABIN
@@ -247,6 +250,7 @@ class FlightPhase(db.Model):
         # Cabin Secure
         # Drinks Service
         # Meal Service
+        # Deboarding
 
 
 class EquipmentType(db.Model):
