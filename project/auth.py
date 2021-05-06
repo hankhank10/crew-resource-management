@@ -5,7 +5,7 @@ from . import app
 from datetime import datetime
 from random import random, randint, randrange
 import secrets
-from .models import User
+from .models import User, BetaSignupCode
 from sqlalchemy import desc
 from datetime import datetime
 from project import inflight, email
@@ -38,7 +38,7 @@ def login():
             return render_template('auth/login.html')
 
         if user.approved == False:
-            flash('Beta is closed at present - we will notify you when your account is available', 'danger')
+            flash('Thank you for signing up to the beta - we will notify you when your account is available', 'danger')
             return render_template('auth/login.html')
 
         login_user(user, remember=True)
@@ -63,6 +63,19 @@ def register():
     if existing_user:
         flash ("Email already registered", "danger")
         return render_template('auth/register.html')
+
+    # Check if beta signup code is value
+    beta_code = BetaSignupCode.query.filter_by(secret_key = request.form['beta_code']).first()
+    
+    if not beta_code:
+        flash ("Beta code invalid", "danger")
+        return render_template('auth/register.html')
+
+    if beta_code.used:
+        flash ("Beta code already used", "danger")
+        return render_template('auth/register.html')
+
+    beta_code.used = True
 
     # Create unique setup key
     unique_setup_key = email.send_verification_code(request.form['email'])
@@ -93,7 +106,7 @@ def verify(unique_setup_key):
     existing_user.unique_setup_key = None
     db.session.commit()
 
-    flash ("Email address verified - please login", "success")
+    flash ("Thank you for verifying your email address", "success")
     return redirect(url_for('auth.login'))
 
 
@@ -130,7 +143,6 @@ def change_password():
 
         else:
             return render_template('/auth/change_password.html', error_message="Existing password incorrect")
-
 
 
 @auth.route('/user/forgot_password')

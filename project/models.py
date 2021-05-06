@@ -464,3 +464,9 @@ class CrewMember(db.Model):
     full_name = db.Column(db.String(100))
     seniority = db.Column(db.Integer)
     seniority_text = db.Column(db.String(50))
+
+
+class BetaSignupCode(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    secret_key = db.Column(db.String(50))
+    used = db.Column(db.Boolean)
