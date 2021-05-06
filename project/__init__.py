@@ -18,6 +18,9 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
+# Set the main URL
+website_url = "https://crewmanager.live"
+
 # db init
 from .models import User
 
@@ -35,6 +38,9 @@ app.register_blueprint(main_blueprint)
 
 from .auth import auth as auth_blueprint
 app.register_blueprint(auth_blueprint)
+
+from .admin import admin as admin_blueprint
+app.register_blueprint(admin_blueprint)
 
 from .flight_manager import flight_manager as flight_manager_blueprint
 app.register_blueprint(flight_manager_blueprint)

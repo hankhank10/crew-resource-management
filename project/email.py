@@ -1,6 +1,7 @@
 from flask.templating import render_template
 from project import secretstuff
 from . import db
+from . import website_url
 
 from envelopes import Envelope
 import secrets
@@ -37,11 +38,11 @@ def send_verification_code(to_address):
     secret_code = secrets.token_hex(25)
 
     body_of_message = []
-    body_of_message.append("Thank you for creating an account with <a href='https://crewmanager.live'>Crew Manager</a>.")
+    body_of_message.append("Thank you for creating an account with <a href='"+ website_url + "'>Crew Manager</a>.")
     body_of_message.append("Before you can use your account you must verify your email address by clicking the link below.")
 
     call_to_action_text = "Verify your account"
-    call_to_action_url = "https://crewmanager.live/user/verify/" + secret_code
+    call_to_action_url = website_url + "/user/verify/" + secret_code
 
     compose_and_send_message(to_address, "Crew Manager: Verify your email address", body_of_message, call_to_action_text, call_to_action_url)
 
