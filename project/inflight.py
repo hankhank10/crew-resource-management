@@ -85,6 +85,9 @@ def update_plane_data(unique_reference):
             log_event(flight.id, "takeoff", "pilot")
             set_phase(flight.id, "Takeoff and Climb", "flight")
 
+        if flight.on_ground == False and r.json()['my_plane']['on_ground'] == True and r.json()['my_plane']['speed'] < 100:
+            log_event(flight.id, "landing", "pilot")
+            set_phase(flight.id, "Taxi to Gate", "flight")
 
     # Update plane details
     flight.current_altitude = r.json()['my_plane']['current_altitude']

@@ -193,6 +193,8 @@ class FlightEvent(db.Model):
         if self.event_name == "flight_phase_takeoff and climb": return "Begin takeoff phase"
         if self.event_name == "flight_phase_cruise": return "Begin cruise phase"
 
+        if self.event_name == "landing": return "Landing"
+
         return self.event_name
 
 

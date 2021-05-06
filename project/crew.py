@@ -35,7 +35,6 @@ def create_new_crew_member():
         seniority=seniority,
         efficiency=efficiency
     )
-    #print ("Created!")
     db.session.add(new_crew)
     db.session.commit()
 
