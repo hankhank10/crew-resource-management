@@ -126,7 +126,7 @@ def delete(equipment_id):
         flash ("Not authorised to delete that equipment", "danger")
         return redirect(url_for('equipment.view_list'))
 
-    db.session.delete(flight)
+    db.session.delete(equipment)
     db.session.commit()
 
     flash ("Equipment deleted", "success")
