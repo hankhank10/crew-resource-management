@@ -309,7 +309,7 @@ class Seat(db.Model):
         if self.seat_type == "P": return "Premium"
         if self.seat_type == "E": return "Economy"
         if self.seat_type == "X": return ""
-        if self.seat_tyoe == " ": return ""
+        if self.seat_type == " ": return ""
 
     occupied = db.Column(db.Boolean())
     occupied_by = db.Column(db.Integer)
