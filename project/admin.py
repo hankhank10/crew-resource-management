@@ -20,7 +20,7 @@ def create_beta_code():
 
     if request.method == "POST":
 
-        secret_key = secrets.token_hex(4) + "-" + secrets.token_hex(4) + "-" + secrets.token_hex(4)
+        secret_key = secrets.token_hex(2) + "-" + secrets.token_hex(2) + "-" + secrets.token_hex(2)
         
         beta_code = BetaSignupCode(
             secret_key = secret_key,
