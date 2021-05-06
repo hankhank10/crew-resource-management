@@ -47,12 +47,3 @@ def download_client():
 
     return redirect("https://findmyplane.live/download/findmyplane-setup.zip")
 
-
-@main.route('/test_email')
-def test_email():
-
-    messages = []
-    messages.append("Hello!")
-    messages.append("Hello again!")
-
-    return email.compose_message(messages, "Hey!", "https://google.com")
