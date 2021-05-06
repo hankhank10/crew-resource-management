@@ -388,7 +388,8 @@ class Seat(db.Model):
         if has_started_boarding == True and has_sat == False:
             return boarding
 
-        if has_started_boarding == False: return waiting_to_board
+        if has_started_boarding == False:
+            return waiting_to_board
 
         return "weird error"
 
@@ -450,9 +451,9 @@ class CrewPopulation(db.Model):
 
     @property
     def seniority_text(self):
-        if self.seniority == 0: "Crew Member"
-        if self.seniority == 1: "Senior Crew Member"
-        if self.seniority == 2: "Cabin Service Director"
+        if self.seniority == 0: return "Crew Member"
+        if self.seniority == 1: return "Senior Crew Member"
+        if self.seniority == 2: return "Cabin Service Director"
 
 
 class CrewMember(db.Model):
