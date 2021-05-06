@@ -5,21 +5,20 @@ from project import equipment_logos
 from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 
 
-
 class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
+    id = db.Column(db.Integer, primary_key=True)  # primary keys are required by SQLAlchemy
     email = db.Column(db.String(100), unique=True)
-    #username = db.Column(db.String(100), unique=True)
+    # username = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
 
     name = db.Column(db.String(100))
 
-    #dates
+    # dates
     last_login = db.Column(db.DateTime)
     last_action = db.Column(db.DateTime)
     join_date = db.Column(db.DateTime)
 
-    #setup strings
+    # setup strings
     approved = db.Column(db.Boolean)
     verified = db.Column(db.Boolean)
     unique_setup_key = db.Column(db.String(30))
@@ -43,7 +42,6 @@ class User(UserMixin, db.Model):
     tutorial_started_flight = db.Column(db.Boolean, default=False)
 
     is_superuser = db.Column(db.Boolean, default=False)
-
 
 
 class Flight(db.Model):
@@ -124,7 +122,7 @@ class Flight(db.Model):
 
     @property
     def phase_flight_name(self):
-        phase = FlightPhase.query.filter_by(id = self.phase_flight).first()
+        phase = FlightPhase.query.filter_by(id=self.phase_flight).first()
         if phase is None: return None
         return phase.phase_name
 
@@ -136,12 +134,13 @@ class Flight(db.Model):
 
     @property
     def status(self):
-        if self.started == False:
+        if not self.started:
             return "Not yet flown"
         else:
-            if self.is_active == True:
+            if self.is_active:
                 return "Active flight"
             return "Flown"
+
 
 class FlightEvent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -165,10 +164,10 @@ class FlightEvent(db.Model):
     @property
     def event_description(self):
 
-        if self.event_type == None: return "error"
+        if self.event_type is None: return "error"
         if self.event_type == "location_update": return "Location update"
 
-        if self.event_name == None: return None
+        if self.event_name is None: return None
 
         if self.event_name == "start_boarding_passengers": return "Passenger boarding started"
         if self.event_name == "passenger_boarding_complete": return "Passenger boarding complete"
@@ -200,7 +199,6 @@ class FlightEvent(db.Model):
         return self.event_name
 
 
-
 class FlightMessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     flight = db.Column(db.Integer, db.ForeignKey('flight.id'), nullable=False)
@@ -229,28 +227,28 @@ class FlightPhase(db.Model):
     is_current = db.Column(db.Boolean)
 
     phase_category = db.Column(db.String(20))
-        # flight
-        # cabin
-        # seatbelt_sign
+    # flight
+    # cabin
+    # seatbelt_sign
 
     phase_name = db.Column(db.String(50))
-        # FLIGHT
-        # At Gate
-        # Taxi for Takeoff
-        # Takeoff and Climb
-        # Cruise
-        # Descent and landing
-        # Taxi to gate
-        # At Gate
-        # Shutdown
+    # FLIGHT
+    # At Gate
+    # Taxi for Takeoff
+    # Takeoff and Climb
+    # Cruise
+    # Descent and landing
+    # Taxi to gate
+    # At Gate
+    # Shutdown
 
-        # CABIN
-        # Pre-Boarding
-        # Boarding
-        # Cabin Secure
-        # Drinks Service
-        # Meal Service
-        # Deboarding
+    # CABIN
+    # Pre-Boarding
+    # Boarding
+    # Cabin Secure
+    # Drinks Service
+    # Meal Service
+    # Deboarding
 
 
 class EquipmentType(db.Model):
@@ -323,13 +321,13 @@ class Seat(db.Model):
     is_seated = db.Column(db.Boolean, default=False)
 
     status_bladder_need = db.Column(db.Integer)  # Lower is better
-    status_hunger = db.Column(db.Integer)   # Lower is better
-    status_thirst = db.Column(db.Integer)   # Lower is better
+    status_hunger = db.Column(db.Integer)  # Lower is better
+    status_thirst = db.Column(db.Integer)  # Lower is better
 
     current_activity = db.Column(db.String)
     current_activity_will_end_at = db.Column(db.DateTime)
 
-    next_increment_due = db.Column(db.DateTime, default = datetime.utcnow())
+    next_increment_due = db.Column(db.DateTime, default=datetime.utcnow())
 
     @property
     def status_bladder_need_text(self):
@@ -352,7 +350,6 @@ class Seat(db.Model):
         if self.status_thirst > 80: return "Very Thirsty"
         if self.status_thirst > 50: return "Thirsty"
         return ""
-
 
     # Times things happen at
     time_start_boarding = db.Column(db.DateTime)
@@ -394,8 +391,6 @@ class Seat(db.Model):
         if has_started_boarding == False: return waiting_to_board
 
         return "weird error"
-
-
 
     @property
     def full_name(self):

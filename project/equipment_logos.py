@@ -1,6 +1,7 @@
 import json
 import os.path
 
+
 def load_logos_from_json():
     global logo_list
 
@@ -18,6 +19,7 @@ def lookup_logo(lookup_name, look_for):
             return logo['logo_url']
 
     return ""
+
 
 logo_filename = "data_sources/logos.json"
 logo_list = []
