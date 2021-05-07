@@ -47,10 +47,11 @@ def login():
 
 
 @auth.route('/user/register', methods=['GET', 'POST'])
-def register():
+@auth.route('/user/register-with-code/<beta_code>', methods=['GET', 'POST'])
+def register(beta_code = None):
 
     if request.method == "GET":
-        return render_template('auth/register.html')
+        return render_template('auth/register.html', beta_code = beta_code)
 
     # Check if passwords match
     if request.method == "POST":
@@ -86,7 +87,7 @@ def register():
         name=request.form['name'],
         password=generate_password_hash(request.form['password1']),
         join_date=datetime.utcnow(),
-        approved=False,
+        approved=True,
         verified=False,
         unique_setup_key=unique_setup_key
     )

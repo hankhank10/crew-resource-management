@@ -44,7 +44,7 @@ def create_beta_code():
             "Crew Manager - Beta Signup Approved", 
             messages, 
             call_to_action_text = "Sign up now", 
-            call_to_action_url = website_url + "/user/register"
+            call_to_action_url = website_url + "/user/register-with-code/" + secret_key
         )
 
         flash ("Signup code sent", "success")
