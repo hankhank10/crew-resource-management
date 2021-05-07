@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, Flask, current_app, redirect
 from flask_login import login_required, current_user
 from . import db
 from . import app
-from project import crew, passengers, email
+from project import crew, passengers, email, secretstuff
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
@@ -24,9 +24,9 @@ def backend_setup():
     crew.create_new_crew_members(1000)
 
     new_user = User(
-        email='admin@findmyplane.live',
+        email=secretstuff.admin_email,
         name='Admin',
-        password=generate_password_hash('password'),
+        password=generate_password_hash(secretstuff.admin_password),
         join_date=datetime.utcnow(),
         verified=True,
         approved=True,
@@ -35,6 +35,8 @@ def backend_setup():
     )
     db.session.add(new_user)
     db.session.commit()
+
+    print ("All done")
 
     return "OK!"
 

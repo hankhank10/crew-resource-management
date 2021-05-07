@@ -19,7 +19,7 @@ login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
 # Set the main URL
-website_url = "https://crewmanager.live"
+website_url = "https://sopwith.crewmanager.live"
 
 # db init
 from .models import User
