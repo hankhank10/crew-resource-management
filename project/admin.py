@@ -14,12 +14,12 @@ from project import inflight, email, auth
 
 admin = Blueprint('admin', __name__)
 
-#@login_required  #this is just temporary
+@login_required
 @admin.route('/admin/create_beta_code', methods=['GET', 'POST'])
 def create_beta_code():
 
-    #if not current_user.is_superuser:
-    #    return "Not authorised"
+    if not current_user.is_superuser:
+        return "Not authorised"
 
     if request.method == "POST":
 
