@@ -32,9 +32,13 @@ def login():
             return render_template('auth/login.html')
 
         if user.verified == False:
-            flash('Email address not verified - another authorisation code sent to your email', 'danger')
-            user.unique_setup_key = email.send_verification_code(user.email)
-            db.session.commit()
+            flash("Email address not verified - verification link resent to your email address", 'danger')
+
+            if user.unique_setup_key is None:
+                email.send_verification_code(user.email)
+            else:
+                email.send_verification_code(user.email, user.unique_setup_key)
+
             return render_template('auth/login.html')
 
         if user.approved == False:
@@ -98,7 +102,7 @@ def register(beta_code = ""):
     db.session.add(new_user)
     db.session.commit()
 
-    flash ("Account created - please visit your email to verify your account", "success")
+    flash("Account created - please visit your email to verify your account", "success")
     return redirect(url_for('auth.login'))
 
 
@@ -152,3 +156,4 @@ def change_password():
 @auth.route('/user/forgot_password')
 def forgot():
     return "Not yet implemented"
+
