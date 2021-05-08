@@ -14,6 +14,7 @@ from project import inflight, email, auth
 
 custom_admin = Blueprint('custom_admin', __name__)
 
+
 @login_required
 @custom_admin.route('/admin/create_beta_code', methods=['GET', 'POST'])
 def create_beta_code():
