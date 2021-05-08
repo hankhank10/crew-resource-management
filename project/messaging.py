@@ -130,7 +130,7 @@ def send_message_from_pilot():
         if "dick" in message_content: message_interpretation = "profanity"
 
         # Help
-        if message_content == "help": message_interpretation = "help"
+        if message_content.startswith("help"): message_interpretation = "help"
 
         # Compile the response
         # First of all load the flight so we can do some checks
