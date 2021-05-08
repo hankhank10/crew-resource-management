@@ -176,7 +176,11 @@ def start_flight(unique_reference, ident):
     current_user.tutorial_started_flight = True
     db.session.commit()
 
-    messaging.send_intro_message(flight.id)
+    messaging.create_new_message_from_crew(
+        messaging.intro_message_content(first_time=True),
+        read=False,
+        flight_id=flight.id
+    )
 
     return redirect(url_for('inflight.dashboard'))
 

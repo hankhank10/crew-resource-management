@@ -129,6 +129,9 @@ def send_message_from_pilot():
         if "bitch" in message_content: message_interpretation = "profanity"
         if "dick" in message_content: message_interpretation = "profanity"
 
+        # Help
+        if message_content == "help": message_interpretation = "help"
+
         # Compile the response
         # First of all load the flight so we can do some checks
         current_flight = Flight.query.filter_by(id = current_user.active_flight_id).first()
@@ -159,6 +162,7 @@ def send_message_from_pilot():
                 "Didn't catch that, sorry, come again please?",
                 "Didn't get that, sorry, come again please?"
             ])[0]
+            message_response = message_response + " If you need help with crew commands just ask for <b>help</b>."
 
         if message_interpretation == "ready_for_takeoff":
 
@@ -235,6 +239,9 @@ def send_message_from_pilot():
                 "Any time..."
             ])
 
+        if message_interpretation == "help":
+            message_response = intro_message_content(first_time = False)
+
         # Store and send the message response
         if message_response is not None:
             create_new_message_from_crew(message_response, False)
@@ -276,16 +283,18 @@ def create_new_message_from_crew(message_content, read = False, flight_id = None
     return
 
 
-def send_intro_message(flight_id):
+def intro_message_content(first_time = True):
 
-    message_content = "Hello Captain, this is your cabin crew speaking. <br><br>We are here to assist you during your duties and we will follow your instructions. <br><br>Here are a few examples of things you can ask us:"
+    if first_time:
+        message_content = "Hello Captain, this is your cabin crew speaking. <br><br>We are here to assist you during your duties and we will follow your instructions.<br><br>"
+    else:
+        message_content = ""
+
+    message_content = message_content + "Here are a few examples of things you can ask us:"
     message_content = message_content + "<br>'Start boarding'"
     message_content = message_content + "<br>'Seats for takeoff'"
     message_content = message_content + "<br>'Start drinks service'"
     message_content = message_content + "<br>'Start meal service'"
     message_content = message_content + "<br><br>We look forward to flying with you!"
 
-
-
-    create_new_message_from_crew(message_content, False, flight_id)
-
+    return message_content
