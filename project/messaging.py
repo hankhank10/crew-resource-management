@@ -108,10 +108,20 @@ def send_message_from_pilot():
         if "drinks service" in message_content: message_interpretation = "start_drinks_service"
         if "serve drinks" in message_content: message_interpretation = "start_drinks_service"
 
+        # Meal service
         if "meal service" in message_content: message_interpretation = "start_meal_service"
         if "food service" in message_content: message_interpretation = "start_meal_service"
         if "serve meal" in message_content: message_interpretation = "start_meal_service"
+        if "serve the meal" in message_content: message_interpretation = "start_meal_service"
         if "serve food" in message_content: message_interpretation = "start_meal_service"
+        if "serve the food" in message_content: message_interpretation = "start_meal_service"
+        if "start meal" in message_content: message_interpretation = "start_meal_service"
+        if "start the meal" in message_content: message_interpretation = "start_meal_service"
+        if "start food" in message_content: message_interpretation = "start_meal_service"
+        if "start the food" in message_content: message_interpretation = "start_meal_service"
+        if "start catering" in message_content: message_interpretation = "start_meal_service"
+        if "start the catering" in message_content: message_interpretation = "start_meal_service"
+
 
         # Profanity
         if "fuck" in message_content: message_interpretation = "profanity"

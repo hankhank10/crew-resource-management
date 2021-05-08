@@ -49,68 +49,71 @@ def update_plane_data(unique_reference):
             'error_message': 'Requests error'
         }
 
+    if 'my_plane' in r.json():
 
-    # Log the location
-    record_location_every_seconds = 10
+        # Log the location
+        record_location_every_seconds = 10
 
-    next_record_due = flight.last_event_recorded + timedelta(seconds=record_location_every_seconds)
-    if datetime.utcnow() > next_record_due:
-        log_location(flight.id, r.json()['my_plane']['current_latitude'], r.json()['my_plane']['current_longitude'], r.json()['my_plane']['current_altitude'])
+        next_record_due = flight.last_event_recorded + timedelta(seconds=record_location_every_seconds)
+        if datetime.utcnow() > next_record_due:
+            log_location(flight.id, r.json()['my_plane']['current_latitude'], r.json()['my_plane']['current_longitude'], r.json()['my_plane']['current_altitude'])
 
 
-    # Check if anything has changed that needs logging
-    if flight.number_of_updates_received != 0:
+        # Check if anything has changed that needs logging
+        if flight.number_of_updates_received != 0:
 
-        if flight.door_status == 1 and r.json()['my_plane']['door_status'] == 0:
-            log_event(flight.id, "cabin_door_closed", "pilot")
-        if flight.door_status == 0 and r.json()['my_plane']['door_status'] == 1:
-            log_event(flight.id, "cabin_door_opened", "pilot")
+            if flight.door_status == 1 and r.json()['my_plane']['door_status'] == 0:
+                log_event(flight.id, "cabin_door_closed", "pilot")
+            if flight.door_status == 0 and r.json()['my_plane']['door_status'] == 1:
+                log_event(flight.id, "cabin_door_opened", "pilot")
 
-            if flight.phase_flight == "Taxi to Gate":
-                log_event(flight.id, "arrived_at_gate", "pilot")
-                set_phase(flight.id, "At gate", "flight")
-                set_phase(flight.id, "Deboarding", "cabin")
+                if flight.phase_flight == "Taxi to Gate":
+                    log_event(flight.id, "arrived_at_gate", "pilot")
+                    set_phase(flight.id, "At gate", "flight")
+                    set_phase(flight.id, "Deboarding", "cabin")
 
-        if flight.no_smoking_sign == True and r.json()['my_plane']['no_smoking_sign'] == False:
-            log_event(flight.id, "no_smoking_sign_turned_off", "pilot")
-        if flight.no_smoking_sign == False and r.json()['my_plane']['no_smoking_sign'] == True:
-            log_event(flight.id, "no_smoking_sign_turned_on", "pilot")
+            if flight.no_smoking_sign == True and r.json()['my_plane']['no_smoking_sign'] == False:
+                log_event(flight.id, "no_smoking_sign_turned_off", "pilot")
+            if flight.no_smoking_sign == False and r.json()['my_plane']['no_smoking_sign'] == True:
+                log_event(flight.id, "no_smoking_sign_turned_on", "pilot")
 
-        if flight.seatbelt_sign == True and r.json()['my_plane']['seatbelt_sign'] == False:
-            log_event(flight.id, "seatbelt_sign_turned_off", "pilot")
-        if flight.seatbelt_sign == False and r.json()['my_plane']['seatbelt_sign'] == True:
-            log_event(flight.id, "seatbelt_sign_turned_on", "pilot")
+            if flight.seatbelt_sign == True and r.json()['my_plane']['seatbelt_sign'] == False:
+                log_event(flight.id, "seatbelt_sign_turned_off", "pilot")
+            if flight.seatbelt_sign == False and r.json()['my_plane']['seatbelt_sign'] == True:
+                log_event(flight.id, "seatbelt_sign_turned_on", "pilot")
 
-        if flight.phase_flight_name == "At gate":
-            if r.json()['my_plane']['speed'] > 5:
-                log_event(flight.id, "begin_taxi_for_takeoff", "pilot")
-                set_phase(flight.id, "Taxi for Takeoff", "flight")
+            if flight.phase_flight_name == "At gate":
+                if r.json()['my_plane']['speed'] > 5:
+                    log_event(flight.id, "begin_taxi_for_takeoff", "pilot")
+                    set_phase(flight.id, "Taxi for Takeoff", "flight")
 
-        if flight.on_ground == True and r.json()['my_plane']['on_ground'] == False:
-            log_event(flight.id, "takeoff", "pilot")
-            set_phase(flight.id, "Takeoff and Climb", "flight")
+            if flight.on_ground == True and r.json()['my_plane']['on_ground'] == False:
+                log_event(flight.id, "takeoff", "pilot")
+                set_phase(flight.id, "Takeoff and Climb", "flight")
 
-        if flight.on_ground == False and r.json()['my_plane']['on_ground'] == True and r.json()['my_plane']['current_speed'] < 100:
-            log_event(flight.id, "landing", "pilot")
-            set_phase(flight.id, "Taxi to Gate", "flight")
+            if flight.on_ground == False and r.json()['my_plane']['on_ground'] == True and r.json()['my_plane']['current_speed'] < 100:
+                log_event(flight.id, "landing", "pilot")
+                set_phase(flight.id, "Taxi to Gate", "flight")
 
-    # Update plane details
-    flight.current_altitude = r.json()['my_plane']['current_altitude']
-    flight.current_speed = r.json()['my_plane']['current_speed']
-    flight.on_ground = r.json()['my_plane']['on_ground']
-    flight.seatbelt_sign = r.json()['my_plane']['seatbelt_sign']
-    flight.no_smoking_sign = r.json()['my_plane']['no_smoking_sign']
-    flight.door_status = r.json()['my_plane']['door_status']
-    flight.parking_brake = r.json()['my_plane']['parking_brake']
-    flight.gear_handle_position = r.json()['my_plane']['gear_handle_position']
-    flight.number_of_updates_received = flight.number_of_updates_received + 1
+        # Update plane details
+        flight.current_altitude = r.json()['my_plane']['current_altitude']
+        flight.current_speed = r.json()['my_plane']['current_speed']
+        flight.on_ground = r.json()['my_plane']['on_ground']
+        flight.seatbelt_sign = r.json()['my_plane']['seatbelt_sign']
+        flight.no_smoking_sign = r.json()['my_plane']['no_smoking_sign']
+        flight.door_status = r.json()['my_plane']['door_status']
+        flight.parking_brake = r.json()['my_plane']['parking_brake']
+        flight.gear_handle_position = r.json()['my_plane']['gear_handle_position']
+        flight.number_of_updates_received = flight.number_of_updates_received + 1
 
-    new_event_to_report = None
-    if flight.new_event != None:
-        new_event_to_report = flight.new_event
-        flight.new_event = None
+        new_event_to_report = None
+        if flight.new_event != None:
+            new_event_to_report = flight.new_event
+            flight.new_event = None
 
-    db.session.commit()
+        db.session.commit()
+    else:
+        print ("my_plane not found in JSON")
 
     # Perform application logic
 
