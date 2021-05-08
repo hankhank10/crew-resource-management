@@ -33,5 +33,55 @@
 	"name": "Airbus",
 	"logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Airbus_Logo_2017.svg/2880px-Airbus_Logo_2017.svg.png",
 	"type": "manufacturer"
+  },
+  {
+	"name": "Lufthansa",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Lufthansa_Logo_2018.svg/600px-Lufthansa_Logo_2018.svg.png",
+	"type:": "operator"
+  },
+  {
+	  "name": "Delta Airlines",
+	  "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Delta_logo.svg/540px-Delta_logo.svg.png",
+	  "type": "operator"
+  },
+  {
+	  "name": "United Airlines",
+	  "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/United_Airlines_Logo.svg/600px-United_Airlines_Logo.svg.png",
+	  "type": "operator"
+  },
+  {
+	  "name": "Air France",
+	  "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Air_France_Logo.svg/600px-Air_France_Logo.svg.png",
+	  "type": "operator"
+  },
+  {
+	  "name": "KLM",
+	  "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/KLM_logo.svg/200px-KLM_logo.svg.png",
+	  "type": "operator"
+  },
+  {
+	  "name": "Iberia",
+	  "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Logotipo_de_Iberia.svg/500px-Logotipo_de_Iberia.svg.png",
+	  "type": "operator"
+  },
+  {
+	  "name": "Southwest",
+	  "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Southwest_Airlines_logo_2014.svg/500px-Southwest_Airlines_logo_2014.svg.png",
+	  "type": "operator"
+  },
+  {
+	"name": "Southwest Airlines",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Southwest_Airlines_logo_2014.svg/500px-Southwest_Airlines_logo_2014.svg.png",
+	"type": "operator"
+  },
+  {
+	"name": "Cathay Pacific",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Cathay_Pacific_logo.svg/600px-Cathay_Pacific_logo.svg.png",
+	"type": "operator"
+  },
+  {
+	  "name": "Virgin Atlantic",
+	  "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Virgin_Atlantic_logo.svg/600px-Virgin_Atlantic_logo.svg.png",
+	  "type": "operator"
   }
 ]

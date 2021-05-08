@@ -11,7 +11,7 @@ def load_logos_from_json():
 
 def lookup_logo(lookup_name, look_for):
 
-    #load_logos_from_json()
+    load_logos_from_json()
     relevant_list = logo_list
 
     for logo in relevant_list:
