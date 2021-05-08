@@ -51,6 +51,6 @@ def create_beta_code():
             call_to_action_url = website_url + "/user/register-with-code/" + secret_key
         )
 
-        flash ("Signup code sent", "success")
+        flash("Signup code sent to " + request.form['email'], "success")
     
     return render_template('admin/create_beta_code.html')
