@@ -102,7 +102,7 @@ def register(beta_code = ""):
     db.session.add(new_user)
     db.session.commit()
 
-    flash("Account created - please visit your email to verify your account", "success")
+    flash("Account created - you will shortly receive a link via email to verify your account. Once this is completed you may log in.", "success")
     return redirect(url_for('auth.login'))
 
 
@@ -114,7 +114,7 @@ def verify(unique_setup_key):
     existing_user.unique_setup_key = None
     db.session.commit()
 
-    flash ("Thank you for verifying your email address", "success")
+    flash ("Thank you for verifying your email address - please enter your login details below", "success")
     return redirect(url_for('auth.login'))
 
 
