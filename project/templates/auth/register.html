@@ -59,9 +59,9 @@
 
 					<div class="wrap-input100 validate-input" data-validate = "Beta signup code required">
 						{% if beta_code == "" %}
-						<input class="input100" type="beta_code" name="beta_code" value="{{ beta_code}}" required>
+						<input class="input100" type="beta_code" name="beta_code" required>
 						{% else %}
-						<input class="input100 has-val" type="beta_code" name="beta_code" required>
+						<input class="input100 has-val" type="beta_code" name="beta_code" value="{{ beta_code}}" required>
 						{% endif %}
 						<span class="focus-input100"></span>
 						<span class="label-input100">Beta signup code</span>
