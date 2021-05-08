@@ -83,5 +83,10 @@
 	  "name": "Virgin Atlantic",
 	  "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Virgin_Atlantic_logo.svg/600px-Virgin_Atlantic_logo.svg.png",
 	  "type": "operator"
+  },
+  {
+	  "name": "Bombardier",
+	  "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Bombardier.svg/440px-Bombardier.svg.png",
+	  "type": "manufacturer"
   }
 ]
