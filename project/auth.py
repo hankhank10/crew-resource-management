@@ -51,7 +51,7 @@ def login():
 
 @auth.route('/user/register', methods=['GET', 'POST'])
 @auth.route('/user/register-with-code/<beta_code>', methods=['GET', 'POST'])
-def register(beta_code = None):
+def register(beta_code = ""):
 
     if request.method == "GET":
         return render_template('auth/register.html', beta_code = beta_code)
