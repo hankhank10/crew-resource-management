@@ -295,6 +295,8 @@ def intro_message_content(first_time = True):
     message_content = message_content + "<br>'Seats for takeoff'"
     message_content = message_content + "<br>'Start drinks service'"
     message_content = message_content + "<br>'Start meal service'"
-    message_content = message_content + "<br><br>We look forward to flying with you!"
+
+    if first_time:
+        message_content = message_content + "<br><br>We look forward to flying with you!"
 
     return message_content
