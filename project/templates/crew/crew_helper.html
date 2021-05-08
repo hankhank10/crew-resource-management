@@ -52,7 +52,7 @@
                         {% for row in current_crew %}
 
                         <tr>
-                            <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/steward_{{row.gender}}.png" alt="activity-user"></td>
+                            <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/steward_{{ row.gender|lower }}.png" alt="activity-user"></td>
                             <td>
                                 <h6 class="mb-1">{{row.full_name}}</h6>
                                 <p class="m-0"><span class="text-c-green">Active</span></p>
