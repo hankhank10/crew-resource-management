@@ -19,7 +19,7 @@ def compose_message(messages, call_to_action_text = None, call_to_action_url = N
 
 def send_message(to_address, subject, body):
     envelope = Envelope(
-        from_addr=('admin@crewmanager.live', 'Crew Manager'),
+        from_addr=('admin@crewmanager.live', 'Crew Manager for MSFS 2020'),
         to_addr=(to_address, to_address),
         subject=subject,
         html_body=body

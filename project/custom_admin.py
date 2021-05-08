@@ -10,6 +10,7 @@ from .models import User, BetaSignupCode
 from sqlalchemy import desc
 from datetime import datetime
 from project import inflight, email, auth
+import coolname
 
 
 custom_admin = Blueprint('custom_admin', __name__)
@@ -24,7 +25,7 @@ def create_beta_code():
 
     if request.method == "POST":
 
-        secret_key = secrets.token_hex(2) + "-" + secrets.token_hex(2) + "-" + secrets.token_hex(2)
+        secret_key = coolname.generate_slug(3)
         
         beta_code = BetaSignupCode(
             secret_key = secret_key,
