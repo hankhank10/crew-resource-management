@@ -12,10 +12,10 @@ from datetime import datetime
 from project import inflight, email, auth
 
 
-admin = Blueprint('admin', __name__)
+custom_admin = Blueprint('custom_admin', __name__)
 
 @login_required
-@admin.route('/admin/create_beta_code', methods=['GET', 'POST'])
+@custom_admin.route('/admin/create_beta_code', methods=['GET', 'POST'])
 def create_beta_code():
 
     if not current_user.is_superuser:

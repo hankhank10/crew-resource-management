@@ -1,7 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 from flask_migrate import Migrate
+
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from sqlalchemy.sql.expression import false
 
 
 # init SQLAlchemy so we can use it later in our models
@@ -21,6 +25,8 @@ login_manager.init_app(app)
 # Set the main URL
 website_url = "https://sopwith.crewmanager.live"
 
+
+
 # db init
 from .models import User
 
@@ -39,8 +45,8 @@ app.register_blueprint(main_blueprint)
 from .auth import auth as auth_blueprint
 app.register_blueprint(auth_blueprint)
 
-from .admin import admin as admin_blueprint
-app.register_blueprint(admin_blueprint)
+from .custom_admin import custom_admin as custom_admin_blueprint
+app.register_blueprint(custom_admin_blueprint)
 
 from .flight_manager import flight_manager as flight_manager_blueprint
 app.register_blueprint(flight_manager_blueprint)
@@ -67,7 +73,19 @@ from .cron import cron as cron_blueprint
 app.register_blueprint(cron_blueprint)
 
 
+# Flask admin
 
+# Create customized model view class
+class MyModelView(ModelView):
+    def is_accessible(self):
+        if current_user.is_authenticated:
+            return current_user.is_superuser
+        return false
+
+
+admin = Admin(app, name='crm', template_mode='bootstrap3')
+
+admin.add_view(MyModelView(User, db.session))
 
 
 

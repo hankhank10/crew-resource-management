@@ -43,6 +43,9 @@ def login():
 
         login_user(user, remember=True)
 
+        current_user.last_login = datetime.utcnow()
+        db.session.commit()
+
         return redirect(url_for('main.dashboard'))
 
 
