@@ -21,7 +21,7 @@ function run_tour() {
       element: document.querySelector('#tour_crew_instructions'),
       title: "Command your crew",
       position: 'right',
-      intro: "You give your crew instructions - such as to start boarding, begin meal service, etc - through the crew communicator."
+      intro: "You give your crew instructions - such as to start boarding, begin meal service, etc - through the crew messenger."
     },
     {
       element: document.querySelector('#door-status-card'),
@@ -30,7 +30,7 @@ function run_tour() {
     },
     {
       element: document.querySelector('#card_sign_status'),
-      title: "Some turbulence coming up...",
+      title: "Some turbulence ahead...",
       intro: "Passengers will (usually) follow your instructions around seatbelts and no smoking.<br><br>You set these in the simulator using the relevant control."
     },
     {
@@ -53,13 +53,13 @@ function run_tour() {
     },
     {
       element: document.querySelector('#tour_seatmap_header'),
-      title: "Your passengers",
+      title: "Your cabin",
       position: 'bottom',
       intro: "This is a graphical representation of your passengers on your plane.<br><br>You can get more information on a passenger by clicking their seat number."
     },
     {
       element: document.querySelector('#tour_seatmap_filter'),
-      title: "Filter the passengers by status",
+      title: "Filter by status",
       position: 'left',
       intro: "You can choose how the seatmap is colored. The default is by class, but you can also show passengers by whether they are seated/standing or their hunger, thirst or bathroom need."
     },
