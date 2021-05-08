@@ -474,3 +474,4 @@ class BetaSignupCode(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     secret_key = db.Column(db.String(50))
     used = db.Column(db.Boolean)
+    email_sent_to = db.Column(db.String(100))

@@ -29,7 +29,8 @@ def create_beta_code():
         
         beta_code = BetaSignupCode(
             secret_key = secret_key,
-            used = False
+            used = False,
+            email_sent_to = request.form['email']
         )
 
         db.session.add(beta_code)
