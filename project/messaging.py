@@ -252,11 +252,13 @@ def send_message_from_pilot():
     })
 
 
-def create_new_message_from_crew(message_content, read = False):
+def create_new_message_from_crew(message_content, read = False, flight_id = None):
+
+    if flight_id == None: flight_id = current_user.active_flight_id
 
     # Create the response record
     new_message = FlightMessage(
-        flight=current_user.active_flight_id,
+        flight=flight_id,
         message_time=datetime.utcnow(),
         message_type="crew",
         message_from="crew",
@@ -272,3 +274,15 @@ def create_new_message_from_crew(message_content, read = False):
     db.session.commit()
 
     return
+
+
+def send_intro_message(flight_id):
+
+    message_content_1 = "Hello Captain, this is your cabin crew speaking. We are here to assist you during your duties and we will follow your instructions. You can type them in the box below or press the microphone to use voice recognition. Here are a few examples of things you can ask us:"
+
+    create_new_message_from_crew(message_content_1, False, flight_id)
+    create_new_message_from_crew("'Start boarding'", True, flight_id)
+    create_new_message_from_crew("'Seats for takeoff'", True, flight_id)
+    create_new_message_from_crew("'Start drinks service'", True, flight_id)
+    create_new_message_from_crew("'Start meal service'", True, flight_id)
+    create_new_message_from_crew("We look forward to flying with you!")
