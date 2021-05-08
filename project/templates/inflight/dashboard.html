@@ -12,18 +12,30 @@
 		}
 	</style>
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.4.0/introjs.css" integrity="sha512-i+WzzATeaDcwcfi5CfLn63qBxrKqiQvDLC+IChU1zVlaPguPgJlddOR07nU28XOoIOno9WPmJ+3ccUInpmHxBg==" crossorigin="anonymous" />
+
 {% endblock stylesheets %}
 
 {% block content %}
 
 <div class="page-header-title" hidden>
-	<h5 class="m-b-10">Dashboard</h5>
+	<h5 class="m-b-10" >Dashboard</h5>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="alert alert-light" role="alert">
+			<span class="align-middle">
+				<h6><img src="/static/assets/images/confused.png"> <img src="/static/assets/images/confused2.png"> &nbsp &nbsp Confused? Lost? New round here? <a href="#" onclick="run_tour()">Click here to run the tour</a></h6>
+			</span>
+		</div>
+	</div>
 </div>
 
 <!-- [ Main Content ] start -->
 <div class="row">
 	<div class="col-xl-6 col-md-6 col-sm-12">
-		<div class="card">
+		<div class="card" id="card_current_location">
 			<div class="card-header">
 				<h5>Current location</h5>
 			</div>
@@ -62,7 +74,7 @@
 			<div class="col-md-6">
 				<div id="flight-phase-status-card" class="card table-card widget-primary-card bg-c-blue">
 					<div class="row-table">
-						<div class="col-sm-4 card-body-big">
+						<div class="col-sm-4 card-body-big" id="card_flight_phase">
 							<a href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<img id="flight-phase-icon" height="50px" style="filter: invert(100%);" src="/static/assets/images/phase-icons/Question.png">
 							</a>
@@ -131,7 +143,9 @@
 					</div>
 				</div>
 			</div>
+		</div>
 
+		<div class="row" id="card_sign_status">
 			<div class="col-md-6">
 				<div id="seatbelt-status-card" class="card table-card widget-primary-card bg-c-yellow">
 					<div class="row-table">
@@ -159,9 +173,11 @@
 					</div>
 				</div>
 			</div>
+		</div>
 
+		<div class="row">
 			<div class="col-md-12">
-				<div class="card">
+				<div class="card" id="card_passenger_boarding_status">
 					<div class="card-body">
 
 						<div class="row mt-3">
@@ -223,7 +239,7 @@
     <div class="row">
         <!-- [ sample-page ] start -->
         <div class="col-md-8 col-sm-12">
-		<div class="card">
+		<div class="card" id="card_altitude">
 			<div class="card-header">
 				<h5>Altitude chart</h5>
 				<div class="card-header-right">
@@ -257,8 +273,8 @@
 <div class="row">
 	<div class="col-12">
 
-		<div class="card">
-			<div class="card-header">
+		<div class="card" id="card_passenger_seatmap">
+			<div class="card-header" id="tour_seatmap_header">
 					<h5>Current passenger seatmap</h5> <span ><a style="font-size: 1em" class="help" data-toggle="popover" data-content="Click on seat number to view passenger details"><i style="font-size: 1rem" class="feather icon-help-circle f-16"></i></a></span>
 					<div class="card-header-right">
 
@@ -495,6 +511,8 @@
 
 <script src="/static/customjs/auto-update.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.4.0/intro.js" integrity="sha512-EgG+bjKjjGlnlm3F5cn0RFuMFHkptVfD9yHLMyv7LE5iEKsAP+RMuw9G6vi2s7v5q12BFupCyIO2yWD5/NMI2w==" crossorigin="anonymous"></script>
+<script src="/static/customjs/dashboard_tour.js"></script>
 
 
 {% endblock javascripts %}
