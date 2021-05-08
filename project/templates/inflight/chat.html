@@ -88,7 +88,7 @@
                                                 <a class="media-left photo-table" href="#!"><img class="img-fluid media-object m-t-5" src="/static/assets/images/user/pilot.png" alt="Generic placeholder image"></a>
                                                 <div class="media-body chat-menu-content">
                                                     <div class="">
-                                                        <p class="chat-cont">{{message.message_content}}</p>
+                                                        <p class="chat-cont">{{ message.message_content|safe }}</p>
                                                     </div>
                                                     <p class="chat-time"><span data-livestamp="{{message.seconds_since_epoch}}">{{message.seconds_since_epoch}}</span></p>
                                                 </div>
@@ -99,7 +99,7 @@
                                             <div class="media chat-messages">
                                                 <div class="media-body chat-menu-reply">
                                                     <div class="">
-                                                        <p class="chat-cont">{{message.message_content}}</p>
+                                                        <p class="chat-cont">{{ message.message_content|safe }}</p>
                                                     </div>
                                                     <p class="chat-time"><span data-livestamp="{{message.seconds_since_epoch}}">{{message.seconds_since_epoch}}</span></p>
                                                 </div>

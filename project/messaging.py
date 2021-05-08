@@ -278,11 +278,10 @@ def create_new_message_from_crew(message_content, read = False, flight_id = None
 
 def send_intro_message(flight_id):
 
-    message_content_1 = "Hello Captain, this is your cabin crew speaking. We are here to assist you during your duties and we will follow your instructions. You can type them in the box below or press the microphone to use voice recognition. Here are a few examples of things you can ask us:"
+    message_content = "Hello Captain, this is your cabin crew speaking. We are here to assist you during your duties and we will follow your instructions. You can type them in the box below or press the microphone to use voice recognition. Here are a few examples of things you can ask us:"
+    message_content = message_content + "<br>'Start boarding'"
+    message_content = message_content + "<br>'Seats for takeoff'"
 
-    create_new_message_from_crew(message_content_1, False, flight_id)
-    create_new_message_from_crew("'Start boarding'", True, flight_id)
-    create_new_message_from_crew("'Seats for takeoff'", True, flight_id)
-    create_new_message_from_crew("'Start drinks service'", True, flight_id)
-    create_new_message_from_crew("'Start meal service'", True, flight_id)
-    create_new_message_from_crew("We look forward to flying with you!")
+
+    create_new_message_from_crew(message_content, False, flight_id)
+
