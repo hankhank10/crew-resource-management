@@ -28,7 +28,7 @@ website_url = "https://sopwith.crewmanager.live"
 
 
 # db init
-from .models import User, Flight, EquipmentType, BetaSignupCode
+from .models import User, Flight, EquipmentType, BetaSignupCode, FlightMessage
 
 db.init_app(app)
 migrate = Migrate(app, db)
@@ -89,6 +89,8 @@ admin.add_view(MyModelView(User, db.session))
 admin.add_view(MyModelView(Flight, db.session))
 admin.add_view(MyModelView(EquipmentType, db.session))
 admin.add_view(MyModelView(BetaSignupCode, db.session))
+admin.add_view(MyModelView(FlightMessage, db.session))
+
 
 
 

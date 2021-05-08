@@ -75,6 +75,10 @@ def send_message_from_pilot():
 
     if message_to == "crew":
 
+        # Thanks
+        if "thanks" in message_content: message_interpretation = "thanks"
+        if "thank you" in message_content: message_interpretation = "thanks"
+
         # Coffee to flight deck
         if "coffee" in message_content: message_interpretation = "pilot_wants_coffee"
         if "tea" in message_content: message_interpretation = "pilot_wants_coffee"
@@ -93,6 +97,9 @@ def send_message_from_pilot():
         if "letting passengers on" in message_content: message_interpretation = "begin_boarding"
 
         # Seats for takeoff
+        if "ready for taxi" in message_content: message_interpretation = "ready_for_takeoff"
+        if "seats for taxi" in message_content: message_interpretation = "ready_for_takeoff"
+        if "prepare for taxi" in message_content: message_interpretation = "ready_for_takeoff"
         if "seats for takeoff" in message_content: message_interpretation = "ready_for_takeoff"
         if "ready for takeoff" in message_content: message_interpretation = "ready_for_takeoff"
         if "prepare for takeoff" in message_content: message_interpretation = "ready_for_takeoff"
@@ -206,6 +213,17 @@ def send_message_from_pilot():
         if message_interpretation == "start_meal_service":
             crew.assign_crew_task(current_flight.id, "Meal service")
             message_response = random_will_do + "starting meal service now"
+
+        if message_interpretation == "profanity":
+            message_response = "Please don't speak like that"
+
+        if message_interpretation == "thanks":
+            message_reponse = random.choices([
+                "No worries!",
+                "You bet.",
+                "Sure thing Captain!",
+                "Any time..."
+            ])
 
         # Store and send the message response
         if message_response is not None:
