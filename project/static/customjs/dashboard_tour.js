@@ -41,7 +41,7 @@ function run_tour() {
     },
     {
       element: document.querySelector('#card_altitude'),
-      title: "Altitude",
+      title: "Altitude 📈",
       position: 'right',
       intro: "An overview of your flight's altitude over time - it will also be annotated with key events that have occured."
     },
@@ -53,7 +53,7 @@ function run_tour() {
     },
     {
       element: document.querySelector('#tour_seatmap_header'),
-      title: "Your cabin",
+      title: "Your cabin 💺",
       position: 'bottom',
       intro: "This is a graphical representation of your passengers on your plane.<br><br>You can get more information on a passenger by clicking their seat number."
     },
@@ -62,6 +62,12 @@ function run_tour() {
       title: "Filter by status",
       position: 'left',
       intro: "You can choose how the seatmap is colored. The default is by class, but you can also show passengers by whether they are seated/standing or their hunger, thirst or bathroom need."
+    },
+    {
+      element: document.querySelector('#tour_confused'),
+      title: "✅ Ready to fly!",
+      position: 'bottom',
+      intro: "You are now ready to start your flight. If you are still stuck or confused then you can get support on <a href='https://discord.gg/NqPEKnWCF8'>our discord</a>."
     },
 
   ]
