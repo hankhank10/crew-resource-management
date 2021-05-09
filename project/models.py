@@ -165,9 +165,12 @@ class FlightEvent(db.Model):
     def event_description(self):
 
         if self.event_type is None: return "error"
+
         if self.event_type == "location_update": return "Location update"
 
         if self.event_name is None: return None
+
+        if self.event_type == "flight_started": return "Flight started"
 
         if self.event_name == "start_boarding_passengers": return "Passenger boarding started"
         if self.event_name == "passenger_boarding_complete": return "Passenger boarding complete"

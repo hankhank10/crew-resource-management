@@ -82,7 +82,7 @@
 					-->
 
 					<li data-username="" class="nav-item">
-						<a href="{{ url_for('flight_manager.end_flight') }}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-hand-paper"></i></span><span class="pcoded-mtext">End Flight </span></a>
+						<a href="#" onclick="end_flight_dialog()" class="nav-link"><span class="pcoded-micon"><span style="color: red"><i class="fas fa-hand-paper"></i></span></span><span class="pcoded-mtext">End Flight </span></a>
 					</li>
 
 					{% endif %}
@@ -144,3 +144,22 @@
 	document.getElementById('buy_me_a_beer').innerHTML = greetings[greeting_id];
 </script>
 -->
+
+<script>
+	
+	function end_flight_dialog() {
+
+		Swal.fire({
+			title: 'Are you sure you want to end your flight?',
+			showDenyButton: true,
+			showCancelButton: false,
+			confirmButtonText: `No - return to flight`,
+			denyButtonText: `Yes - end now`,
+			}).then((result) => {
+			if (result.isDenied) {
+				window.location.href = '/inflight/end'
+			}
+		})
+	}
+
+</script>
