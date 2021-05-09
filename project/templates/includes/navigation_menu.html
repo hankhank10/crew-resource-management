@@ -75,8 +75,14 @@
 						</a>
 					</li>
 
+					<!--
 					<li data-username="" class="nav-item">
 						<a href="{{ url_for('inflight.datadump') }}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-database"></i></span><span class="pcoded-mtext">Debugging <span class="pcoded-badge label label-success">Live</span></span></a>
+					</li>
+					-->
+
+					<li data-username="" class="nav-item">
+						<a href="{{ url_for('flight_manager.end_flight') }}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-hand-paper"></i></span><span class="pcoded-mtext">End Flight </span></a>
 					</li>
 
 					{% endif %}
