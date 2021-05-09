@@ -3,7 +3,7 @@
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.4.0/introjs.css" integrity="sha512-i+WzzATeaDcwcfi5CfLn63qBxrKqiQvDLC+IChU1zVlaPguPgJlddOR07nU28XOoIOno9WPmJ+3ccUInpmHxBg==" crossorigin="anonymous" />
 
 {% endblock stylesheets %}
 
@@ -11,7 +11,7 @@
                 
 
 <!-- [ breadcrumb ] start -->
-<div class="page-header">
+<div class="page-header" hidden>
     <div class="page-block">
         <div class="row align-items-center">
             <div class="col-md-12">
@@ -28,6 +28,16 @@
     </div>
 </div>
 <!-- [ breadcrumb ] end -->
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="alert alert-light" role="alert" id="tour_confused">
+			<span class="align-middle">
+				<h6><img src="/static/assets/images/confused.png"> <img src="/static/assets/images/confused2.png"> &nbsp &nbsp Confused? Lost? New round here? <a href="#" onclick="run_tour()">Click here to run the tour</a></h6>
+			</span>
+		</div>
+	</div>
+</div>
 
 <!-- [ Main Content ] start -->
 <div class="row">
@@ -47,14 +57,14 @@
                                 <div class="h-list-body">
                                     <div class="msg-user-list scroll-div overflow-auto"">
                                         <div class="main-friend-list">
-                                            <div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe">
+                                            <div class="media userlist-box" data-id="1" data-status="online" data-username="Josephin Doe" id="tour_cabin_announcement">
                                                 <a class="media-left" href="{{ url_for('messaging.chat', message_type='cabin') }}"><img class="img-fluid media-object" src="/static/assets/images/user/passenger.png" alt="Cabin">
                                                 </a>
                                                 <div class="media-body">
                                                     <h6 class="chat-header">Cabin announcement<small class="d-block text-c-green">available </small></h6>
                                                 </div>
                                             </div>
-                                            <div class="media userlist-box active" data-id="2" data-status="online" data-username="Lary Doe">
+                                            <div class="media userlist-box active" data-id="2" data-status="online" data-username="Lary Doe" id="tour_crew_messenger">
                                                 <a class="media-left" href="#!"><img class="img-fluid media-object" src="/static/assets/images/user/crew.png" alt="Crew">
 
                                                     {% if current_user.unread_flight_messages > 0 %}
@@ -76,7 +86,7 @@
                     <div class="col-lg-9 col-md-12">
                         <div class="ch-block">
                             <div class="h-list-body">
-                                <div class="msg-user-chat scroll-div overflow-auto" style="display:flex; flex-direction:column-reverse;">
+                                <div class="msg-user-chat scroll-div overflow-auto" style="display:flex; flex-direction:column-reverse;" id="tour_messages">
 
                                     <div class="main-friend-chat">
 
@@ -169,6 +179,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/livestamp/1.1.2/livestamp.min.js" integrity="sha512-C3RIeaJCWeK5MLPSSrVssDBvSwamZW7Ugygc4r21guVqkeroy9wRBDaugQssAQ+m3HZsMWVvEigcNMr7juGXKA==" crossorigin="anonymous"></script>
 
-<script src="/static/customjs/auto-update.js"></script>
+<!-- Tour -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/3.4.0/intro.js" integrity="sha512-EgG+bjKjjGlnlm3F5cn0RFuMFHkptVfD9yHLMyv7LE5iEKsAP+RMuw9G6vi2s7v5q12BFupCyIO2yWD5/NMI2w==" crossorigin="anonymous"></script>
+<script src="/static/customjs/chat_tour.js"></script>
 
 {% endblock javascripts %}

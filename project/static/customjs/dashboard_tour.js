@@ -67,7 +67,7 @@ function run_tour() {
       element: document.querySelector('#tour_confused'),
       title: "✅ Ready to fly!",
       position: 'bottom',
-      intro: "You are now ready to start your flight. If you are still stuck or confused then you can get support on <a href='https://discord.gg/NqPEKnWCF8'>our discord</a>."
+      intro: "You are now ready to start your flight. If you are still stuck or confused then you can get support on <a href='https://discord.gg/NqPEKnWCF8' target='_blank'>our discord</a>."
     },
 
   ]
