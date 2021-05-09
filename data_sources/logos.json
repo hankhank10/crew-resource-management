@@ -88,5 +88,10 @@
 	  "name": "Bombardier",
 	  "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Bombardier.svg/440px-Bombardier.svg.png",
 	  "type": "manufacturer"
+  },
+  {
+	  "name": "Beechcraft",
+	  "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Beechcraft_logo.svg/440px-Beechcraft_logo.svg.png",
+	  "type": "manufacturer"
   }
 ]

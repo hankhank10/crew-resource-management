@@ -286,6 +286,10 @@ class EquipmentType(db.Model):
     def manufacturer_logo_url(self):
         return equipment_logos.lookup_logo(self.manufacturer, "manufacturer")
 
+    @property
+    def total_seats(self):
+        return self.first_class_seats + self.business_class_seats + self.premium_class_seats + self.economy_class_seats
+
 
 class Seat(db.Model):
     id = db.Column(db.Integer, primary_key=True)

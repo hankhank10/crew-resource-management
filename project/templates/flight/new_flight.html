@@ -85,7 +85,7 @@
                                     <select id="equipment_selector" name="equipment_selector" class="custom-select">
                                         <option selected>Select equipment type ...</option>
                                         {% for item in equipment_list|sort(attribute='full_name') %}
-                                            <option value="{{item.full_name}}">{{item.full_name}}</option>
+                                            <option value="{{item.full_name}}">{{item.full_name}} ({{ item.total_seats }} seats)</option>
                                         {% endfor %}
                                     </select>
                                     <div class="input-group-append">
