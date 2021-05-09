@@ -147,7 +147,7 @@ def change_password():
             db.session.commit()
 
             flash("Password updated successfully", "success")
-            return redirect(url_for('inflight.dashboard'))
+            return redirect(url_for('main.dashboard'))
 
         else:
             return render_template('/auth/change_password.html', error_message="Existing password incorrect")
