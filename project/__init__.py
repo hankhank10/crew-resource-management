@@ -4,8 +4,8 @@ from flask_login import LoginManager, current_user
 from flask_migrate import Migrate
 
 from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
-from sqlalchemy.sql.expression import false
+from flask_admin.contrib import sqla
+from sqlalchemy.sql.expression import false, true
 
 
 # init SQLAlchemy so we can use it later in our models
@@ -76,11 +76,12 @@ app.register_blueprint(cron_blueprint)
 # Flask admin
 
 # Create customized model view class
-class MyModelView(ModelView):
+class MyModelView(sqla.ModelView):
     def is_accessible(self):
+
         if current_user.is_authenticated:
             return current_user.is_superuser
-        return false
+        return False
 
 
 admin = Admin(app, name='Crew Manager Admin', template_mode='bootstrap3')
