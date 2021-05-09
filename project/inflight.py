@@ -4,7 +4,7 @@ import secrets
 from datetime import datetime, timedelta
 from . import db
 from . import app
-from project import equipment, messaging, crew
+from project import equipment, messaging, crew, main
 from .models import Flight, FlightEvent, FlightPhase, FlightMessage, Seat
 import requests
 import random
@@ -15,6 +15,11 @@ inflight = Blueprint('inflight', __name__)
 @inflight.route('/inflight/datadump')
 @login_required
 def datadump():
+    
+    if current_user.active_flight_id == None:
+        flash ("Cannot load that page as no active flight", "danger")
+        return redirect(url_for('main.dashboard'))
+
     flight = Flight.query.filter_by(id=current_user.active_flight_id).first()
 
     return render_template('inflight/datadump.html', flight=flight)
@@ -23,6 +28,11 @@ def datadump():
 @inflight.route('/inflight/dashboard')
 @login_required
 def dashboard():
+
+    if current_user.active_flight_id == None:
+        flash ("Cannot load that page as no active flight", "danger")
+        return redirect(url_for('main.dashboard'))
+
     flight = Flight.query.filter_by(id=current_user.active_flight_id).first()
     # flight_phase = FlightPhase.query.filter_by(flight.phase_flight).first()
 
@@ -268,6 +278,10 @@ def log_location(flight_id, current_latitude, current_longitude, current_altitud
 @login_required
 def flight_events(event_type = None):
 
+    if current_user.active_flight_id == None:
+        flash ("Cannot load that page as no active flight", "danger")
+        return redirect(url_for('main.dashboard'))
+    
     if event_type is None:
         events = FlightEvent.query.filter_by(flight=current_user.active_flight_id).all()
     else:
@@ -299,6 +313,11 @@ def flight_events(event_type = None):
 
 @inflight.route('/inflight/chart')
 def chart():
+    
+    if current_user.active_flight_id == None:
+        flash ("Cannot load that page as no active flight", "danger")
+        return redirect(url_for('main.dashboard'))
+
     return render_template('/inflight/chart.html')
 
 
@@ -333,6 +352,10 @@ def chart_altitude():
 @inflight.route('/api/chart/altitude')
 def api_chart_altitude():
 
+    if current_user.active_flight_id == None:
+        flash ("Cannot load that page as no active flight", "danger")
+        return redirect(url_for('main.dashboard'))
+
     chart_dictionary = chart_altitude()
 
     return jsonify ({
@@ -346,6 +369,9 @@ def api_chart_altitude():
 @login_required
 def helper_events():
 
+    if current_user.active_flight_id == None:
+        return "Cannot load the page as no active flight", 404
+
     events = FlightEvent.query.filter_by(flight=current_user.active_flight_id, event_type="other").all()
 
     return render_template('/inflight/events_helper.html', events = events)
@@ -354,6 +380,9 @@ def helper_events():
 @inflight.route('/api/inflight/set_flight_phase')
 @login_required
 def api_set_phase():
+
+    if current_user.active_flight_id == None:
+        return "Cannot load the page as no active flight", 404
 
     flight_id = current_user.active_flight_id
     phase_setting = request.args.get('phase_to_set')
