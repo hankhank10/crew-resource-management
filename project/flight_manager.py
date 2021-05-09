@@ -119,6 +119,9 @@ def duplicate(unique_reference):
         seatmap_text=old_flight.seatmap_text,
         number_of_rows=old_flight.number_of_rows,
         number_of_seats_across=old_flight.number_of_seats_across,
+        started=False,
+        completed=False,
+        is_active=False,
         last_event_recorded=datetime.utcnow()
     )
 
@@ -154,6 +157,7 @@ def start_flight(unique_reference, ident):
     flight.source_ident = ident
     flight.last_event_recorded = datetime.utcnow() - timedelta(seconds=120)
     flight.is_active = True
+    flight.started = True
     flight.number_of_updates_received = 0
     flight.current_crew_task = "Resting"
     db.session.commit()

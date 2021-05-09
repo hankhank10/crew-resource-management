@@ -134,12 +134,16 @@ class Flight(db.Model):
 
     @property
     def status(self):
-        if not self.started:
-            return "Not yet flown"
-        else:
+
+        if self.started:
             if self.is_active:
-                return "Active flight"
-            return "Flown"
+                return "Active"
+            else:
+                return "Completed"
+        else:
+            if self.completed:
+                return "Flown"
+            return "Not yet flown"
 
 
 class FlightEvent(db.Model):
