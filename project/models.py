@@ -179,6 +179,9 @@ class FlightEvent(db.Model):
         if self.event_name == "start_boarding_passengers": return "Passenger boarding started"
         if self.event_name == "passenger_boarding_complete": return "Passenger boarding complete"
 
+        if self.event_name == "start_deboarding_passengers": return "Passenger deboarding started"
+        # Need to add something here for completed deboarding
+
         if self.event_name == "no_smoking_sign_turned_off": return "No smoking sign turned off"
         if self.event_name == "no_smoking_sign_turned_on": return "No smoking sign turned on"
         if self.event_name == "seatbelt_sign_turned_on": return "Seatbelt sign turned on"
@@ -366,6 +369,9 @@ class Seat(db.Model):
     time_start_boarding = db.Column(db.DateTime)
     time_seated = db.Column(db.DateTime)
 
+    time_started_deboarding = db.Column(db.DateTime)
+    time_deboarded = db.Column(db.DateTime)
+
     @property
     def status(self):
         waiting_to_board = "Waiting to Board"
@@ -374,9 +380,21 @@ class Seat(db.Model):
         deboarding = "Deboarding"
         deboarded = "Deboarded"
 
+        # Start by checking whether its empty
         if self.seat_type == " " or self.phase == "Empty seat" or self.phase == None:
             return "Empty seat"
 
+        # Check whether the deboarding process has started
+        if self.time_started_deboarding is not None:
+            self.is_seated = False
+
+            if self.time_deboarded < datetime.utcnow():
+                return deboarded
+
+            if self.time_started_deboarding < datetime.utcnow():
+                return deboarding
+
+        # Then work out whether they are boarding or seated
         has_started_boarding = False
         has_sat = False
 

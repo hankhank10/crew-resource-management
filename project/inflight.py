@@ -206,12 +206,6 @@ def api_update_plane_data(unique_reference):
     return jsonify(return_dictionary)
 
 
-#@inflight.route ('/debug/random_event')
-#def random_event():
-#    log_event(current_user.active_flight_id, "test_event", "pilot")
-#    return "OK"
-
-
 def log_event(flight_id, event_name, event_initiated_by, current_latitude = None, current_longitude = None, current_altitude = None):
 
     if current_latitude == None or current_longitude == None or current_altitude == None:

@@ -180,7 +180,7 @@ def api_list(unique_reference):
 
 def board_passengers(flight_id):
 
-    passengers_to_load_per_minute = 60
+    passengers_to_load_per_minute = 120
     seconds_takes_to_board = 60
 
     second_between_each_passengers = 60 / passengers_to_load_per_minute
@@ -196,7 +196,6 @@ def board_passengers(flight_id):
         time_start_boarding = datetime.utcnow() + timedelta(seconds=seconds_from_now_to_start_boarding)
         time_to_be_seated = datetime.utcnow() + timedelta(seconds=seconds_from_now_to_seated)
 
-        print ("Setting passenger " + passenger.seat_number)
         passenger.time_start_boarding = time_start_boarding
         passenger.time_seated = time_to_be_seated
 
@@ -209,6 +208,38 @@ def board_passengers(flight_id):
 
     # Set crew status
     crew.assign_crew_task(flight_id, "Welcoming passengers")
+
+
+def deboard_passengers(flight_id):
+    passengers_to_unload_per_minute = 120
+    seconds_takes_to_deboard = 60
+
+    second_between_each_passengers = 60 / passengers_to_unload_per_minute
+
+    passengers = Seat.query.filter_by(flight=flight_id, occupied=True).all()
+
+    offset = 1
+    for passenger in passengers:
+        seconds_from_now_to_start_deboarding = second_between_each_passengers * offset
+        seconds_from_now_to_be_deboarded = seconds_from_now_to_start_deboarding + seconds_takes_to_deboard
+
+        time_started_deboarding = datetime.utcnow() + timedelta(seconds=seconds_from_now_to_start_deboarding)
+        time_deboarded = datetime.utcnow() + timedelta(seconds=seconds_from_now_to_be_deboarded)
+
+        passenger.time_started_deboarding = time_started_deboarding
+        passenger.time_deboarded = time_deboarded
+
+        offset = offset + 1
+
+    db.session.commit()
+
+    # Log event
+    inflight.log_event(flight_id, "start_deboarding_passengers", "pilot")
+
+    # Set crew status
+    crew.assign_crew_task(flight_id, "Deboarding passengers")
+
+
 
 
 def fill_flight_with_passengers(flight_id):

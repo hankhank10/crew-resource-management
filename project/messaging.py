@@ -122,6 +122,8 @@ def send_message_from_pilot():
         if "start catering" in message_content: message_interpretation = "start_meal_service"
         if "start the catering" in message_content: message_interpretation = "start_meal_service"
 
+        # Deboarding
+        if "start deboarding" in message_content: message_interpretation = "begin_deboarding"
 
         # Profanity
         if "fuck" in message_content: message_interpretation = "profanity"
@@ -219,6 +221,34 @@ def send_message_from_pilot():
                 # Actually start boarding
                 inflight.set_phase(current_flight.id, "Boarding", "cabin")
                 passengers.board_passengers(current_flight.id)
+
+
+        if message_interpretation == "begin_deboarding":
+            # See if we can begin boarding
+            problem_detected = False
+
+            if current_flight.door_status == 0:
+                problem_detected = True
+                message_response = "Doors are still closed captain. You might need to attach the jet bridge first."
+
+            if current_flight.phase_flight_name != "At Gate":
+                problem_detected = True
+                message_response = "You need to set the flight status to 'At Gate' first"
+                if current_flight.phase_cabin_name == "Deboarding":
+                    message_response = "Already on it. They're coming off now."
+
+            if problem_detected == False:
+                message_response = random_will_do
+                message_response = message_response + random.choices([
+                    "letting them off now.",
+                    "deboarding underway."
+                ])[0]
+                message_response = message_response + random_will_report_back
+
+                # Actually start boarding
+                inflight.set_phase(current_flight.id, "Deboarding", "cabin")
+                passengers.deboard_passengers(current_flight.id)
+
 
         if message_interpretation == "start_drinks_service":
             crew.assign_crew_task(current_flight.id, "Drinks service")
