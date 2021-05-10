@@ -123,7 +123,10 @@ def send_message_from_pilot():
         if "start the catering" in message_content: message_interpretation = "start_meal_service"
 
         # Deboarding
-        if "start deboarding" in message_content: message_interpretation = "begin_deboarding"
+        if "deboard" in message_content: message_interpretation = "begin_deboarding"
+        if "unload" in message_content: message_interpretation = "begin_deboarding"
+        if "let passengers off" in message_content: message_interpretation = "begin_deboarding"
+        if "letting passengers off" in message_content: message_interpretation = "begin_deboarding"
 
         # Profanity
         if "fuck" in message_content: message_interpretation = "profanity"
