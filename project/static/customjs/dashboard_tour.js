@@ -26,7 +26,7 @@ function run_tour() {
     {
       element: document.querySelector('#door-status-card'),
       title: "Doors to manual...",
-      intro: "Before you can let passengers on you need to open the aircraft doors.<br><br>You can do this in the simulator by connecting a jet bridge."
+      intro: "Before you can let passengers on you need to open the aircraft doors.<br><br>You can do this in the simulator by connecting a jet bridge which will automatically update this value.<br><br>If your aircraft does not allow opening of the doors from the simulator then you can over-ride this by clicking the icon here to set it manually, in which case the door status will not update automatically for the rest of this flight."
     },
     {
       element: document.querySelector('#card_sign_status'),
