@@ -87,8 +87,6 @@
 								<a id="set_flight_phase_taxi_to_gate" class="dropdown-item set_flight_phase" href="#">Taxi to gate</a>
 								<a id="set_flight_phase_at_gate" class="dropdown-item set_flight_phase" href="#">At Gate</a>
 								<a id="set_flight_phase_shutdown" class="dropdown-item set_flight_phase" href="#">Shutdown</a>
-
-
 							</div>
 						</div>
 						<div class="col-sm-8">
@@ -121,7 +119,13 @@
 				<div id="door-status-card" class="card table-card widget-primary-card bg-c-yellow">
 					<div class="row-table">
 						<div class="col-sm-4 card-body-big">
+							<a href="#" id="dropdownMenuLinkDoor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
 							<i class="fas fa-door-closed"></i>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLinkDoor">
+								<a id="set_door_open" class="dropdown-item set_door_status" href="#">Open</a>
+								<a id="set_door_closed" class="dropdown-item set_door_status" href="#">Closed</a>
+							</div>
 						</div>
 						<div class="col-sm-8">
 							<h4 id="door-status-label">?</h4>
@@ -330,6 +334,21 @@
 			},
 			contentType: 'application/json; charset=utf-8'
 		});
+
+	});
+
+	$('.set_door_status').click( function(event) {
+
+		let selected_status = $(event.target).text()
+
+		$.getJSON({
+			url: '/api/inflight/set_variable_status',
+			type: 'GET',
+			data: {
+				variable_type: 'door',
+				variable_value: selected_status
+			}
+		})
 
 	});
 
