@@ -180,7 +180,7 @@ class FlightEvent(db.Model):
         if self.event_name == "passenger_boarding_complete": return "Passenger boarding complete"
 
         if self.event_name == "start_deboarding_passengers": return "Passenger deboarding started"
-        # Need to add something here for completed deboarding
+        if self.event_name == "passenger_deboarding_complete": return "Passenger deboarding complete"
 
         if self.event_name == "no_smoking_sign_turned_off": return "No smoking sign turned off"
         if self.event_name == "no_smoking_sign_turned_on": return "No smoking sign turned on"
