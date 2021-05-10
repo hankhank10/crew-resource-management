@@ -181,7 +181,7 @@ def update_plane_data(unique_reference):
     if flight.phase_cabin_name == "Deboarding":
         if deboarding + on_board == 0:
             # Deboarding now complete
-            set_phase(flight.id, "Deboarding complete", phase_category="cabin")
+            set_phase(flight.id, "Deboarded", phase_category="cabin")
             messaging.create_new_message_from_crew("Deboarding complete Captain")
             log_event(flight.id, "passenger_deboarding_complete", "crew")
             crew.clear_crew_task(flight.id)
