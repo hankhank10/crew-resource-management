@@ -197,7 +197,11 @@ def end_flight():
         flash("No active flight", "danger")
         return redirect(url_for('main.dashboard'))
 
-    current_flight = Flight.query.filter_by(id = current_user.active_flight_id).first_or_404()
+    current_flight = Flight.query.filter_by(id = current_user.active_flight_id).first()
+
+    if not current_flight:
+        flash("Could not find an active flight", "danger")
+        return redirect(url_for('main.dashboard'))
 
     current_flight.completed = True
     current_flight.is_active = False
