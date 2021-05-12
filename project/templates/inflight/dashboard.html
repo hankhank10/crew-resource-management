@@ -123,8 +123,9 @@
 							<i class="fas fa-door-closed"></i>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLinkDoor">
-								<a id="set_door_open" class="dropdown-item set_door_status" href="#">Open</a>
-								<a id="set_door_closed" class="dropdown-item set_door_status" href="#">Closed</a>
+								<a id="set_door_open" class="dropdown-item set_door_status" href="#">Open Manually</a>
+								<a id="set_door_closed" class="dropdown-item set_door_status" href="#">Close Manually</a>
+								<a id="door_switch_help" class="dropdown-item" href="#"><i style="font-size: 1rem" class="feather icon-help-circle f-16"></i> Get help on this...</a>
 							</div>
 						</div>
 						<div class="col-sm-8">
@@ -351,6 +352,16 @@
 		})
 
 	});
+
+	$('#door_switch_help').click( function(event) {
+
+		Swal.fire(
+		  'Setting flight variables',
+		  'Normally the simulator you are connected to will report the status of your doors and passenger signs. If for whatever reason this is not working you can set these manually by clicking the icon, but this will disable future automatic reporting of status',
+		  'info'
+		)
+
+	})
 
 
 	function update_display() {

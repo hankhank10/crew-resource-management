@@ -72,15 +72,15 @@ def update_plane_data(unique_reference):
         # Check if anything has changed that needs logging
         if flight.number_of_updates_received != 0:
 
-            if flight.door_status == 1 and r.json()['my_plane']['door_status'] == 0:
-                log_event(flight.id, "cabin_door_closed", "pilot")
-            if flight.door_status == 0 and r.json()['my_plane']['door_status'] == 1:
-                log_event(flight.id, "cabin_door_opened", "pilot")
+            if flight.door_status_mode_auto == True:
+                if flight.door_status == 1 and r.json()['my_plane']['door_status'] == 0:
+                    change_variable_status(flight.id, 'door', 'closed')
+                if flight.door_status == 0 and r.json()['my_plane']['door_status'] == 1:
+                    change_variable_status(flight.id, 'door', 'open')
 
-                if flight.phase_flight == "Taxi to Gate":
-                    log_event(flight.id, "arrived_at_gate", "pilot")
-                    set_phase(flight.id, "At gate", "flight")
-                    set_phase(flight.id, "Deboarding", "cabin")
+                    if flight.phase_flight == "Taxi to Gate":
+                        log_event(flight.id, "arrived_at_gate", "pilot")
+                        set_phase(flight.id, "At gate", "flight")
 
             if flight.no_smoking_sign == True and r.json()['my_plane']['no_smoking_sign'] == False:
                 log_event(flight.id, "no_smoking_sign_turned_off", "pilot")
@@ -105,13 +105,15 @@ def update_plane_data(unique_reference):
                 log_event(flight.id, "landing", "pilot")
                 set_phase(flight.id, "Taxi to Gate", "flight")
 
+        else:
+            flight.door_status = r.json()['my_plane']['door_status']
+
         # Update plane details
         flight.current_altitude = r.json()['my_plane']['current_altitude']
         flight.current_speed = r.json()['my_plane']['current_speed']
         flight.on_ground = r.json()['my_plane']['on_ground']
         flight.seatbelt_sign = r.json()['my_plane']['seatbelt_sign']
         flight.no_smoking_sign = r.json()['my_plane']['no_smoking_sign']
-        flight.door_status = r.json()['my_plane']['door_status']
         flight.parking_brake = r.json()['my_plane']['parking_brake']
         flight.gear_handle_position = r.json()['my_plane']['gear_handle_position']
         flight.number_of_updates_received = flight.number_of_updates_received + 1
@@ -189,9 +191,13 @@ def update_plane_data(unique_reference):
     # Get crew tasking details
     current_crew_task, percent_done_with_task = crew.crew_status(flight.id)
 
+
+    my_plane = r.json()['my_plane']
+    my_plane['door_status'] = flight.door_status
+
     # Return the info we want
     return_dictionary = {
-        'my_plane': r.json()['my_plane'],
+        'my_plane': my_plane,
         'unread_flight_messages': current_user.unread_flight_messages,
         'phase_flight_name': flight.phase_flight_name,
         'phase_cabin_name': flight.phase_cabin_name,
@@ -391,6 +397,48 @@ def api_set_phase():
     set_phase(flight_id, phase_setting, "flight")
 
     return "ok"
+
+
+@inflight.route('/api/inflight/set_variable_status')
+@login_required
+def api_set_door_status():
+
+    if current_user.active_flight_id is None:
+        return "Cannot load the page as no active flight", 404
+
+    variable_type = request.args.get('variable_type')
+    variable_value = request.args.get('variable_value')
+
+    print (variable_type)
+
+    change_variable_status(current_user.active_flight_id, variable_type, variable_value, True)
+
+    return "ok"
+
+
+def change_variable_status(flight_id, variable_type, variable_value, set_to_manual = False):
+
+    flight = Flight.query.filter_by(id = flight_id).first()
+
+    if flight is None:
+        return None
+
+    if variable_type == 'door':
+
+        if variable_value.lower() == "close manually":
+            flight.door_status = 0
+            log_event(flight.id, "cabin_door_closed", "pilot")
+
+        if variable_value.lower() == "open manually":
+            flight.door_status = 1
+            log_event(flight.id, "cabin_door_opened", "pilot")
+
+        if set_to_manual:
+            flight.door_status_mode_auto = False
+
+        db.session.commit()
+
+    return
 
 
 def set_phase(flight_id, phase_name, phase_category="flight"):

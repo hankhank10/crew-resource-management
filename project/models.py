@@ -48,7 +48,7 @@ class Flight(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    unique_reference = db.Column(db.String(20))
+    unique_reference = db.Column(db.String(80))
 
     source = db.Column(db.String(20))
     source_ident = db.Column(db.String(100))
@@ -57,7 +57,7 @@ class Flight(db.Model):
     atc_id = db.Column(db.String(30))
 
     departure_code = db.Column(db.String(10))
-    departure_name = db.Column(db.String(50))
+    departure_name = db.Column(db.String(100))
 
     equipment_full_name = db.Column(db.String(100))
     equipment_manufacturer = db.Column(db.String(50))
@@ -65,7 +65,7 @@ class Flight(db.Model):
     equipment_model = db.Column(db.String(50))
 
     destination_code = db.Column(db.String(10))
-    destination_name = db.Column(db.String(10))
+    destination_name = db.Column(db.String(100))
 
     passengers_first_class = db.Column(db.Integer)
     passengers_business_class = db.Column(db.Integer)
@@ -84,6 +84,8 @@ class Flight(db.Model):
     phase_flight = db.Column(db.Integer)
     phase_cabin = db.Column(db.Integer)
     phase_seatbelt_sign = db.Column(db.Integer)
+
+    door_status_mode_auto = db.Column(db.Boolean, default=True)
 
     # Current flight variables
     current_altitude = db.Column(db.Integer)
