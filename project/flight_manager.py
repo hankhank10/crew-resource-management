@@ -160,6 +160,7 @@ def start_flight(unique_reference, ident):
     flight.started = True
     flight.number_of_updates_received = 0
     flight.current_crew_task = "Resting"
+    flight.door_status_mode_auto = True
     db.session.commit()
 
     # Delete previous events and phases
