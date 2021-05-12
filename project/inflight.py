@@ -418,6 +418,8 @@ def api_set_door_status():
 
 def change_variable_status(flight_id, variable_type, variable_value, set_to_manual = False):
 
+    print (variable_value)
+
     flight = Flight.query.filter_by(id = flight_id).first()
 
     if flight is None:
@@ -425,11 +427,11 @@ def change_variable_status(flight_id, variable_type, variable_value, set_to_manu
 
     if variable_type == 'door':
 
-        if variable_value.lower() == "close manually":
+        if variable_value.lower() == "close manually" or variable_value.lower() == "closed":
             flight.door_status = 0
             log_event(flight.id, "cabin_door_closed", "pilot")
 
-        if variable_value.lower() == "open manually":
+        if variable_value.lower() == "open manually" or variable_value.lower() == "open":
             flight.door_status = 1
             log_event(flight.id, "cabin_door_opened", "pilot")
 
