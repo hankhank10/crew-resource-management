@@ -12,7 +12,7 @@ from .models import Flight, FlightPhase, EquipmentType, FlightEvent, FlightMessa
 cron = Blueprint('cron', __name__)
 
 
-@cron.route('/cron/every_30_seconds')
+@cron.route('/cron/every_minute')
 def every_30_seconds():
 
     # Set old flights as inactive

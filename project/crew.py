@@ -149,7 +149,7 @@ def do_crew_task(flight_id):
 
     how_many_crew = flight.cabin_crew_count
 
-    seconds_since_last_cron = 30
+    seconds_since_last_cron = 60
     minutes_since_last_cron = seconds_since_last_cron / 60
 
     drinks_served_per_minute = 4 * how_many_crew
