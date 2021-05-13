@@ -7,9 +7,7 @@ from project import seatmapper, equipment_logos
 from .models import EquipmentType
 
 
-
 equipment = Blueprint('equipment', __name__)
-
 
 
 @equipment.route('/equipment')
@@ -84,7 +82,8 @@ def new():
         premium_class_seats = seatmapper.count_seats(seatmap_object, "P")
         economy_class_seats = seatmapper.count_seats(seatmap_object, "E")
 
-        if maximum_cabin_crew < 0: maximum_cabin_crew = 1
+        if maximum_cabin_crew < 0:
+            maximum_cabin_crew = 1
 
         new_equipment = EquipmentType(
             operator= request.form['operator'].rstrip(),
@@ -119,19 +118,18 @@ def delete(equipment_id):
     equipment = EquipmentType.query.filter_by(id=equipment_id).first()
 
     if not equipment:
-        flash ("Equipment ID error", "danger")
+        flash("Equipment ID error", "danger")
         return redirect(url_for('equipment.view_list'))
 
     if equipment.created_by_user != current_user.id:
-        flash ("Not authorised to delete that equipment", "danger")
+        flash("Not authorised to delete that equipment", "danger")
         return redirect(url_for('equipment.view_list'))
 
     db.session.delete(equipment)
     db.session.commit()
 
-    flash ("Equipment deleted", "success")
+    flash("Equipment deleted", "success")
     return redirect(url_for('equipment.view_list'))
-
 
 
 @equipment.route('/api/equipment/operator_logo', endpoint="operator")
@@ -146,7 +144,7 @@ def lookup_logo_endpoint():
         if request.endpoint == "equipment.operator": look_for = "operator"
         if request.endpoint == "equipment.manufacturer": look_for = "manufacturer"
 
-        logo_url = equipment_logos.lookup_logo (lookup_name, look_for)
+        logo_url = equipment_logos.lookup_logo(lookup_name, look_for)
         if logo_url == "":
             return jsonify({'status': 'error'})
 
