@@ -14,7 +14,6 @@ main = Blueprint('main', __name__)
 @main.route('/')
 @login_required
 def dashboard():
-
     return render_template('index.html')
 
 

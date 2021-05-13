@@ -1,5 +1,3 @@
-//hide_passenger_details()
-
 
 function show_passenger_details (seat_number) {
 

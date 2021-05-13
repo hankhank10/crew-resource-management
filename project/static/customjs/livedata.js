@@ -1,5 +1,3 @@
-
-
 function get_live_data() {
 
     //console.log ("Updating data")
