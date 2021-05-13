@@ -36,7 +36,7 @@ def backend_setup():
     db.session.add(new_user)
     db.session.commit()
 
-    print ("All done")
+    print("All done")
 
     return "OK!"
 

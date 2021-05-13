@@ -1,5 +1,4 @@
 import json
-import os.path
 
 
 def load_logos_from_json():

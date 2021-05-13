@@ -1,12 +1,10 @@
 from flask import Blueprint, render_template, Flask, current_app, request, jsonify, flash, redirect, url_for
 from flask_login import login_required, current_user
-import secrets
 from datetime import datetime
 from . import db
 from . import app
 from project import equipment, inflight, passengers, crew
 from .models import Flight, FlightEvent, FlightPhase, FlightMessage
-import requests
 import random
 
 
@@ -105,22 +103,13 @@ def send_message_from_pilot():
         if "prepare for takeoff" in message_content: message_interpretation = "ready_for_takeoff"
 
         # Start drinks service
-        if "drinks service" in message_content: message_interpretation = "start_drinks_service"
-        if "serve drinks" in message_content: message_interpretation = "start_drinks_service"
+        if "drinks" in message_content: message_interpretation = "start_drinks_service"
+        if "beverage" in message_content: message_interpretation = "start_drinks_service"
 
         # Meal service
-        if "meal service" in message_content: message_interpretation = "start_meal_service"
-        if "food service" in message_content: message_interpretation = "start_meal_service"
-        if "serve meal" in message_content: message_interpretation = "start_meal_service"
-        if "serve the meal" in message_content: message_interpretation = "start_meal_service"
-        if "serve food" in message_content: message_interpretation = "start_meal_service"
-        if "serve the food" in message_content: message_interpretation = "start_meal_service"
-        if "start meal" in message_content: message_interpretation = "start_meal_service"
-        if "start the meal" in message_content: message_interpretation = "start_meal_service"
-        if "start food" in message_content: message_interpretation = "start_meal_service"
-        if "start the food" in message_content: message_interpretation = "start_meal_service"
-        if "start catering" in message_content: message_interpretation = "start_meal_service"
-        if "start the catering" in message_content: message_interpretation = "start_meal_service"
+        if "meal" in message_content: message_interpretation = "start_meal_service"
+        if "food" in message_content: message_interpretation = "start_meal_service"
+        if "catering" in message_content: message_interpretation = "start_meal_service"
 
         # Deboarding
         if "deboard" in message_content: message_interpretation = "begin_deboarding"
@@ -178,7 +167,7 @@ def send_message_from_pilot():
                 problem_detected = True
                 message_response = "Bit late for that Captain!"
 
-            if problem_detected == False:
+            if not problem_detected:
                 message_response = random_will_do
                 message_response = message_response + random.choices([
                     "crew seats for takeoff.",
@@ -195,6 +184,7 @@ def send_message_from_pilot():
                 "Coming right up!",
                 "Just made a fresh pot, coming up."
             ])[0]
+
 
         if message_interpretation == "begin_boarding":
 
@@ -227,7 +217,7 @@ def send_message_from_pilot():
 
 
         if message_interpretation == "begin_deboarding":
-            # See if we can begin boarding
+            # See if we can begin the action
             problem_detected = False
 
             if current_flight.door_status == 0:
@@ -237,10 +227,12 @@ def send_message_from_pilot():
             if current_flight.phase_flight_name != "At Gate":
                 problem_detected = True
                 message_response = "You need to set the flight status to 'At Gate' first"
-                if current_flight.phase_cabin_name == "Deboarding":
-                    message_response = "Already on it. They're coming off now."
 
-            if problem_detected == False:
+            if current_flight.phase_cabin_name == "Deboarding":
+                problem_detected = True
+                message_response = "Already on it. They're coming off now."
+
+            if not problem_detected:
                 message_response = random_will_do
                 message_response = message_response + random.choices([
                     "letting them off now.",
@@ -294,7 +286,8 @@ def send_message_from_pilot():
 
 def create_new_message_from_crew(message_content, read = False, flight_id = None):
 
-    if flight_id == None: flight_id = current_user.active_flight_id
+    if flight_id is None:
+        flight_id = current_user.active_flight_id
 
     # Create the response record
     new_message = FlightMessage(
@@ -304,7 +297,7 @@ def create_new_message_from_crew(message_content, read = False, flight_id = None
         message_from="crew",
         message_to="pilot",
         message_content=message_content,
-        read=read  # Set as true because we're sending it
+        read=read
     )
     db.session.add(new_message)
 
