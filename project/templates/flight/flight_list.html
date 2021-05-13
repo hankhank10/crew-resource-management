@@ -90,8 +90,8 @@
                                     {% if row.status == "Active" %}
                                     <span class="badge badge-warning">Active</span>
                                     {% endif %}
-                                    {% if row.status == "Flown" %}
-                                    <span class="badge badge-danger">Flown</span>
+                                    {% if row.status == "Completed" or row.status == "Flown" %}
+                                    <span class="badge badge-danger">Completed</span>
                                     {% endif %}
                                 </td>
                                 <td>

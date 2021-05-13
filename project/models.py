@@ -144,7 +144,7 @@ class Flight(db.Model):
                 return "Completed"
         else:
             if self.completed:
-                return "Flown"
+                return "Completed"
             return "Not yet flown"
 
 
