@@ -216,7 +216,10 @@ def crew_status(flight_id):
 
     if percent_done_with_task == None:
         percent_done_with_task = (current_flight.current_crew_task_completed_as_far_as / current_flight.passengers_total) * 100
-        if percent_done_with_task > 100: percent_done_with_task = 100
+        if percent_done_with_task >= 100:
+            percent_done_with_task = 100
+            clear_crew_task(current_flight.flight_id)
+
         percent_done_with_task = int(percent_done_with_task)
 
         current_crew_task = current_crew_task + " (" + str(percent_done_with_task) + "% complete)"
