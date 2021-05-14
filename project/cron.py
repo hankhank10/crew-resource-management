@@ -13,7 +13,7 @@ cron = Blueprint('cron', __name__)
 
 
 @cron.route('/cron/every_minute')
-def every_30_seconds():
+def every_minute():
 
     # Set old flights as inactive
     flight_manager.cron_retire_old_flights()
