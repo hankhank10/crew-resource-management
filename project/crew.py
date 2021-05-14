@@ -117,10 +117,11 @@ def clear_crew_task(flight_id):
 
     if flight.current_crew_task == "Drinks service":
         messaging.create_new_message_from_crew("Drinks service complete")
+        inflight.log_event(flight.id, "drinks_service_complete", "crew")
 
     if flight.current_crew_task == "Meal service":
         messaging.create_new_message_from_crew("Meal service complete")
-
+        inflight.log_event(flight.id, "meal_service_complete", "crew")
 
     flight.current_crew_task = "Resting"
     flight.current_crew_task_completed_as_far_as = 0
@@ -215,6 +216,7 @@ def crew_status(flight_id):
 
     if percent_done_with_task == None:
         percent_done_with_task = (current_flight.current_crew_task_completed_as_far_as / current_flight.passengers_total) * 100
+        if percent_done_with_task > 100: percent_done_with_task = 100
         percent_done_with_task = int(percent_done_with_task)
 
         current_crew_task = current_crew_task + " (" + str(percent_done_with_task) + "% complete)"

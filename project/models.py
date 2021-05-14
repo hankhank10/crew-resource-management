@@ -208,6 +208,12 @@ class FlightEvent(db.Model):
 
         if self.event_name == "arrived_at_gate": return "Arrived at gate"
 
+        if self.event_name == "meal_service_complete": return "Meal service complete"
+        if self.event_name == "meal_service_started": return "Meal service started"
+
+        if self.event_name == "drinks_service_complete": return "Drinks service complete"
+        if self.event_name == "drinks_service_started": return "Drinks service started"
+
         return self.event_name
 
 
