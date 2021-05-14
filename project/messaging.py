@@ -248,13 +248,18 @@ def send_message_from_pilot():
         if message_interpretation == "start_drinks_service":
             crew.assign_crew_task(current_flight.id, "Drinks service")
             message_response = random_will_do + "starting drinks service now"
+            inflight.log_event(current_user.active_flight_id, "drinks_service_started", "pilot")
+
 
         if message_interpretation == "start_meal_service":
             crew.assign_crew_task(current_flight.id, "Meal service")
             message_response = random_will_do + "starting meal service now"
+            inflight.log_event(current_user.active_flight_id, "meal_service_started", "pilot")
+
 
         if message_interpretation == "profanity":
             message_response = "Please don't speak like that"
+
 
         if message_interpretation == "thanks":
             message_reponse = random.choices([
