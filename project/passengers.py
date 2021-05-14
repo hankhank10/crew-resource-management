@@ -328,7 +328,10 @@ def increment_passenger_needs():
     hunger_need_time = 360  #minutes
     thirst_need_time = 120  #minutes
 
-    passengers_needing_increment = Seat.query.filter(Seat.next_increment_due < datetime.utcnow()).all()
+    passengers_needing_increment = Seat.query.filter(
+        Seat.next_increment_due < datetime.utcnow(),
+        Seat.occupied == True
+    ).all()
 
     for passenger in passengers_needing_increment:
 
