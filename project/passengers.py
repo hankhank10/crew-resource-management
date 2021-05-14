@@ -345,5 +345,7 @@ def increment_passenger_needs():
 
         passenger.next_increment_due = datetime.utcnow() + timedelta(minutes=increment_passenger_needs_every)
 
-    print ("Updated " + str(len(passengers_needing_increment)) + " passenger records")
+    print("Updated " + str(len(passengers_needing_increment)) + " passenger records")
     db.session.commit()
+
+    return (passengers_needing_increment)

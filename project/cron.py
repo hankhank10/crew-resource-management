@@ -19,7 +19,7 @@ def every_minute():
     flight_manager.cron_retire_old_flights()
 
     # Move up passenger needs
-    passengers.increment_passenger_needs()
+    passengers_needing_increment = passengers.increment_passenger_needs()
 
     # Do crew tasks
     flights = Flight.query.filter_by(is_active = True).all()
@@ -27,7 +27,7 @@ def every_minute():
     for flight in flights:
         crew.do_crew_task(flight.id)
 
-    return "OK"
+    return "OK: " + str(passengers_needing_increment) + " passengers incremented"
 
 
 @cron.route('/cron/test_email')
