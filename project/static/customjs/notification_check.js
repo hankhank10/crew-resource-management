@@ -21,11 +21,10 @@ function update_notifications(number_of_crew_messages) {
 }
 
 
-
 function shake(thing) {
-  var interval = 100;
-  var distance = 10;
-  var times = 6;
+  let interval = 100;
+  let distance = 10;
+  let times = 6;
 
   for (var i = 0; i < (times + 1); i++) {
     $(thing).animate({
@@ -38,7 +37,6 @@ function shake(thing) {
     top: 0
   }, interval);
 }
-
 
 
 $('#navbar_new_crew_message_notification_card').hide()

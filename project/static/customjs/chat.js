@@ -1,4 +1,4 @@
-var speech = new Speech();
+let speech = new Speech();
 let recording = false;
 
 let final_transcript = '';

@@ -76,9 +76,7 @@ function get_live_data() {
 }
 
 function regular_checks() {
-
     get_live_data()
-
 }
 
 function set_card_status(card_name, card_color, card_data) {
