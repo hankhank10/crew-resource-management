@@ -44,63 +44,65 @@ def api_seatmap_parser():
     })
 
 
-@equipment.route('/equipment/new', methods=['GET', 'POST'])
+@equipment.route('/equipment/new', methods=['GET'])
 @login_required
 def new():
 
-    if request.method == "GET":
-        return render_template('equipment/new_equipment.html')
+    return render_template('equipment/new_equipment.html',
+                           new = True,
+                           existing_equipment = None)
 
-    if request.method == "POST":
 
-        full_name = request.form['operator'] + " " + \
-                    request.form['manufacturer'] + " " + \
-                    request.form['model'] + " " + \
-                    request.form['variant'] + " "
+@equipment.route('/equipment/<equipment_id>/save', methods=['POST'])
+@login_required
+def save(equipment_id):
 
-        if check_if_already_exists(full_name):
-            flash ("Name already exists", "danger")
-            return redirect(url_for('equipment.create_new'))
+    full_name = request.form['operator'] + " " + \
+                request.form['manufacturer'] + " " + \
+                request.form['model'] + " " + \
+                request.form['variant'] + " "
 
-        try:
-            maximum_cabin_crew = int(request.form['maximum_cabin_crew'])
-        except:
-            maximum_cabin_crew = 1
+    try:
+        maximum_cabin_crew = int(request.form['maximum_cabin_crew'])
+    except:
+        maximum_cabin_crew = 1
 
-        try:
-            number_of_toilets = int(request.form['number_of_toilets'])
-        except:
-            number_of_toilets = 6
+    try:
+        number_of_toilets = int(request.form['number_of_toilets'])
+    except:
+        number_of_toilets = 6
 
-        seatmap_text = request.form['seatmap_text_input']
+    seatmap_text = request.form['seatmap_text_input']
 
-        seatmap_object = seatmapper.load_seatmap(seatmap_text)
-        number_of_seats_across, number_of_rows = seatmapper.get_size(seatmap_object)
+    seatmap_object = seatmapper.load_seatmap(seatmap_text)
+    number_of_seats_across, number_of_rows = seatmapper.get_size(seatmap_object)
 
-        first_class_seats = seatmapper.count_seats(seatmap_object, "F")
-        business_class_seats = seatmapper.count_seats(seatmap_object, "B")
-        premium_class_seats = seatmapper.count_seats(seatmap_object, "P")
-        economy_class_seats = seatmapper.count_seats(seatmap_object, "E")
+    first_class_seats = seatmapper.count_seats(seatmap_object, "F")
+    business_class_seats = seatmapper.count_seats(seatmap_object, "B")
+    premium_class_seats = seatmapper.count_seats(seatmap_object, "P")
+    economy_class_seats = seatmapper.count_seats(seatmap_object, "E")
 
-        if maximum_cabin_crew < 0:
-            maximum_cabin_crew = 1
+    if maximum_cabin_crew < 0:
+        maximum_cabin_crew = 1
+
+    if equipment_id == "new":
 
         new_equipment = EquipmentType(
-            operator= request.form['operator'].rstrip(),
-            manufacturer= request.form['manufacturer'].rstrip(),
-            model= request.form['model'].rstrip(),
-            variant= request.form['variant'].rstrip(),
-            full_name= full_name.rstrip(),
-            first_class_seats= first_class_seats,
-            business_class_seats= business_class_seats,
-            premium_class_seats= premium_class_seats,
-            economy_class_seats= economy_class_seats,
-            maximum_cabin_crew= maximum_cabin_crew,
-            seatmap_text= seatmap_text,
+            operator=request.form['operator'].rstrip(),
+            manufacturer=request.form['manufacturer'].rstrip(),
+            model=request.form['model'].rstrip(),
+            variant=request.form['variant'].rstrip(),
+            full_name=full_name.rstrip(),
+            first_class_seats=first_class_seats,
+            business_class_seats=business_class_seats,
+            premium_class_seats=premium_class_seats,
+            economy_class_seats=economy_class_seats,
+            maximum_cabin_crew=maximum_cabin_crew,
+            seatmap_text=seatmap_text,
             number_of_seats_across=number_of_seats_across,
             number_of_rows=number_of_rows,
             number_of_toilets=number_of_toilets,
-            created_by_user= current_user.id
+            created_by_user=current_user.id
         )
 
         db.session.add(new_equipment)
@@ -108,7 +110,82 @@ def new():
 
         flash("New equipment created", "success")
 
+    else:
+        equipment = EquipmentType.query.filter_by(id=equipment_id).first_or_404()
+
+        if not equipment:
+            flash("Equipment ID error", "danger")
+            return redirect(url_for('equipment.view_list'))
+
+        equipment.operator = request.form['operator'].rstrip()
+        equipment.manufacturer = request.form['manufacturer'].rstrip()
+        equipment.model = request.form['model'].rstrip()
+        equipment.variant = request.form['variant'].rstrip()
+        equipment.full_name = full_name.rstrip()
+        equipment.first_class_seats = first_class_seats
+        equipment.business_class_seats = business_class_seats
+        equipment.premium_class_seats = premium_class_seats
+        equipment.economy_class_seats = economy_class_seats
+        equipment.maximum_cabin_crew = maximum_cabin_crew
+        equipment.seatmap_text = seatmap_text
+        equipment.number_of_seats_across = number_of_seats_across
+        equipment.number_of_rows = number_of_rows
+        equipment.number_of_toilets = number_of_toilets
+
+        db.session.commit()
+        flash("Equipment saved", "success")
+
+    return redirect(url_for('equipment.view_list'))
+
+
+@equipment.route('/equipment/<equipment_id>/duplicate')
+@login_required
+def duplicate(equipment_id):
+
+    old_equipment = EquipmentType.query.filter_by(id = equipment_id).first_or_404()
+
+    new_equipment = EquipmentType(
+        operator=old_equipment.operator,
+        manufacturer=old_equipment.manufacturer,
+        model=old_equipment.model,
+        variant=old_equipment.variant + "(new variant)",
+        full_name=old_equipment.full_name + "(new variant)",
+        first_class_seats=old_equipment.first_class_seats,
+        business_class_seats=old_equipment.business_class_seats,
+        premium_class_seats=old_equipment.premium_class_seats,
+        economy_class_seats=old_equipment.economy_class_seats,
+        maximum_cabin_crew=old_equipment.maximum_cabin_crew,
+        seatmap_text=old_equipment.seatmap_text,
+        number_of_seats_across=old_equipment.number_of_seats_across,
+        number_of_rows=old_equipment.number_of_rows,
+        number_of_toilets=old_equipment.number_of_toilets,
+        created_by_user=current_user.id
+    )
+    db.session.add(new_equipment)
+    db.session.commit()
+
+    flash("Equipment successfully copied", "success")
+    return redirect(url_for('equipment.edit', equipment_id = new_equipment.id))
+
+
+@equipment.route('/equipment/<equipment_id>/edit', methods=['GET'])
+@login_required
+def edit(equipment_id):
+
+    equipment = EquipmentType.query.filter_by(id=equipment_id).first()
+
+    if not equipment:
+        flash("Equipment ID error", "danger")
         return redirect(url_for('equipment.view_list'))
+
+    if equipment.created_by_user != current_user.id:
+        flash("Not authorised to edit that equipment", "danger")
+        return redirect(url_for('equipment.view_list'))
+
+    return render_template('equipment/new_equipment.html',
+                           new = False,
+                           existing_equipment=equipment
+                           )
 
 
 @equipment.route('/equipment/<equipment_id>/delete', methods=['GET'])

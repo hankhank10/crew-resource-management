@@ -78,9 +78,12 @@
                                             <i class="fas fa-bars"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="{{ url_for('equipment.duplicate', equipment_id = row.id) }}"><i class="far fa-copy"></i> Copy</a>
                                             {% if row.created_by_user == current_user.id or current_user.is_superuser %}
+                                            <a class="dropdown-item" href="{{ url_for('equipment.edit', equipment_id = row.id) }}"><i class="far fa-edit"></i> Edit {% if row.created_by_user != current_user.id and current_user.is_superuser %}(as superuser){% endif %}</a>
                                             <a class="dropdown-item" href="{{ url_for('equipment.delete', equipment_id = row.id) }}"><i class="far fa-trash-alt"></i> Delete {% if row.created_by_user != current_user.id and current_user.is_superuser %}(as superuser){% endif %}</a>
                                             {% else %}
+                                            <a class="dropdown-item disabled" href=""><i class="far fa-edit"></i> Edit</a>
                                             <a class="dropdown-item disabled" href=""><i class="far fa-trash-alt"></i> Delete</a>
                                             {% endif %}
                                         </div>
