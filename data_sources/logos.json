@@ -93,5 +93,20 @@
 	  "name": "Beechcraft",
 	  "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Beechcraft_logo.svg/440px-Beechcraft_logo.svg.png",
 	  "type": "manufacturer"
+  },
+  {
+	"name": "JetBlue",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/JetBlue_Airways_Logo.svg/500px-JetBlue_Airways_Logo.svg.png",
+	"type": "operator"
+  },
+  {
+	"name": "Air New Zealand",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Air_New_Zealand_logo.svg/600px-Air_New_Zealand_logo.svg.png",
+	"type": "operator"
+  },
+  {
+	"name": "AirNewZealand",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Air_New_Zealand_logo.svg/600px-Air_New_Zealand_logo.svg.png",
+	"type": "operator"
   }
 ]
