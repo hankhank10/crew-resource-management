@@ -108,5 +108,10 @@
 	"name": "AirNewZealand",
 	"logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Air_New_Zealand_logo.svg/600px-Air_New_Zealand_logo.svg.png",
 	"type": "operator"
+  },
+  {
+	"name": "Condor",
+	"logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Condor_wordmark.svg/500px-Condor_wordmark.svg.png",
+	"type": "operator"
   }
 ]
