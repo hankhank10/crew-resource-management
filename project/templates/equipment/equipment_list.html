@@ -49,6 +49,7 @@
                                 <th>Type</th>
                                 <th>Passengers</th>
                                 <th>Cabin Crew</th>
+                                <th>Created by</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -71,6 +72,13 @@
                                 <td>{{row.model}} {{row.variant}}</td>
                                 <td>{{row.first_class_seats + row.business_class_seats + row.premium_class_seats + row.economy_class_seats}}</td>
                                 <td>{{row.maximum_cabin_crew}}</td>
+                                <td>
+                                    {% if row.created_by_user == current_user.id %}
+                                    <i class="fas fa-user"></i> You
+                                    {% else %}
+                                    <i class="fas fa-globe"></i> Community
+                                    {% endif %}
+                                </td>
                                 <td>
                                     
                                     <div class="btn-group">
